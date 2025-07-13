@@ -1,29 +1,23 @@
 // Copyright (c) 2025 by SoftEthix, Inc.
 // All rights reserved.
 
-using System;
 using UnityEngine;
 
+
+[RequireComponent(typeof(SphereCollider))]
 public class Planet : MonoBehaviour
 {
-    public Player player;
-    public Transform Transform => transform;
-    
-    private void Awake()
-    {
-        Debug.Log("Awake()");
-    }
+    public new SphereCollider collider;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
-        Debug.Log($"Planet.Start(): player: {player}");
-    }
+        if (collider == null)
+        {
+            collider = GetComponent<SphereCollider>();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        collider.radius = Constants.Instance.worldRadius;
     }
 
 }
+
