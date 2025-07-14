@@ -55,11 +55,11 @@ public class SpherePosition : ScriptableObject
     {
         if (speed is float.NaN or 0)
         {
-            Debug.Log($"Invalid speed: {speed}");
+            // Debug.Log($"Invalid speed: {speed}");
             return VectorVectorPosition;
         }
         var angularSpeed = speed / radius;
-        Debug.Log($"Applying Speed: {speed} (angular {angularSpeed}) along track {on}");
+        // Debug.Log($"Applying Speed: {speed} (angular {angularSpeed}) along track {on}");
 
         // var prevTheta = theta;
         var prevPhi = theta;
@@ -81,7 +81,7 @@ public class SpherePosition : ScriptableObject
         // }
 
         theta += angularSpeed;
-        Debug.Log($"  adding angular speed {angularSpeed} to phi ({prevPhi}) => ({theta})");
+        // Debug.Log($"  adding angular speed {angularSpeed} to phi ({prevPhi}) => ({theta})");
 
         if (theta < 0) theta = ANGLE_TWO_PI + theta;
         if (theta < 0) theta = ANGLE_TWO_PI + theta;
@@ -92,9 +92,9 @@ public class SpherePosition : ScriptableObject
 
     public void Reset()
     {
-        Debug.Log($"Resetting SpherePosition {Constants.Instance.worldRadius}");
+        // Debug.Log($"Resetting SpherePosition {Constants.Instance.worldRadius}");
         radius = Constants.Instance.worldRadius;
         theta = ANGLE_HALF_PI;
-        theta = ANGLE_HALF_PI;
+        track = Track.Z;
     }
 }
