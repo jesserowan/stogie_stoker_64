@@ -35,14 +35,11 @@ public class Orbit : MonoBehaviour
         vCam ??= FindFirstObjectByType<CinemachineCamera>();
         vCam.Lens.FieldOfView = 70;
         vCamFollow = vCam.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachineFollow;
-
-
     }
 
     private void Update()
     {
         transform.RotateAround(planet.transform.position, transform.right, speed * Time.deltaTime);
-
 
         if (Input.GetKeyDown(KeyCode.W)) ChangeSpeed(10f);
         else if (Input.GetKeyDown(KeyCode.A)) Turn(TurnDirection.Left);

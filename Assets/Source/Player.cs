@@ -1,9 +1,6 @@
-using System;
 using Source;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Unity.Cinemachine;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +9,7 @@ public class Player : MonoBehaviour
     private CinemachineCamera _vCam;
     private CinemachineFollow _vCamFollow;
     // private CinemachineThirdPersonAim _vCamAim;
+    private PlayerAnimator _animator;
     public SpherePosition spherePosition;
     public Planet planet;
     private RaycastHit[] _groundHits;
@@ -21,6 +19,7 @@ public class Player : MonoBehaviour
     public float height = 2f;
     public Pole inPole = null;
     public bool canTurn = false;
+    private int doTurn = 0;
 
 
     private void OnEnable()
@@ -28,6 +27,7 @@ public class Player : MonoBehaviour
         Debug.Log("Player.OnEnable");
         _rb = GetComponent<Rigidbody>();
         _vCam = FindFirstObjectByType<CinemachineCamera>();
+        _animator = GetComponentInChildren<PlayerAnimator>();
         _vCamFollow = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachineFollow;
         // _vCamAim = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Aim) as CinemachineThirdPersonAim;
         _groundHits = new RaycastHit[10];
@@ -58,9 +58,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Updating Player");
+        // Debug.Log("Updating Player");
         var next = spherePosition.ApplySpeed(speed * Time.fixedDeltaTime, Track.Z);
-        Debug.Log($"Next position {next}");
+        // Debug.Log($"Next position {next}");
 
         var hits = Physics.RaycastNonAlloc(
             next + (0.5f * height * next.normalized),
@@ -69,16 +69,24 @@ public class Player : MonoBehaviour
             2 * height,
             LayerMask.GetMask("Ground"));
         if (hits < 1) return;
-        var right = Vector3.Cross(_groundHits[0].normal, _rb.rotation * Vector3.forward);
-        var nextForward = Vector3.Cross(right, _groundHits[0].normal);
-        var nextRotation = Quaternion.LookRotation(nextForward, _groundHits[0].normal);
+
+        var rbt = _rb.transform;
+        Vector3 nextPosition = rbt.position;
+        Quaternion nextRotation;
+        if (doTurn != 0) {
+            nextRotation = Quaternion.LookRotation(doTurn * rbt.right, rbt.up);
+            doTurn = 0;
+        } else {
+            var right = Vector3.Cross(_groundHits[0].normal, rbt.rotation * Vector3.forward);
+            var nextForward = Vector3.Cross(right, _groundHits[0].normal);
+            nextRotation = Quaternion.LookRotation(nextForward, _groundHits[0].normal);
+            nextPosition = _groundHits[0].point + (nextRotation * spherePosition.LaneOffset);
+        }
         _rb.MoveRotation(nextRotation);
-        var nextPosition = _groundHits[0].point + (nextRotation * spherePosition.LaneOffset);
         _rb.MovePosition(nextPosition);
 
         // var poleHits = Physics.OverlapBoxNonAlloc(nextPosition, Vector3.one * 0.5f, _poleHits, Quaternion.identity, LayerMask.GetMask("Trigger"));
         // if (poleHits < 1) return;
-        // po
     }
 
     private void Update()
@@ -88,11 +96,14 @@ public class Player : MonoBehaviour
             if (canTurn)
             {
                 canTurn = false;
-                Heading currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
                 Heading nextDir;
+                var currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
                 (spherePosition.track, nextDir, spherePosition.lane, spherePosition.theta) =
                     inPole.GetParamsForTurn(spherePosition.track, currentDir, spherePosition.lane, Turn.Left);
-                speed *= (int)nextDir;
+                speed = (int)nextDir * Mathf.Abs(speed);
+                var rbt = _rb.transform;
+                _rb.MoveRotation(Quaternion.LookRotation(-rbt.right, rbt.up));
+                doTurn = (int)Turn.Left;
             }
             else if (spherePosition.lane != Lane.Left)
                 spherePosition.lane = spherePosition.lane is Lane.Middle ? Lane.Left : Lane.Middle;
@@ -103,11 +114,12 @@ public class Player : MonoBehaviour
             if (canTurn)
             {
                 canTurn = false;
-                Heading currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
                 Heading nextDir;
+                var currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
                 (spherePosition.track, nextDir, spherePosition.lane, spherePosition.theta) =
                     inPole.GetParamsForTurn(spherePosition.track, currentDir, spherePosition.lane, Turn.Right);
-                speed *= (int)nextDir;
+                speed = (int)nextDir * Mathf.Abs(speed);
+                doTurn = (int)Turn.Right;
             }
             else if (spherePosition.lane != Lane.Right)
                 spherePosition.lane = spherePosition.lane is Lane.Middle ? Lane.Right : Lane.Middle;
