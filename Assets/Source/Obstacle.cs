@@ -28,6 +28,14 @@ public class Obstacle : MonoBehaviour, IObstacle
         
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public Obstacle Spawn(Vector3 position, Quaternion rotation)
     {
         Debug.Log($"Obstacle::{gameObject.name}.Spawn(): pos: {position}, rot: {rotation}");

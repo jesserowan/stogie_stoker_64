@@ -64,12 +64,12 @@ public class ObstacleManager : MonoBehaviour
     public IEnumerator RandomizeObstacle()
     {
         var i = 0;
-        while (i < 100)
+        while (i < 24)
         {
             i++;
-            factory.DestroyObstacles();
+            // factory.DestroyObstacles();
             factory.GenerateObstacle();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.5f);
         }
     }
 
