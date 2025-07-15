@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bcbeb1b5e76411ab99cf775ea4145e, type: 3}
+  m_Name: ObstacleData
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 2746635389277297249, guid: 548677adf15554fe2aa5620ae75d9dbd, type: 3}
+  - {fileID: 7602223274867505449, guid: 2462df16aaa3e455f941191857b0879a, type: 3}
+  - {fileID: 2790288981750796355, guid: 84a47da64aedd4cc7966e62c8e9fb3e7, type: 3}
+  - {fileID: 3402353640747772728, guid: 77e3a5ec30620404c8a8390c579baf46, type: 3}
+  - {fileID: 5047738838108507438, guid: 206325d95db7340058a321847e1bd64c, type: 3}
+  - {fileID: 4899891102905202135, guid: 616792fa7aaf34a5e8e92e924f6edf36, type: 3}
+  - {fileID: 7920626050934902276, guid: ab06bb1249591452bbab206e7abe25f3, type: 3}
+  - {fileID: 3673470258183416413, guid: 1ead5505d6dbc441aaf675298456db42, type: 3}
+  - {fileID: 34922112277152285, guid: 9042fafa66cf74ac2bcd79f5244d8d77, type: 3}
+  - {fileID: 8467211091288418142, guid: 89554db10690d4e5aa6f2aaa27763d0a, type: 3}
+  - {fileID: 410468619985849755, guid: bb90404bda9d4472e9b53a29056da3fa, type: 3}
+  - {fileID: 5366496302783665178, guid: cefc80a4b193142f4b5cfa8efd50bfee, type: 3}
+  - {fileID: 9043268696731963471, guid: a2d02e999d75f49cdbdf5d5ffa5b67be, type: 3}
+  - {fileID: 2147444354957889967, guid: 041d9d88e66c848a590620cdd83668db, type: 3}
+  - {fileID: 6872034099913434229, guid: d04be7a62bf774dd29b8f70028b0f782, type: 3}
+  - {fileID: 7090769481845181251, guid: 5158a51e14f1f4abf9a86ee962905734, type: 3}
+  - {fileID: 5513423683449808486, guid: 15f6debe2625348ab9ab50dcfe08be6d, type: 3}
+  - {fileID: 8986821491038632888, guid: 92dc2b6d42b814ab5a5596f6f2df2c1b, type: 3}
+  roadblockPrefab: {fileID: 8807446199374068803, guid: 71a3873a3abee431b8f5d3fb73c43b87, type: 3}
