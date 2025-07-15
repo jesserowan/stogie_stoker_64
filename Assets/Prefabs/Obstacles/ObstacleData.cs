@@ -19,12 +19,20 @@ public class ObstacleData : ScriptableObject
         _random = new Random();
     }
 
-    public Obstacle GetRandomObstacle()
+    public Obstacle SpawnRoadblock() => Instantiate(roadblockPrefab);
+    
+    public Obstacle SpawnObstacle(int index)
+    {
+        var prefab = obstaclePrefabs[index];
+        var newObstacle = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        newObstacle.name = $"Obstacle{index}_{prefab.name}";
+        return newObstacle;
+    }
+
+    public Obstacle SpawnRandomObstacle()
     {
         _random ??= new Random();
         var randomIndex = _random.Next(obstaclePrefabs.Count);
-        var prefab = obstaclePrefabs[randomIndex];
-        var newObstacle = Instantiate(prefab, Vector3.zero, Quaternion.Euler(-90, 0, 0));
-        return newObstacle;
+        return SpawnObstacle(randomIndex);
     }
 }

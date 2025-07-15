@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour, IObstacle
+public class Obstacle : MonoBehaviour
 {
     [SerializeField]
     public MeshRenderer obstacleRenderer;
@@ -19,13 +19,11 @@ public class Obstacle : MonoBehaviour, IObstacle
     {
         obstacleMesh = GetComponent<MeshFilter>();
         obstacleRenderer = GetComponent<MeshRenderer>();
-        
     }
 
     private void Awake()
     {
         Debug.Log($"Obstacle::{gameObject.name}.Awake(): grid: {obstacleGrid}");
-        
     }
 
     private void OnCollisionEnter(Collision other)

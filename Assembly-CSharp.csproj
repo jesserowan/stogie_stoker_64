@@ -49,17 +49,13 @@
     <Compile Include="Assets/Source/SpherePosition.cs" />
     <Compile Include="Assets/Source/PlayerAnimator.cs" />
     <Compile Include="Assets/Source/ObstacleData.cs" />
-    <Compile Include="Assets/Source/Nadir.cs" />
     <Compile Include="Assets/Source/Obstacle.cs" />
-    <Compile Include="Assets/Source/ObstacleFactory.cs" />
-    <Compile Include="Assets/Source/Orbit.cs" />
+    <Compile Include="Assets/Source/GameManager.cs" />
     <Compile Include="Assets/Source/Constants.cs" />
     <Compile Include="Assets/Source/Pole.cs" />
     <Compile Include="Assets/Source/ObstacleManager.cs" />
-    <Compile Include="Assets/Source/IObstacle.cs" />
     <Compile Include="Assets/Source/Player.cs" />
     <Compile Include="Assets/Source/Planet.cs" />
-    <Compile Include="Assets/Source/Zenith.cs" />
     <Compile Include="Assets/Prefabs/Obstacles/ObstacleData.cs" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/6000.0.48f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
