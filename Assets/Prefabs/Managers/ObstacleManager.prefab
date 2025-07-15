@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2960392610259183064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.90903, y: -36.987595, z: -21.915655}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a414eb1545894ba58509ed8919cd9989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  factory: {fileID: 0}
-  obstacleData: {fileID: 0}
+  planet: {fileID: 0}
+  obstacleData: {fileID: 11400000, guid: cb54b5c1929644ab1a95f97ee38cddab, type: 2}
+  spherePosition: {fileID: 11400000, guid: 92aad3bdd924845ac9f145086fb3e9e1, type: 2}
   obstacleDensity: 0
   obstacleDifficulty: 0
   advanceNotice: 0

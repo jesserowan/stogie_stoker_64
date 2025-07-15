@@ -6,8 +6,8 @@ public class Player : MonoBehaviour
 {
 
     private Rigidbody _rb;
-    private CinemachineCamera _vCam;
-    private CinemachineFollow _vCamFollow;
+    // private CinemachineCamera _vCam;
+    // private CinemachineFollow _vCamFollow;
     // private CinemachineThirdPersonAim _vCamAim;
     private PlayerAnimator _animator;
     public SpherePosition spherePosition;
@@ -26,9 +26,9 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player.OnEnable");
         _rb = GetComponent<Rigidbody>();
-        _vCam = FindFirstObjectByType<CinemachineCamera>();
+        // _vCam = FindFirstObjectByType<CinemachineCamera>();
         _animator = GetComponentInChildren<PlayerAnimator>();
-        _vCamFollow = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachineFollow;
+        // _vCamFollow = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachineFollow;
         // _vCamAim = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Aim) as CinemachineThirdPersonAim;
         _groundHits = new RaycastHit[10];
         _poleHits = new Collider[10];
@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         _rb = null;
-        _vCam = null;
-        _vCamFollow = null;
+        // _vCam = null;
+        // _vCamFollow = null;
     }
 
 
@@ -46,13 +46,13 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Debug.Log("Starting Player");
-        _vCam.Lens.FieldOfView = Constants.FieldOfView;
+        // _vCam.Lens.FieldOfView = Constants.FieldOfView;
 
         spherePosition.Reset();
         _rb.MovePosition(spherePosition.VectorVectorPosition);
         _rb.MoveRotation(Quaternion.identity);
-        _vCamFollow.FollowOffset.z = -20;
-        _vCamFollow.FollowOffset.y = 5;
+        // _vCamFollow.FollowOffset.z = -20;
+        // _vCamFollow.FollowOffset.y = 5;
         canTurn = true;
     }
 
@@ -132,8 +132,8 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
-        _vCam.Lens.FieldOfView = Constants.FieldOfView;
-        _vCam.Lens.FieldOfView = Constants.FieldOfView;
+        // _vCam.Lens.FieldOfView = Constants.FieldOfView;
+        // _vCam.Lens.FieldOfView = Constants.FieldOfView;
 
         // if (Input.GetKeyDown(KeyCode.R)) _vCamFollow.FollowOffset.z = 5;
         // else if (Input.GetKeyUp(KeyCode.R)) _vCamFollow.FollowOffset.z -= 3;
