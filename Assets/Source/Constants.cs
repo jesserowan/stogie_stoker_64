@@ -41,5 +41,5 @@ public class Constants : ScriptableObject
     public float obstacleSpawnDelay = 0f;
 
     [Tooltip("How many degrees apart to spawn each obstacle.")]
-    public float obstacleSpacing = 15f;
+    public float obstacleSpacing = 30f;
 }

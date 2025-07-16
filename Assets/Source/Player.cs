@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public bool canTurn = false;
     private int doTurn = 0;
 
+    public Heading CurrentHeading => speed < 0 ? Heading.Forward : Heading.Backward;
 
     private void OnEnable()
     {

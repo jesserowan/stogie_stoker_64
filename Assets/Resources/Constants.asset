@@ -16,3 +16,5 @@ MonoBehaviour:
   laneWidth: 1.2
   poleWidth: 4
   fieldOfView: 30
+  obstacleSpawnDelay: 0
+  obstacleSpacing: 15

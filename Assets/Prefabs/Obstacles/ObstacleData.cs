@@ -19,7 +19,12 @@ public class ObstacleData : ScriptableObject
         _random = new Random();
     }
 
-    public Obstacle SpawnRoadblock() => Instantiate(roadblockPrefab);
+    public Obstacle SpawnRoadblock(string objName = "Roadblock")
+    {
+        var roadblock = Instantiate(roadblockPrefab, Vector3.zero, Quaternion.identity);
+        roadblock.name = $"Obstacle_{objName}";
+        return roadblock;
+    }
     
     public Obstacle SpawnObstacle(int index)
     {
