@@ -1,4 +1,6 @@
 using System;
+using JetBrains.Annotations;
+using Source;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,11 +23,13 @@ public class SpherePosition : ScriptableObject
     public const float ANGLE_TWO_PI = Mathf.PI * 2.0f;
     public float radius;
     public float theta;
-
-
+    
+    
     public Track track = Track.Z;
     public Lane lane = Lane.Middle;
     public Row row = Row.Lower;
+    
+    [CanBeNull] public Pole CurrentPole { get; set; }
 
     private Vector3 _vectorPosition;
     public Vector3 VectorVectorPosition {

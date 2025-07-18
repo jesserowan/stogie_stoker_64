@@ -50,7 +50,7 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void PopulateZ1()
     {
-        manager.PopulateTrack(Vector3.forward); 
+        manager.PopulateTrack(Vector3.forward);
     }
 
     public void PopulateZMinus1()
@@ -60,12 +60,26 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void PopulateZenith()
     {
-        manager.PopulatePole(PoleType.Zenith);
+        manager.ClearTrack(Vector3.up);
+        var openTracks = manager.PopulatePole(PoleType.Zenith, Vector3.forward);
+        Debug.Log($"PopulateZenith(): Open Tracks: {openTracks.Count}");
+        foreach (var track in openTracks)
+        {
+            Debug.Log($"PopulateZenith(): Populating track: {track}");
+            manager.ClearTrack(track);
+            manager.PopulateTrack(track);
+        }
     }
 
     public void PopulateNadir()
     {
-        manager.PopulatePole(PoleType.Nadir);
+        manager.ClearTrack(Vector3.down);
+        var openTracks = manager.PopulatePole(PoleType.Nadir, Vector3.forward);
+        foreach (var track in openTracks)
+        {
+            manager.ClearTrack(track);
+            manager.PopulateTrack(track);
+        }
     }
 
 }

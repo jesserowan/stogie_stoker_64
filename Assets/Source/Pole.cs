@@ -51,5 +51,14 @@ public class Pole : MonoBehaviour
         Debug.Log($"                   > ({outTrack} ({outTrackN}), {outDir} ({outDirN}), {outLane} ({outLaneN}), {outTheta})");
         return (outTrack, outDir, outLane, outTheta);
     }
+
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     Debug.Log($"Pole.OnTriggerEnter: {other.name} -- collision detected");
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         
+    //     }
+    // }
 }
 }

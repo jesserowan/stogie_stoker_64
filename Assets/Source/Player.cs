@@ -1,6 +1,7 @@
 using Source;
 using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class Player : MonoBehaviour
     public Planet planet;
     private RaycastHit[] _groundHits;
     private Collider[] _poleHits;
+    
+    [SerializeField] private Pole northPole; 
+    [SerializeField] private Pole southPole;
+    public Pole currentPole;
+    public Pole nextPole => currentPole.which == PoleType.Nadir ? northPole : southPole;
 
     public float speed;
     public float height = 2f;
@@ -33,6 +39,12 @@ public class Player : MonoBehaviour
         // _vCamAim = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Aim) as CinemachineThirdPersonAim;
         _groundHits = new RaycastHit[10];
         _poleHits = new Collider[10];
+        
+        var poles = FindObjectsByType<Pole>(0);
+        Assert.IsTrue(poles.Length == 2);
+        foreach (var p in poles)
+        { if (p.which == PoleType.Nadir) southPole = p;
+            if (p.which == PoleType.Zenith) northPole = p; }
     }
 
     private void OnDisable()
@@ -50,11 +62,12 @@ public class Player : MonoBehaviour
         // _vCam.Lens.FieldOfView = Constants.FieldOfView;
 
         spherePosition.Reset();
+        // currentPole = northPole;
         _rb.MovePosition(spherePosition.VectorVectorPosition);
         _rb.MoveRotation(Quaternion.identity);
         // _vCamFollow.FollowOffset.z = -20;
         // _vCamFollow.FollowOffset.y = 5;
-        canTurn = true;
+        // canTurn = true;
     }
 
     private void FixedUpdate()
@@ -143,10 +156,13 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         inPole = other.gameObject.GetComponent<Pole>();
+        GameManager.EnterPole(inPole);
+        if (GameManager.Instance.CurrentGameState == GameState.Initializing) return;
         canTurn = true;
     }
     private void OnTriggerExit(Collider other)
     {
+        GameManager.ExitPole();
         inPole = null;
         canTurn = false;
     }
