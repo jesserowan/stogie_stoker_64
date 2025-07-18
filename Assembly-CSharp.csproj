@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Assets/Source/SpherePosition.cs" />
     <Compile Include="Assets/Source/PlayerAnimator.cs" />
+    <Compile Include="Assets/Source/Stogie/StogieController.cs" />
+    <Compile Include="Assets/Source/Stogie/StogieManager.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleManager.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleDebugger.cs" />
     <Compile Include="Assets/Source/GameManager.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
     <Compile Include="Assets/Source/Player.cs" />
     <Compile Include="Assets/Source/Planet.cs" />
+    <Compile Include="Assets/Source/Stogie/Stogie.cs" />
     <Compile Include="Assets/Prefabs/Obstacles/ObstacleData.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
