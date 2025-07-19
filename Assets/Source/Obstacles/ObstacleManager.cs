@@ -46,10 +46,9 @@ public class ObstacleManager : MonoBehaviour
         { if (pole.which == PoleType.Zenith) Poles.north = pole;
             else Poles.south = pole; }
         
-        if (!generateOnStart) return;
-        
-        GameManager.OnPoleEntered += HandlePoleEntered;
         GameManager.OnPoleExited += HandlePoleExited;
+        GameManager.OnPoleEntered += HandlePoleEntered;
+        
         player ??= FindFirstObjectByType<Player>();
         spherePosition = player.spherePosition;
         Debug.Log($"ObstacleManager.Start(): Done initializing:" +
@@ -67,6 +66,7 @@ public class ObstacleManager : MonoBehaviour
     // ====================== ## API ## ======================
     public Obstacle Spawn(Track track)
     {
+        Debug.Log($"Spawn(): Track: {track}");
         var obstacle = obstacleData.SpawnObstacle();
         obstacle.RotateAxis(track);
         return obstacle;
@@ -112,7 +112,7 @@ public class ObstacleManager : MonoBehaviour
 
     public List<Vector3> PopulatePole(PoleType poleType, Vector3 arrivalTrack)
     {
-        Debug.Log($"ObstacleManager.PopulatePole(): {poleType}");
+        Debug.Log($"ObstacleManager.PopulatePole(): {poleType}; arrival track: {arrivalTrack}");
         var intersection = poleType == PoleType.Zenith 
             ? northPoleIntersection
             : southPoleIntersection;
@@ -120,31 +120,50 @@ public class ObstacleManager : MonoBehaviour
         var openTracks = new List<Vector3>();
         foreach (var turn in intersection.Keys.ToList())
         {
+            // don't block off the entrance
             if (turn == arrivalTrack)
             {
+                Debug.Log($"PopulatePole(): destroying track at {turn} on pole: {poleType}");
                 if (intersection[turn] != null) Destroy(intersection[turn]);
                 intersection[turn] = null;
             }
-            else if (closedTurns < 2)
+            // ensure at least 1 turn is open
+            else if (closedTurns >= 2)
             {
+                if (intersection[turn] != null) Destroy(intersection[turn]);
+                intersection[turn] = null;
+                openTracks.Add(turn);
+            }
+            // otherwise coin toss whether to block off or not 
+            else
+            {
+                Debug.Log($"PopulatePole(): Checking whether to populate: {poleType}.{turn}; closed turns: {closedTurns}");
                 if (Random.value < 0.5)
                 {
+                    Debug.Log($"PopulatePole(): Populating: {poleType}.{turn}");
                     var rb = SpawnRoadblock(GetTrack(turn));
                     DeployRoadblock(rb, poleType, turn);
                     intersection[turn] = rb.gameObject;
                     closedTurns++;
                     ClearTrack(turn);
                 }
-                else openTracks.Add(turn);
+                else
+                {
+                    openTracks.Add(turn);
+                }
             }
         }
 
-        Debug.Log($"ObstacleManager.PopulatePole(): Generated {closedTurns} roadblocks at pole: {poleType}");
+        Debug.Log($"PopulatePole(): Generated {closedTurns} roadblocks at pole: {poleType}");
+        Debug.Log($"PopulatePole(): POLE: {poleType} OPEN TRACKS ({openTracks.Count}):");
+        foreach (var openTrack in openTracks) Debug.Log($"    > {openTrack}");
+            
         return openTracks;
     }
 
     public void DeployObstacle(Obstacle obstacle, Vector3 axis, float angle)
     {
+        Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
         obstacle.transform.Rotate(axis, angle);
         obstacle.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
     }
@@ -162,28 +181,54 @@ public class ObstacleManager : MonoBehaviour
     // ====================== ## event handlers ## ======================
     public void HandlePoleEntered(Pole pole)
     {
-        if (pole.which == PoleType.Zenith) ClearTrack(Vector3.down);
-        else if (pole.which == PoleType.Nadir) ClearTrack(Vector3.up);
+        // if (pole.which == PoleType.Zenith) ClearTrack(Vector3.down);
+        // else if (pole.which == PoleType.Nadir) ClearTrack(Vector3.up);
     }
 
     public PoleType GetNextPole(Pole p) => p.which == PoleType.Nadir ? PoleType.Zenith : PoleType.Nadir;
-    public PoleType GetNextPole(PoleType p) => p == PoleType.Nadir ? PoleType.Zenith : PoleType.Nadir;
     public void HandlePoleExited(Pole pole)
     {
-        // TODO populate next pole...
-        // TODO populate obstacles...
         Debug.Log($"ObstacleManager.HandlePoleExited(): {pole}");
-        var openTracks = PopulatePole(GetNextPole(pole), Vector3.forward);
+        var playerPos = player.transform.position;
+        Debug.Log($"Player pos: {playerPos}");
+        Vector3 exitTrack;
+        if (playerPos.z > 1.2)
+        {
+            Debug.Log($"Player should be on FORWARD track");
+            exitTrack = Vector3.forward;
+        }
+        else if (playerPos.z < -1.2)
+        {
+            Debug.Log($"Player should be on BACKWARD track");
+            exitTrack = Vector3.back;
+        }
+        else if (playerPos.x > 1.2)
+        {
+            Debug.Log($"Player should be on RIGHT track");
+            exitTrack = Vector3.right;
+        }
+        else if (playerPos.x < -1.2)
+        {
+            Debug.Log($"Player should be on LEFT track");
+            exitTrack = Vector3.left;
+        }
+        else throw new Exception("Unable to determine player exit track");
+        
+        Debug.Log($"HandlePoleExited(): Determined exit track: {exitTrack}");
+        var openTracks = PopulatePole(GetNextPole(pole), exitTrack);
+        Debug.Log($"HandlePoleExited(): open tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
+            Debug.Log($"HandlePoleExited(): clearing open track: {track}");
             ClearTrack(track);
+            Debug.Log($"HandlePoleExited(): populating open track: {track}");
             PopulateTrack(track);
         }
     }
     
     
     // ====================== ## Internal ## ======================
-    private bool IsPositive(Vector3 track) => track == Vector3.right || track == Vector3.forward; 
+    private bool IsPositive(Vector3 track) => track == Vector3.left || track == Vector3.forward; 
     private bool IsX(Vector3 track) => track == Vector3.right || track == Vector3.left;
     private Track GetTrack(Vector3 trackVector) => IsX(trackVector) ? Track.X : Track.Z;
 
@@ -198,8 +243,11 @@ public class ObstacleManager : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException() };
         var index = 0;
         var isX = IsX(track);
+        Debug.Log($"SpawnAlongTrack(): Track: {track}; IsX: {isX}; isPositive: {IsPositive(track)}");
         var baseAngle = IsPositive(track) ? 0 : 180;
+        Debug.Log($"SpawnAlongTrack(): BaseAngle: {baseAngle}");
         var axis = isX ? Vector3.forward : Vector3.right;
+        Debug.Log($"SpawnAlongTrack(): Axis: {axis}");
         while (index < arrangement.Count)
         {
             var angle = baseAngle + arrangement[index];

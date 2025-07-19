@@ -77,10 +77,14 @@ public class StogieController : MonoBehaviour
     // =================== ## Ember Utilities ## =======================
     public void BurnEmber()
     {
-        var newGlow = glow.current + glow.speed * (IsSmoking ? 1f : -1f);
-        glow.current = Mathf.Clamp(newGlow, glow.min, glow.max);
-        if (state == TokingState.Smoke)
-            _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
+        if (IsSmoking && glow.current >= glow.max) return;
+        if (!IsSmoking && glow.current <= glow.min) return;
+        
+        Debug.Log($"BurnEmber(): state: {state}; glow.current: {glow.current}");
+        var newGlow = Mathf.Clamp(glow.current + glow.speed * (IsSmoking ? 1f : -1f), glow.min, glow.max);
+        Debug.Log($"BurnEmber(): newGlow: {newGlow}");
+        glow.current = newGlow;
+        _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
     }
 
 
