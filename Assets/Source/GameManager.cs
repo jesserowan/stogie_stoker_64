@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 {
     // ====================== ## singleton ## ======================
     public static GameManager Instance;
+    public ObstacleManager obstacleManager;
     
     private void Awake()
     {
@@ -50,13 +51,21 @@ public class GameManager : MonoBehaviour
     // ====================== ## lifecycle ## ======================
     private void Start()
     {
-        
+        LoadMap();
+    }
+
+    public void LoadMap()
+    {
+        LoadNewBiome();
+        obstacleManager.PopulateTrack(Vector3.forward);
     }
 
 
     // ====================== ## events ## ======================
     public static event Action<Pole> OnPoleEntered;
     public static event Action<Pole> OnPoleExited;
+
+    public static event Action OnStart;
     
     
     // ====================== ## state ## ======================

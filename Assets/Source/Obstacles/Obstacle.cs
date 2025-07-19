@@ -27,8 +27,8 @@ public class Obstacle : MonoBehaviour
 
     public void RotateAxis(Track track)
     {
+        Debug.Log($"Obstacle.RotateAxis(): Track: {track}");
         var child = transform.GetChild(0);
-        if (track == Track.Z) child.rotation = Quaternion.Euler(-90, 0, 0);
-        else child.rotation = Quaternion.Euler(-90, 90, 0);
+        child.rotation = Quaternion.Euler(-90, track == Track.Z ? 0 : 90, 0);
     }
 }
