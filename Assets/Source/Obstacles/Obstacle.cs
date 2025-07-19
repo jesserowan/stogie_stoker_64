@@ -2,20 +2,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField]
-    public MeshRenderer obstacleRenderer;
-    
-    [SerializeField]
-    public MeshFilter obstacleMesh;
+    public Collider collider;
 
-    private void OnEnable()
+    private void OnValidate()
     {
-        obstacleMesh = GetComponentInChildren<MeshFilter>();
-        obstacleRenderer = GetComponentInChildren<MeshRenderer>();
+        collider = GetComponentInChildren<Collider>();
+        
     }
 
     private void Awake()
@@ -25,10 +22,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
     public void RotateAxis(Track track)

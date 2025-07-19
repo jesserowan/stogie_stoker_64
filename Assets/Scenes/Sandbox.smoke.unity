@@ -3707,7 +3707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2960392610259183064, guid: a5a50d4f60868431392d078a201331f6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4003470837753583928, guid: a5a50d4f60868431392d078a201331f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5201,6 +5201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215677108457414091, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1806113884662263480, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
       propertyPath: m_Name
       value: CameraSystem
