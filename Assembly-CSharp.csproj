@@ -829,6 +829,9 @@
     <Reference Include="Unity.AI.Navigation">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.AI.Navigation.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Recorder">
+      <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Recorder.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
@@ -877,11 +880,17 @@
     <Reference Include="Unity.Cinemachine">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Cinemachine.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Bindings.OpenImageIO.Editor">
+      <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Bindings.OpenImageIO.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="PPv2URPConverters">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder.Base">
+      <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Recorder.Base.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Editor">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Rendering.LightTransport.Editor.dll</HintPath>
@@ -954,6 +963,9 @@
     </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder.Editor">
+      <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Recorder.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>/Users/altar/src/softethix/jams/StogieRun/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
