@@ -1,43 +1,62 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "ObstacleData", menuName = "ObstacleData")]
 public class ObstacleData : ScriptableObject
 {
     [SerializeField]
-    public List<Obstacle> obstaclePrefabs = new ();
+    public List<Obstacle> cityObstacles = new (18);
+    [SerializeField]
+    public List<Obstacle> cityRoadblocks = new (2);
     
     [SerializeField]
-    public Obstacle roadblockPrefab;
+    public List<Obstacle> countryObstacles = new (18);
+    [SerializeField]
+    public List<Obstacle> countryRoadblocks = new (2);
+    
+    [SerializeField]
+    public List<Obstacle> suburbsObstacles = new (18);
+    [SerializeField]
+    public List<Obstacle> suburbsRoadblocks = new (2);
 
-    private Random _random;
-
-    private void Awake()
+    
+    public Obstacle GetObstacle(Biome biome, int index = -1)
     {
-        _random = new Random();
+        if (index < 0) index = Random.Range(0, 17);
+        return biome switch
+        {
+            Biome.City => cityObstacles[index],
+            Biome.Country => countryObstacles[index],
+            Biome.Suburbs => suburbsObstacles[index],
+            _ => throw new ArgumentOutOfRangeException(nameof(biome), biome, null)
+        };
     }
 
-    public Obstacle SpawnRoadblock(string objName = "Roadblock")
+    public Obstacle GetRoadblock(Biome biome, int index = -1)
     {
-        var roadblock = Instantiate(roadblockPrefab, Vector3.zero, Quaternion.identity);
-        roadblock.name = $"Obstacle_{objName}";
+        if (index < 0) index = Random.Range(0, 1);
+        return biome switch
+        {
+            Biome.City => cityRoadblocks[index],
+            Biome.Country => countryRoadblocks[index],
+            Biome.Suburbs => suburbsRoadblocks[index],
+            _ => throw new ArgumentOutOfRangeException(nameof(biome), biome, null)
+        };
+    }
+
+    public Obstacle SpawnRoadblock()
+    {
+        var prefab = GetRoadblock(GameManager.CurrentBiome);
+        var roadblock = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         return roadblock;
     }
     
-    public Obstacle SpawnObstacle(int index)
+    public Obstacle SpawnObstacle()
     {
-        var prefab = obstaclePrefabs[index];
+        var prefab = GetObstacle(GameManager.CurrentBiome);
         var newObstacle = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-        newObstacle.name = $"Obstacle{index}_{prefab.name}";
         return newObstacle;
-    }
-
-    public Obstacle SpawnRandomObstacle()
-    {
-        _random ??= new Random();
-        var randomIndex = _random.Next(obstaclePrefabs.Count);
-        return SpawnObstacle(randomIndex);
     }
 }

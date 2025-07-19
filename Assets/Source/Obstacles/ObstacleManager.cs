@@ -13,6 +13,8 @@ public class ObstacleManager : MonoBehaviour
 {
     // ====================== ## Controls ## ======================
     public bool generateOnStart;
+    public bool showDebugPanel;
+    public GameObject debugPanel;
     
     // ====================== ## Data ## ======================
     public Player player;
@@ -21,21 +23,7 @@ public class ObstacleManager : MonoBehaviour
     public SpherePosition spherePosition;
     public (Pole north, Pole south) Poles;
     
-    // ====================== ## Config ## ======================
-    [Range(0, 1)]
-    public float obstacleDensity; // how many obstacles to spawn per track
-
-    public float obstacleDifficulty; // how large the obstacles are, i.e. how small the evasion window is
-
-    public float advanceNotice; // the distance from the player at which obstacles should spawn
-
-    
     // ====================== ## State ## ======================
-    public List<Obstacle> activeObstacles;
-    public List<Obstacle> activeRoadblocks;
-    public Dictionary<Vector3, List<Obstacle>> ObstacleMap;
-    public Dictionary<Vector3, List<Obstacle>> RoadblockMap;
-
     public Vector3 currentTrack;
 
     public GameObject Z1;
@@ -50,24 +38,23 @@ public class ObstacleManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("ObstacleManager.Start()");
+        if (debugPanel) debugPanel.SetActive(showDebugPanel);
 
-        GameManager.OnPoleEntered += HandlePoleEntered;
-        GameManager.OnPoleExited += HandlePoleExited;
-        
         var poles = FindObjectsByType<Pole>(FindObjectsSortMode.None);
         if (poles.Length != 2) throw new Exception("There must be 2 poles");
         foreach (var pole in poles)
         { if (pole.which == PoleType.Zenith) Poles.north = pole;
             else Poles.south = pole; }
-
+        
         if (!generateOnStart) return;
         
+        GameManager.OnPoleEntered += HandlePoleEntered;
+        GameManager.OnPoleExited += HandlePoleExited;
         player ??= FindFirstObjectByType<Player>();
         spherePosition = player.spherePosition;
         Debug.Log($"ObstacleManager.Start(): Done initializing:" +
                   $"\n    > player: {player}\n    > spherePosition: {spherePosition}" +
                   $"\n    > Poles: {Poles}");
-        // StartCoroutine(SpawnAlongCurrentTrack(Track.Z));
     }
 
     private void OnDisable()
@@ -80,9 +67,8 @@ public class ObstacleManager : MonoBehaviour
     // ====================== ## API ## ======================
     public Obstacle Spawn(Track track)
     {
-        var obstacle = obstacleData.SpawnRandomObstacle();
+        var obstacle = obstacleData.SpawnObstacle();
         obstacle.RotateAxis(track);
-        activeObstacles.Add(obstacle);
         return obstacle;
     }
 
@@ -90,13 +76,13 @@ public class ObstacleManager : MonoBehaviour
     {
         var roadblock = obstacleData.SpawnRoadblock();
         roadblock.RotateAxis(track);
-        activeRoadblocks.Add(roadblock);
         return roadblock;
     }
 
     public void PopulateTrack(Vector3 track)
     {
-        Debug.Log($"ObstacleManager.PopulateTrack(): {track}");
+        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
+                  $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
         ClearTrack(track);
         StartCoroutine(SpawnAlongTrack(track));
     }
@@ -113,27 +99,16 @@ public class ObstacleManager : MonoBehaviour
 
     public void SlaughterChildren(GameObject parent)
     {
-        foreach (Transform child in parent.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        foreach (Transform child in parent.transform) Destroy(child.gameObject);
     }
 
     public Dictionary<Vector3, GameObject> northPoleIntersection = new Dictionary<Vector3, GameObject>
-    {
-        { Vector3.forward, null },
-        { Vector3.back, null },
-        { Vector3.left, null },
-        { Vector3.right, null },
-    };
+    { { Vector3.forward, null }, { Vector3.back, null },
+        { Vector3.left, null }, { Vector3.right, null }, };
 
     public Dictionary<Vector3, GameObject> southPoleIntersection = new Dictionary<Vector3, GameObject>
-    {
-        { Vector3.forward, null },
-        { Vector3.back, null },
-        { Vector3.left, null },
-        { Vector3.right, null },
-    };
+    { { Vector3.forward, null }, { Vector3.back, null },
+        { Vector3.left, null }, { Vector3.right, null }, };
 
     public List<Vector3> PopulatePole(PoleType poleType, Vector3 arrivalTrack)
     {
@@ -211,19 +186,27 @@ public class ObstacleManager : MonoBehaviour
     private bool IsPositive(Vector3 track) => track == Vector3.right || track == Vector3.forward; 
     private bool IsX(Vector3 track) => track == Vector3.right || track == Vector3.left;
     private Track GetTrack(Vector3 trackVector) => IsX(trackVector) ? Track.X : Track.Z;
+
+    public List<int> easyTracks = new() {     30,     60,     90,      120,      150,     };
+    public List<int> midTracks = new()  { 15,     45, 60,     90, 105,      135,      165 };
+    public List<int> hardTracks = new() { 15,     45, 60, 75,     105, 120, 135, 150, 165 };
     
     private IEnumerator SpawnAlongTrack(Vector3 track)
     {
+        var arrangement = GameManager.CurrentDifficulty switch
+        { Difficulty.Easy => easyTracks, Difficulty.Mid => midTracks, Difficulty.Hard => hardTracks,
+            _ => throw new ArgumentOutOfRangeException() };
+        var index = 0;
         var isX = IsX(track);
-        var angle = IsPositive(track) ? 5 : 185;
-        var endAngle = angle + 170;
+        var baseAngle = IsPositive(track) ? 0 : 180;
         var axis = isX ? Vector3.forward : Vector3.right;
-        while (angle < endAngle)
+        while (index < arrangement.Count)
         {
+            var angle = baseAngle + arrangement[index];
+            index += 1;
             var o = Spawn(isX ? Track.X : Track.Z);
             DeployObstacle(o, axis, angle);
             Reparent(o, track);
-            angle += (int)Constants.ObstacleSpacing;
             yield return new WaitForSeconds(Constants.ObstacleSpawnDelay);
         }
     }
@@ -231,11 +214,11 @@ public class ObstacleManager : MonoBehaviour
     private void Reparent(Obstacle obstacle, Vector3 track)
     {
         if (track == Vector3.forward) obstacle.transform.SetParent(Z1.transform);
-        else if (track == Vector3.back) obstacle.transform.SetParent(ZMinus1.transform);
         else if (track == Vector3.right) obstacle.transform.SetParent(X1.transform);
-        else if (track == Vector3.left) obstacle.transform.SetParent(XMinus1.transform);
         else if (track == Vector3.up) obstacle.transform.SetParent(Zenith.transform);
         else if (track == Vector3.down) obstacle.transform.SetParent(Nadir.transform);
+        else if (track == Vector3.back) obstacle.transform.SetParent(ZMinus1.transform);
+        else if (track == Vector3.left) obstacle.transform.SetParent(XMinus1.transform);
     }
 }
 

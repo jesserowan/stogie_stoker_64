@@ -1,12 +1,27 @@
 using System;
 using Source;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum GameState
 {
     Initializing,
     Playing,
     Paused,
+}
+
+public enum Biome
+{
+    City,
+    Suburbs,
+    Country,
+}
+
+public enum Difficulty
+{
+    Easy,
+    Mid,
+    Hard,
 }
 
 public class GameManager : MonoBehaviour
@@ -21,6 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             Instance.CurrentGameState = GameState.Initializing;
+            LoadNewBiome();
         }
     }
 
@@ -46,6 +62,20 @@ public class GameManager : MonoBehaviour
     // ====================== ## state ## ======================
     public GameState CurrentGameState { get; set; }
     public Pole CurrentPole { get; set; }
+    
+    public static Difficulty CurrentDifficulty { get; set; }
+    public static Biome CurrentBiome { get; set; }
+    
+    
+    // ====================== ## state ## ======================
+    public static void LoadNewBiome()
+    {
+        Debug.Log("GameManager.LoadNewBiome()");
+        var randomBiome = (Biome)Random.Range(0, 3);
+        CurrentBiome = randomBiome;
+        CurrentDifficulty = Difficulty.Easy;
+    }
+    
 
     public static void EnterPole(Pole pole)
     {
@@ -65,5 +95,4 @@ public class GameManager : MonoBehaviour
             Instance.CurrentGameState = GameState.Playing;
         OnPoleExited?.Invoke(previousPole);
     }
-    
 }
