@@ -32,6 +32,7 @@ public class Burn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.CurrentGameState == GameState.GameOver) return;
         if (IsSmoking) Shrink();
     }
 
@@ -41,7 +42,7 @@ public class Burn : MonoBehaviour
         if (transform.localScale.y < threshold)
         {
             Debug.Log($"DONE!!!!!!!!!!!!!!");
-            Time.timeScale = 0;
+            GameManager.CompleteCourse();
             return;
         }
         transform.localScale -= new Vector3(0, ScaleStep, 0);

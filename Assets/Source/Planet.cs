@@ -7,16 +7,14 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Planet : MonoBehaviour
 {
-    public new SphereCollider collider;
+    public SphereCollider sphereCol;
+    public Biome biome;
 
     private void OnEnable()
     {
-        if (collider == null)
-        {
-            collider = GetComponent<SphereCollider>();
-        }
-
-        collider.radius = Constants.Instance.worldRadius;
+        sphereCol ??= GetComponent<SphereCollider>() 
+                      ?? gameObject.AddComponent<SphereCollider>();
+        sphereCol.radius = Constants.Instance.worldRadius;
     }
 
 }
