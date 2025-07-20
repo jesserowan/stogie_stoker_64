@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Player.OnEnable");
+        // Debug.Log("Player.OnEnable");
         _rb = GetComponent<Rigidbody>();
         // _vCam = FindFirstObjectByType<CinemachineCamera>();
         _animator = GetComponentInChildren<PlayerAnimator>();
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        Debug.Log("Starting Player");
+        // Debug.Log("Starting Player");
         // _vCam.Lens.FieldOfView = Constants.FieldOfView;
 
         spherePosition.Reset();

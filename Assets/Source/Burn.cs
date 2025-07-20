@@ -38,10 +38,10 @@ public class Burn : MonoBehaviour
 
     public void Shrink()
     {
-        Debug.Log("Shrink()");
+        // Debug.Log("Shrink()");
         if (transform.localScale.y < threshold)
         {
-            Debug.Log($"DONE!!!!!!!!!!!!!!");
+            // Debug.Log($"DONE!!!!!!!!!!!!!!");
             GameManager.CompleteCourse();
             return;
         }

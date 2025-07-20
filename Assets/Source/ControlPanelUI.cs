@@ -15,7 +15,7 @@ public class ControlPanelUI : MonoBehaviour
     
     private void OnEnable()
     {
-        Debug.Log("Control Panel OnEnable");
+        // Debug.Log("Control Panel OnEnable");
         Time.timeScale = 0;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         
@@ -23,14 +23,14 @@ public class ControlPanelUI : MonoBehaviour
         setDifficulty.onValueChanged.AddListener(SetDifficulty);
         setBiome.onValueChanged.AddListener(SetBiome);
         
-        Debug.Log($"Setting biome and difficulty to: {GameManager.CurrentBiome}, {GameManager.CurrentDifficulty}");
+        // Debug.Log($"Setting biome and difficulty to: {GameManager.CurrentBiome}, {GameManager.CurrentDifficulty}");
         setBiome.value = GetBiomeIndex(GameManager.CurrentBiome);
         setDifficulty.value = GetDifficultyIndex(GameManager.CurrentDifficulty);
     }
 
     private void OnDisable()
     {
-        Debug.Log("Control Panel OnDisable");
+        // Debug.Log("Control Panel OnDisable");
         Time.timeScale = 1;
         Cursor.SetCursor(gameCursor, Vector2.zero, CursorMode.Auto);
         setDifficulty.onValueChanged.RemoveAllListeners();
@@ -40,13 +40,13 @@ public class ControlPanelUI : MonoBehaviour
     
     public void SetDifficulty(int difficulty)
     {
-        Debug.Log($"SetDifficulty(): Setting difficulty: {difficulty}");
+        // Debug.Log($"SetDifficulty(): Setting difficulty: {difficulty}");
         GameManager.CurrentDifficulty = GetDifficulty(difficulty);
     }
 
     public void SetBiome(int biome)
     {
-        Debug.Log($"SetBiome(): Setting biome: {biome}");
+        // Debug.Log($"SetBiome(): Setting biome: {biome}");
         GameManager.CurrentBiome = GetBiome(biome);
     }
 
@@ -58,7 +58,7 @@ public class ControlPanelUI : MonoBehaviour
 
     public void StartOver()
     {
-        Debug.Log("StartOver() called.");
+        // Debug.Log("StartOver() called.");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        Debug.Log($"GameManager.LoadMap()");
+        // Debug.Log($"GameManager.LoadMap()");
         CurrentPlanet = planetManager.SpawnPlanet();
         obstacleManager.PopulateTrack(Vector3.forward);
     }
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
     public static void EnterPole(Pole pole)
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.EnterPole(): {pole}");
+        // Debug.Log($"GameManager.EnterPole(): {pole}");
         Instance.CurrentPole = pole;
         OnPoleEntered?.Invoke(pole);
     }
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     public static void ExitPole()
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
+        // Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
         var previousPole = Instance.CurrentPole;
         Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing) 
@@ -116,12 +116,12 @@ public class GameManager : MonoBehaviour
 
     public static void CompleteCourse()
     {
-        Debug.Log($"GameManager.CompleteCourse()");
+        // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
-        Debug.Log($"GameManager.CompleteCourse(): we have the instance");
+        // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
         Instance.CurrentGameState = GameState.GameOver;
-        Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
+        // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
         Instance.controlPanel.gameObject.SetActive(true);
-        Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
+        // Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
     }
 }
