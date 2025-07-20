@@ -60,8 +60,8 @@
     <Compile Include="Assets/Source/Obstacles/Obstacle.cs" />
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
     <Compile Include="Assets/Source/Player.cs" />
+    <Compile Include="Assets/Source/PlanetManager.cs" />
     <Compile Include="Assets/Source/Planet.cs" />
-    <Compile Include="Assets/PlanetManager.cs" />
     <Compile Include="Assets/Prefabs/Obstacles/ObstacleData.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
