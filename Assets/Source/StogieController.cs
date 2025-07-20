@@ -19,8 +19,8 @@ public class StogieController : MonoBehaviour
     public Texture2D cursorSmoking;
     
     // cigar control
-    [SerializeField]
-    private GameObject ember;
+    [SerializeField] private GameObject ember;
+    [SerializeField] private Burn stogieBurnMeter;
     private Renderer _emberRenderer;
     private Color _emissiveColor;
     private (float min, float max, float current, float speed) glow = (0, 1000, 0, 3);
@@ -40,7 +40,7 @@ public class StogieController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startPosition = rb.position;
-        
+        stogieBurnMeter ??= transform.parent.GetComponentInChildren<Burn>();
         _emberRenderer = ember.GetComponent<Renderer>();
         _emissiveColor = _emberRenderer.material.GetColor(EmissiveColor);
         glow.current = glow.min;
@@ -48,8 +48,12 @@ public class StogieController : MonoBehaviour
         
         SetCursor();
     }
-    
-    private void Update() { DragStogie(); SetCursor(); BurnEmber(); }
+
+    private void Update()
+    {
+        DragStogie(); SetCursor(); BurnEmber();
+        stogieBurnMeter.IsSmoking = IsSmoking;
+    }
 
 
     // =================== ## Mouse Events ## =======================
@@ -85,6 +89,7 @@ public class StogieController : MonoBehaviour
         Debug.Log($"BurnEmber(): newGlow: {newGlow}");
         glow.current = newGlow;
         _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
+        stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
     }
 
 

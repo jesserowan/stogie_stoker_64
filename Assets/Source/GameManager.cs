@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
     // ====================== ## lifecycle ## ======================
     private void Start()
     {
-        controlPanel.gameObject.SetActive(false);
+        controlPanel ??= FindFirstObjectByType<ControlPanelUI>();
+        if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
 
