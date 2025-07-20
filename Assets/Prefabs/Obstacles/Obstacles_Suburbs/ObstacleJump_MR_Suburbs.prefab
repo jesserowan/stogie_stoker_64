@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7269429024475172053}
   - component: {fileID: 2301861517537009928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_MR_Suburbs
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 1422497518475509162}
   - component: {fileID: 1715441889520939007}
   - component: {fileID: 3977818826632544324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_MR_Suburbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 5128592696818092579}
   - component: {fileID: 2575119841848814890}
   - component: {fileID: 7431623134532068168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Jump06.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

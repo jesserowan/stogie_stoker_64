@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1641860097026090997}
   - component: {fileID: 3596298022756095627}
   - component: {fileID: 3908805519921941396}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_MR_Country
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5327938833703923575}
   - component: {fileID: 5921804062504385304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_MR_Country
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 5399421529490583460}
   - component: {fileID: 3202431957172043754}
   - component: {fileID: 7386933729932994221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Evade05.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

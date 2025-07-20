@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8554822528571248228}
   - component: {fileID: 6454023225894648497}
   - component: {fileID: 7436845193647609185}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_R_Suburbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1700570323165535609}
   - component: {fileID: 769942805113419711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_R_Suburbs
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 7340232627247852456}
   - component: {fileID: 6458874136093814426}
   - component: {fileID: 7670910724816531492}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Slide01.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

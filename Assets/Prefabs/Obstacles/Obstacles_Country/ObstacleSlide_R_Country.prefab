@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7687507548646502408}
   - component: {fileID: 6671135462545009607}
   - component: {fileID: 3720985419456191434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Slide01.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 8325259925881092459}
   - component: {fileID: 6727172440349742379}
   - component: {fileID: 8680285586278128388}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_R_Country
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,9 +159,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7774348078327433552}
   - component: {fileID: 482510102218080592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_R_Country
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5098424754503836914}
   - component: {fileID: 4948811673206117306}
   - component: {fileID: 9096620997217173080}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleRoadblock_B_Suburbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8433777233404423090}
   - component: {fileID: 7542165402621149526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleRoadblock_B_Suburbs
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 6782406957444794708}
   - component: {fileID: 3305998399553877206}
   - component: {fileID: 7515593747046603973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_RoadBlock.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}

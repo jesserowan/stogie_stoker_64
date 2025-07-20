@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7584342660774343853}
   - component: {fileID: 2510000438988396517}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_LM_Country
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 1884558119904178814}
   - component: {fileID: 6563334935787733153}
   - component: {fileID: 4454098493060961213}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_LM_Country
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 1074311620231831393}
   - component: {fileID: 8216070607551795549}
   - component: {fileID: 1711736312407609237}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Slide05.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

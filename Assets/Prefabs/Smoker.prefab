@@ -641,7 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2662236673263217921}
   m_Layer: 0
-  m_Name: StogieSmoker
+  m_Name: Smoker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

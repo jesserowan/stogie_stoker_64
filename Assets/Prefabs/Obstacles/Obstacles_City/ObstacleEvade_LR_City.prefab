@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7735114370696839899}
   - component: {fileID: 7542159151965849658}
   - component: {fileID: 5384138922557140740}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Evade06.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 6629575306266915003}
   - component: {fileID: 5632208110501116112}
   - component: {fileID: 6087150019454549229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_LR_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,9 +160,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5243519040037476757}
   - component: {fileID: 3239784965301703714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_LR_City
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
