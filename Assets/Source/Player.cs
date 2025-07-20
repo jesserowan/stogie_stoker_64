@@ -1,3 +1,4 @@
+using System;
 using Source;
 using UnityEngine;
 using Unity.Cinemachine;
@@ -73,7 +74,10 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // Debug.Log("Updating Player");
-        var next = spherePosition.ApplySpeed(speed * Time.fixedDeltaTime, Track.Z);
+        var multiplier = GameManager.CurrentDifficulty switch
+        { Difficulty.Hard => 1f, Difficulty.Mid => 0.75f, _ => 0.5f };
+        
+        var next = spherePosition.ApplySpeed(speed * multiplier * Time.fixedDeltaTime, Track.Z);
         // Debug.Log($"Next position {next}");
 
         var hits = Physics.RaycastNonAlloc(

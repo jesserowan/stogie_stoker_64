@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3321695550926664002}
   - component: {fileID: 5505114060579280514}
   - component: {fileID: 8821787067255916087}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Jump03.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7981645675800472009}
   - component: {fileID: 5087685856663609976}
   - component: {fileID: 9059927202786966869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_L_Country
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,9 +159,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6640643528624188376}
   - component: {fileID: 8227430918072487400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_L_Country
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

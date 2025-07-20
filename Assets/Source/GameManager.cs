@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
 {
     // ====================== ## singleton ## ======================
     public static GameManager Instance;
-    public ObstacleManager obstacleManager;
+    
+    [SerializeField] public ObstacleManager obstacleManager;
+    [SerializeField] public ControlPanelUI controlPanel;
     
     private void Awake()
     {
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             Instance.CurrentGameState = GameState.Initializing;
-            LoadNewBiome();
         }
     }
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
     // ====================== ## lifecycle ## ======================
     private void Start()
     {
+        controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
 
@@ -58,6 +60,14 @@ public class GameManager : MonoBehaviour
     {
         LoadNewBiome();
         obstacleManager.PopulateTrack(Vector3.forward);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            controlPanel.gameObject.SetActive(!controlPanel.gameObject.activeSelf);
+        }
     }
 
 
@@ -71,7 +81,6 @@ public class GameManager : MonoBehaviour
     // ====================== ## state ## ======================
     public GameState CurrentGameState { get; set; }
     public Pole CurrentPole { get; set; }
-    
     public static Difficulty CurrentDifficulty { get; set; }
     public static Biome CurrentBiome { get; set; }
     
@@ -79,10 +88,10 @@ public class GameManager : MonoBehaviour
     // ====================== ## state ## ======================
     public static void LoadNewBiome()
     {
-        Debug.Log("GameManager.LoadNewBiome()");
-        var randomBiome = (Biome)Random.Range(0, 3);
-        CurrentBiome = randomBiome;
-        CurrentDifficulty = Difficulty.Easy;
+        Debug.Log($"GameManager.LoadNewBiome(): current biome: {CurrentBiome}; difficulty: {CurrentDifficulty}");
+        // var randomBiome = (Biome)Random.Range(0, 3);
+        // CurrentBiome = randomBiome;
+        // CurrentDifficulty = Difficulty.Easy;
     }
     
 

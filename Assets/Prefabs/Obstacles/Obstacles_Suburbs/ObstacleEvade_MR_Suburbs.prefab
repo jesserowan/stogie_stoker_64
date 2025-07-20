@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1018093257631944929}
   - component: {fileID: 8297520556676243926}
   - component: {fileID: 8712831415348211110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_MR_Suburbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7384183939806767583}
   - component: {fileID: 2292546501379822004}
   - component: {fileID: 3188238036369321107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Evade05.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,9 +159,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7748250176098996172}
   - component: {fileID: 7040767014435543022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleEvade_MR_Suburbs
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

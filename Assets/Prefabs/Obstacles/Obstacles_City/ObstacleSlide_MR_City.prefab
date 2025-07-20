@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2160417256577280601}
   - component: {fileID: 6086381911248883884}
   - component: {fileID: 3181316994678424140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_MR_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8568835773732524383}
   - component: {fileID: 8951979888706873068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleSlide_MR_City
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4894021925863182288}
   - component: {fileID: 8736377201386912993}
   - component: {fileID: 2014367950490486427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Slide06.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}

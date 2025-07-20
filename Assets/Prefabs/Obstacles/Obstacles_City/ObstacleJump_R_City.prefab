@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 71547544321843593}
   - component: {fileID: 8691763649215938592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_R_City
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 50788590462637442}
   - component: {fileID: 877802347106526090}
   - component: {fileID: 6458699493352890699}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleJump_R_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 3416542366449238705}
   - component: {fileID: 4825379794581983446}
   - component: {fileID: 1339822239619898322}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obstacle_Jump01.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}

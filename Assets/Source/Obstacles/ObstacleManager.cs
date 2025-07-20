@@ -12,9 +12,9 @@ using Random = UnityEngine.Random;
 public class ObstacleManager : MonoBehaviour
 {
     // ====================== ## Controls ## ======================
-    public bool generateOnStart;
     public bool showDebugPanel;
-    public GameObject debugPanel;
+    private ObstacleDebugger _debugPanel;
+    
     
     // ====================== ## Data ## ======================
     public Player player;
@@ -23,28 +23,32 @@ public class ObstacleManager : MonoBehaviour
     public SpherePosition spherePosition;
     public (Pole north, Pole south) Poles;
     
+    
     // ====================== ## State ## ======================
-    public Vector3 currentTrack;
+    public Vector3 CurrentTrack { get; set; }
 
-    public GameObject Z1;
-    public GameObject ZMinus1;
-    public GameObject X1;
-    public GameObject XMinus1;
-    public GameObject Zenith;
-    public GameObject Nadir;
+    public Dictionary<Vector3, GameObject> Parents = new ();
     
     
     // ====================== ## Lifecycle ## ======================
+    private void Awake()
+    {
+        Parents = GenerateParents();
+    }
+
     private void Start()
     {
         Debug.Log("ObstacleManager.Start()");
-        if (debugPanel) debugPanel.SetActive(showDebugPanel);
+        _debugPanel ??= FindFirstObjectByType<ObstacleDebugger>(FindObjectsInactive.Include);
+        if (_debugPanel) _debugPanel.gameObject.SetActive(showDebugPanel);
 
         var poles = FindObjectsByType<Pole>(FindObjectsSortMode.None);
         if (poles.Length != 2) throw new Exception("There must be 2 poles");
         foreach (var pole in poles)
         { if (pole.which == PoleType.Zenith) Poles.north = pole;
             else Poles.south = pole; }
+
+        Parents ??= GenerateParents();
         
         GameManager.OnPoleExited += HandlePoleExited;
         GameManager.OnPoleEntered += HandlePoleEntered;
@@ -54,6 +58,18 @@ public class ObstacleManager : MonoBehaviour
         Debug.Log($"ObstacleManager.Start(): Done initializing:" +
                   $"\n    > player: {player}\n    > spherePosition: {spherePosition}" +
                   $"\n    > Poles: {Poles}");
+    }
+
+    private Dictionary<Vector3, GameObject> GenerateParents() => new ()
+        { { Vector3.forward, GenerateParent("Forward") }, { Vector3.back, GenerateParent("Backward") },
+            { Vector3.left, GenerateParent("Left") }, { Vector3.right, GenerateParent("Right") },
+            { Vector3.up, GenerateParent("Zenith") }, { Vector3.down, GenerateParent("Nadir") } };
+
+    private GameObject GenerateParent(string parentName)
+    {
+        var newParent = new GameObject($"Mama{parentName}");
+        newParent.transform.SetParent(transform);
+        return newParent;
     }
 
     private void OnDisable()
@@ -83,82 +99,54 @@ public class ObstacleManager : MonoBehaviour
     {
         Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
                   $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
-        ClearTrack(track);
+        SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track));
     }
 
-    public void ClearTrack(Vector3 track)
-    {
-        if (track == Vector3.up) SlaughterChildren(Zenith);
-        else if (track == Vector3.down) SlaughterChildren(Nadir);
-        else if (track == Vector3.forward) SlaughterChildren(Z1);
-        else if (track == Vector3.back) SlaughterChildren(ZMinus1);
-        else if (track == Vector3.right) SlaughterChildren(X1);
-        else if (track == Vector3.left) SlaughterChildren(XMinus1);
-    }
-
     public void SlaughterChildren(GameObject parent)
-    {
-        foreach (Transform child in parent.transform) Destroy(child.gameObject);
-    }
-
-    public Dictionary<Vector3, GameObject> northPoleIntersection = new Dictionary<Vector3, GameObject>
-    { { Vector3.forward, null }, { Vector3.back, null },
-        { Vector3.left, null }, { Vector3.right, null }, };
-
-    public Dictionary<Vector3, GameObject> southPoleIntersection = new Dictionary<Vector3, GameObject>
-    { { Vector3.forward, null }, { Vector3.back, null },
-        { Vector3.left, null }, { Vector3.right, null }, };
+    { foreach (Transform child in parent.transform) Destroy(child.gameObject); }
+    
+    public Dictionary<PoleType, Dictionary<Vector3, GameObject>> Intersections = new ()
+    { { PoleType.Zenith, 
+            new Dictionary<Vector3, GameObject> 
+            { { Vector3.forward, null }, { Vector3.back, null }, { Vector3.left, null }, { Vector3.right, null } } },
+        { PoleType.Nadir, 
+            new Dictionary<Vector3, GameObject> 
+            { { Vector3.forward, null }, { Vector3.back, null }, { Vector3.left, null }, { Vector3.right, null } } } };
 
     public List<Vector3> PopulatePole(PoleType poleType, Vector3 arrivalTrack)
     {
         Debug.Log($"ObstacleManager.PopulatePole(): {poleType}; arrival track: {arrivalTrack}");
-        var intersection = poleType == PoleType.Zenith 
-            ? northPoleIntersection
-            : southPoleIntersection;
         int closedTurns = 0;
         var openTracks = new List<Vector3>();
-        foreach (var turn in intersection.Keys.ToList())
+        ClearIntersection(poleType);
+        foreach (var turn in Intersections[poleType].Keys.ToList())
         {
-            // don't block off the entrance
-            if (turn == arrivalTrack)
-            {
-                Debug.Log($"PopulatePole(): destroying track at {turn} on pole: {poleType}");
-                if (intersection[turn] != null) Destroy(intersection[turn]);
-                intersection[turn] = null;
-            }
-            // ensure at least 1 turn is open
-            else if (closedTurns >= 2)
-            {
-                if (intersection[turn] != null) Destroy(intersection[turn]);
-                intersection[turn] = null;
-                openTracks.Add(turn);
-            }
-            // otherwise coin toss whether to block off or not 
+            if (turn == arrivalTrack) continue;
+            if (closedTurns >= 2) openTracks.Add(turn);
             else
             {
-                Debug.Log($"PopulatePole(): Checking whether to populate: {poleType}.{turn}; closed turns: {closedTurns}");
                 if (Random.value < 0.5)
                 {
-                    Debug.Log($"PopulatePole(): Populating: {poleType}.{turn}");
                     var rb = SpawnRoadblock(GetTrack(turn));
                     DeployRoadblock(rb, poleType, turn);
-                    intersection[turn] = rb.gameObject;
+                    Intersections[poleType][turn] = rb.gameObject;
                     closedTurns++;
-                    ClearTrack(turn);
                 }
-                else
-                {
-                    openTracks.Add(turn);
-                }
+                else openTracks.Add(turn);
             }
         }
-
-        Debug.Log($"PopulatePole(): Generated {closedTurns} roadblocks at pole: {poleType}");
-        Debug.Log($"PopulatePole(): POLE: {poleType} OPEN TRACKS ({openTracks.Count}):");
-        foreach (var openTrack in openTracks) Debug.Log($"    > {openTrack}");
-            
+        
         return openTracks;
+    }
+
+    // TODO -- likely redundant, 
+    private void ClearIntersection(PoleType pole)
+    {
+        Debug.Log($"ClearIntersection(): {pole}");
+        foreach (var poleTrack in Intersections[pole].Keys.ToList())
+        { Destroy(Intersections[pole][poleTrack]);
+            Intersections[pole][poleTrack] = null; }
     }
 
     public void DeployObstacle(Obstacle obstacle, Vector3 axis, float angle)
@@ -174,53 +162,39 @@ public class ObstacleManager : MonoBehaviour
         
         roadblock.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
         roadblock.transform.position += track * 2;
-        roadblock.transform.SetParent(poleType == PoleType.Zenith ? Zenith.transform : Nadir.transform);
+        var parentKey = poleType == PoleType.Zenith ? Vector3.up : Vector3.down;
+        roadblock.transform.SetParent(Parents[parentKey].transform);
     }
 
 
     // ====================== ## event handlers ## ======================
-    public void HandlePoleEntered(Pole pole)
-    {
-        // if (pole.which == PoleType.Zenith) ClearTrack(Vector3.down);
-        // else if (pole.which == PoleType.Nadir) ClearTrack(Vector3.up);
-    }
+    public void HandlePoleEntered(Pole pole) { }
 
     public PoleType GetNextPole(Pole p) => p.which == PoleType.Nadir ? PoleType.Zenith : PoleType.Nadir;
     public void HandlePoleExited(Pole pole)
     {
         Debug.Log($"ObstacleManager.HandlePoleExited(): {pole}");
+        
+        Vector3 currentTrack;
         var playerPos = player.transform.position;
-        Debug.Log($"Player pos: {playerPos}");
-        Vector3 exitTrack;
-        if (playerPos.z > 1.2)
-        {
-            Debug.Log($"Player should be on FORWARD track");
-            exitTrack = Vector3.forward;
-        }
-        else if (playerPos.z < -1.2)
-        {
-            Debug.Log($"Player should be on BACKWARD track");
-            exitTrack = Vector3.back;
-        }
-        else if (playerPos.x > 1.2)
-        {
-            Debug.Log($"Player should be on RIGHT track");
-            exitTrack = Vector3.right;
-        }
-        else if (playerPos.x < -1.2)
-        {
-            Debug.Log($"Player should be on LEFT track");
-            exitTrack = Vector3.left;
-        }
+        if (playerPos.z > 1.2) currentTrack = Vector3.forward;
+        else if (playerPos.z < -1.2) currentTrack = Vector3.back;
+        else if (playerPos.x > 1.2) currentTrack = Vector3.right;
+        else if (playerPos.x < -1.2) currentTrack = Vector3.left;
         else throw new Exception("Unable to determine player exit track");
         
-        Debug.Log($"HandlePoleExited(): Determined exit track: {exitTrack}");
-        var openTracks = PopulatePole(GetNextPole(pole), exitTrack);
+        Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
+        var currentPole = pole.which == PoleType.Zenith ? Vector3.up : Vector3.down;
+        foreach (var parentKey in Parents.Keys.ToList())
+        {
+            if (parentKey == currentTrack || parentKey == currentPole) continue;
+            SlaughterChildren(Parents[parentKey]);
+        }
+        
+        var openTracks = PopulatePole(GetNextPole(pole), currentTrack);
         Debug.Log($"HandlePoleExited(): open tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
-            Debug.Log($"HandlePoleExited(): clearing open track: {track}");
-            ClearTrack(track);
             Debug.Log($"HandlePoleExited(): populating open track: {track}");
             PopulateTrack(track);
         }
@@ -254,19 +228,13 @@ public class ObstacleManager : MonoBehaviour
             index += 1;
             var o = Spawn(isX ? Track.X : Track.Z);
             DeployObstacle(o, axis, angle);
-            Reparent(o, track);
+            o.transform.SetParent(Parents[track].transform);
             yield return new WaitForSeconds(Constants.ObstacleSpawnDelay);
         }
     }
-    
-    private void Reparent(Obstacle obstacle, Vector3 track)
-    {
-        if (track == Vector3.forward) obstacle.transform.SetParent(Z1.transform);
-        else if (track == Vector3.right) obstacle.transform.SetParent(X1.transform);
-        else if (track == Vector3.up) obstacle.transform.SetParent(Zenith.transform);
-        else if (track == Vector3.down) obstacle.transform.SetParent(Nadir.transform);
-        else if (track == Vector3.back) obstacle.transform.SetParent(ZMinus1.transform);
-        else if (track == Vector3.left) obstacle.transform.SetParent(XMinus1.transform);
-    }
 }
 
+// var parentName = key switch { { x: 1 } => "Right", { x: -1 } => "Left", 
+//                               { y: 1 } => "Zenith", { y: -1 } => "Nadir", 
+//                               { z: 1 } => "Forward", { z: -1 } => "Backward", 
+//                               _ => throw new ArgumentOutOfRangeException(nameof(key), key, null) };
