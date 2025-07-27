@@ -147,6 +147,7 @@ public class Player : MonoBehaviour
     {
         var pole = other.gameObject.GetComponent<Pole>();
         if (pole) {
+            GameManager.EnterPole(pole);
             lastPole = pole;
             canTurn = true;
             return;
@@ -171,6 +172,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.GetComponent<Pole>()) return;
+        GameManager.ExitPole();
         hasExitedStartingPose = true;
         canTurn = false;
     }
