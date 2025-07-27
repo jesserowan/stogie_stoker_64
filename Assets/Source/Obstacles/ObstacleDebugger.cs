@@ -71,7 +71,7 @@ public class ObstacleDebugger : MonoBehaviour
     public void PopulateZenith()
     {
         manager.SlaughterChildren(manager.Parents[Vector3.up]);
-        var openTracks = manager.PopulatePole(PoleType.Zenith, Vector3.forward);
+        var openTracks = manager.PopulatePole(Polarity.North, Vector3.forward);
         // Debug.Log($"PopulateZenith(): Open Tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
@@ -83,7 +83,7 @@ public class ObstacleDebugger : MonoBehaviour
     public void PopulateNadir()
     {
         manager.SlaughterChildren(manager.Parents[Vector3.down]);
-        var openTracks = manager.PopulatePole(PoleType.Nadir, Vector3.forward);
+        var openTracks = manager.PopulatePole(Polarity.South, Vector3.forward);
         foreach (var track in openTracks)
         {
             manager.PopulateTrack(track);

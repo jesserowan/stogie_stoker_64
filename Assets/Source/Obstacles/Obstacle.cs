@@ -1,29 +1,13 @@
 // Copyright (c) 2025 by SoftEthix, Inc.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public Collider collider;
+    public TrackOccupation collisionMask;
 
-    private void OnValidate()
-    {
-        collider = GetComponentInChildren<Collider>();
-        
-    }
-
-    private void Awake()
-    {
-        // Debug.Log($"Obstacle::{gameObject.name}.Awake()");
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        
-    }
+    public bool IsObstructiveTo(TrackOccupation query) => (collisionMask & query) > 0;
 
     public void RotateAxis(Track track)
     {

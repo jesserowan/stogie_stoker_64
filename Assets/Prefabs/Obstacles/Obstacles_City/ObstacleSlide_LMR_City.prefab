@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3626133768497890584}
   - component: {fileID: 9116255512278839790}
   - component: {fileID: 399723029038250262}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleSlide_LMR_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,8 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2030063783240085595}
   - component: {fileID: 5703194968450480541}
-  - component: {fileID: 2196295923814359037}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_Slide04.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,27 +127,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5127608250955118915}
   m_Mesh: {fileID: -5523650206773854060, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!65 &2196295923814359037
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127608250955118915}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.032433666, y: 0.002402279, z: 0.007635559}
-  m_Center: {x: 0, y: 1.7462294e-10, z: 0.013618694}
 --- !u!1 &5894561836666228868
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +137,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6548923753381427201}
   - component: {fileID: 80225653192929497}
-  m_Layer: 8
+  - component: {fileID: 3081872154228905373}
+  m_Layer: 0
   m_Name: ObstacleSlide_LMR_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -194,4 +173,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 2196295923814359037}
+  collisionMask: 7
+--- !u!65 &3081872154228905373
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5894561836666228868}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
