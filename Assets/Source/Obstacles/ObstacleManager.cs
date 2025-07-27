@@ -43,7 +43,11 @@ public class ObstacleManager : MonoBehaviour
         if (_debugPanel) _debugPanel.gameObject.SetActive(showDebugPanel);
 
         var poles = FindObjectsByType<Pole>(FindObjectsSortMode.None);
-        if (poles.Length != 2) throw new Exception("There must be 2 poles");
+        if (poles.Length != 2)
+        {
+            Debug.Log($"We found {poles.Length} poles");
+            throw new Exception("There must be 2 poles");
+        }
         foreach (var pole in poles)
         { if (pole.which == Polarity.North) Poles.north = pole;
             else Poles.south = pole; }
@@ -173,7 +177,7 @@ public class ObstacleManager : MonoBehaviour
     public Polarity GetNextPole(Pole p) => p.which == Polarity.South ? Polarity.North : Polarity.South;
     public void HandlePoleExited(Pole pole)
     {
-        // Debug.Log($"ObstacleManager.HandlePoleExited(): {pole}");
+        Debug.Log($"ObstacleManager.HandlePoleExited(): {pole}");
 
         Vector3 currentTrack;
         var playerPos = player.transform.position;
@@ -183,7 +187,7 @@ public class ObstacleManager : MonoBehaviour
         else if (playerPos.x < -1.2) currentTrack = Vector3.left;
         else throw new Exception("Unable to determine player exit track");
 
-        // Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
+        Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
         var currentPole = pole.which == Polarity.North ? Vector3.up : Vector3.down;
         foreach (var parentKey in Parents.Keys.ToList())
         {

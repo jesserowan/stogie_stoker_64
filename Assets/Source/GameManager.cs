@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public ControlPanelUI controlPanel;
     [SerializeField] public RuntimeUI runtimeUI;
     [SerializeField] public WorldAudio worldAudio;
-
-    public Pole northPole;
     
     
     // ====================== ## state ## ======================
@@ -78,7 +76,6 @@ public class GameManager : MonoBehaviour
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
         worldAudio ??= FindFirstObjectByType<WorldAudio>();
-        // CurrentPole = northPole;
         if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
@@ -103,8 +100,10 @@ public class GameManager : MonoBehaviour
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        // Debug.Log($"GameManager.LoadMap()");
+        Debug.Log($"GameManager.LoadMap()");
         worldAudio.PlayTheme();
+        Debug.Log($"GameManager.LoadMap() planet manager zen: {planetManager.zenith}; nad: {planetManager.nadir}");
+        CurrentPole = planetManager.zenith;
         CurrentPlanet = planetManager.SpawnPlanet();
         obstacleManager.PopulateTrack(Vector3.forward);
     }
@@ -112,20 +111,21 @@ public class GameManager : MonoBehaviour
     public static void EnterPole(Pole pole)
     {
         if (Instance == null) return;
-        // Debug.Log($"GameManager.EnterPole(): {pole}");
+        Debug.Log($"GameManager.EnterPole(): {pole}");
         Instance.CurrentPole = pole;
+        Debug.Log($"GameManager.EnterPole(): new CurrentPole {Instance.CurrentPole}");
         OnPoleEntered?.Invoke(pole);
     }
 
-    public static void ExitPole()
+    public static void ExitPole(Pole poleExited)
     {
         if (Instance == null) return;
-        // Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
-        var previousPole = Instance.CurrentPole;
+        Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
         Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing) 
             Instance.CurrentGameState = GameState.Playing;
-        OnPoleExited?.Invoke(previousPole);
+        Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
+        OnPoleExited?.Invoke(poleExited);
     }
 
     public static void CompleteCourse()
@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
         // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
         Instance.CurrentGameState = GameState.GameOver;
+        Time.timeScale = 0.1f;
         Instance.worldAudio.StopTheme();
         Instance.runtimeUI.OnWin();
         
