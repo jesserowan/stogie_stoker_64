@@ -1,6 +1,7 @@
 using System;
 using Source;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public ControlPanelUI controlPanel;
     [SerializeField] public RuntimeUI runtimeUI;
     [SerializeField] public WorldAudio worldAudio;
+
+    public Pole northPole;
     
     
     // ====================== ## state ## ======================
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviour
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
         worldAudio ??= FindFirstObjectByType<WorldAudio>();
+        // CurrentPole = northPole;
         if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
@@ -87,6 +91,11 @@ public class GameManager : MonoBehaviour
             var wasPaused = controlPanel.gameObject.activeSelf;
             controlPanel.gameObject.SetActive(!wasPaused);
             CurrentGameState = wasPaused ? GameState.Playing : GameState.Paused;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene(1);
         }
     }
     
@@ -123,6 +132,7 @@ public class GameManager : MonoBehaviour
     {
         // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
+        Instance.CurrentGameState = GameState.GameOver;
         Instance.worldAudio.StopTheme();
         Instance.runtimeUI.OnWin();
         

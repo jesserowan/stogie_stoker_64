@@ -6,22 +6,29 @@ public class RuntimeUI : MonoBehaviour
 {
     public Image image;
 
-    public Sprite winSprite;
-    public Sprite loseSprite;
+    public Sprite cityWinSprite;
+    public Sprite countryWinSprite;
+    public Sprite suburbsWinSprite;
 
     private void Start()
     {
-        image.sprite = null;
+        image.enabled = false;
     }
 
     public void OnWin()
     {
-        Debug.Log("OnWin");
-        image.sprite = winSprite;
+        image.sprite = GetBiomeSprite();
+        image.enabled = true;
     }
 
-    public void OnLose()
+    private Sprite GetBiomeSprite()
     {
-        image.sprite = loseSprite;
+        return GameManager.CurrentBiome switch
+        {
+            Biome.City => cityWinSprite,
+            Biome.Country => countryWinSprite,
+            Biome.Suburbs => suburbsWinSprite,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }
