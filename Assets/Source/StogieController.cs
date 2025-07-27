@@ -84,9 +84,9 @@ public class StogieController : MonoBehaviour
         if (IsSmoking && glow.current >= glow.max) return;
         if (!IsSmoking && glow.current <= glow.min) return;
         
-        Debug.Log($"BurnEmber(): state: {state}; glow.current: {glow.current}");
+        // Debug.Log($"BurnEmber(): state: {state}; glow.current: {glow.current}");
         var newGlow = Mathf.Clamp(glow.current + glow.speed * (IsSmoking ? 1f : -1f), glow.min, glow.max);
-        Debug.Log($"BurnEmber(): newGlow: {newGlow}");
+        // Debug.Log($"BurnEmber(): newGlow: {newGlow}");
         glow.current = newGlow;
         _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
         stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glow.current);

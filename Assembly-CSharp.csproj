@@ -56,9 +56,11 @@
     <Compile Include="Assets/Source/ControlPanelUI.cs" />
     <Compile Include="Assets/Source/Pole.cs" />
     <Compile Include="Assets/Source/Burn.cs" />
+    <Compile Include="Assets/Source/PlanetData.cs" />
     <Compile Include="Assets/Source/Obstacles/Obstacle.cs" />
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
     <Compile Include="Assets/Source/Player.cs" />
+    <Compile Include="Assets/Source/PlanetManager.cs" />
     <Compile Include="Assets/Source/Planet.cs" />
     <Compile Include="Assets/Prefabs/Obstacles/ObstacleData.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

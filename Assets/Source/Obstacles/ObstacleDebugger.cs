@@ -72,10 +72,10 @@ public class ObstacleDebugger : MonoBehaviour
     {
         manager.SlaughterChildren(manager.Parents[Vector3.up]);
         var openTracks = manager.PopulatePole(PoleType.Zenith, Vector3.forward);
-        Debug.Log($"PopulateZenith(): Open Tracks: {openTracks.Count}");
+        // Debug.Log($"PopulateZenith(): Open Tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
-            Debug.Log($"PopulateZenith(): Populating track: {track}");
+            // Debug.Log($"PopulateZenith(): Populating track: {track}");
             manager.PopulateTrack(track);
         }
     }
@@ -92,7 +92,7 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void SetDifficulty(int difficulty)
     {
-        Debug.Log($"SetDifficulty(): Setting difficulty: {difficulty}");
+        // Debug.Log($"SetDifficulty(): Setting difficulty: {difficulty}");
         GameManager.CurrentDifficulty = difficulty switch
         { 2 => Difficulty.Hard,
             1 => Difficulty.Mid,
@@ -101,7 +101,7 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void SetBiome(int biome)
     {
-        Debug.Log($"SetBiome(): Setting biome: {biome}");
+        // Debug.Log($"SetBiome(): Setting biome: {biome}");
         GameManager.CurrentBiome = biome switch
         { 2 => Biome.City,
             1 => Biome.Suburbs,
