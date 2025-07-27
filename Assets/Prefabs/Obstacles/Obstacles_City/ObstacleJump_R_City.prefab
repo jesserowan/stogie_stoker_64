@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 71547544321843593}
   - component: {fileID: 8691763649215938592}
-  m_Layer: 8
+  - component: {fileID: -7003831724577889741}
+  m_Layer: 0
   m_Name: ObstacleJump_R_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -45,7 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 1339822239619898322}
+  collisionMask: 32
+--- !u!65 &-7003831724577889741
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676630268947262715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2208156937339441149
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +79,7 @@ GameObject:
   - component: {fileID: 50788590462637442}
   - component: {fileID: 877802347106526090}
   - component: {fileID: 6458699493352890699}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleJump_R_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,8 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3416542366449238705}
   - component: {fileID: 4825379794581983446}
-  - component: {fileID: 1339822239619898322}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_Jump01.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,24 +195,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5528680277109980869}
   m_Mesh: {fileID: -1492349086248819105, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!65 &1339822239619898322
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5528680277109980869}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.008099971, y: 0.002402279, z: 0.007635558}
-  m_Center: {x: 0.01202752, y: 1.74623e-10, z: 0.003817779}

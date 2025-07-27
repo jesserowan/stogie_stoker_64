@@ -1,33 +1,31 @@
-using System;
-using Source;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ObstacleDebugger : MonoBehaviour
 {
-    public ObstacleManager manager;
     public Button populateX1;
-    public Button populateXMinus1;
     public Button populateZ1;
+    public TMP_Dropdown setBiome;
+    public TMP_Dropdown setDifficulty;
+    public ObstacleManager manager;
+    public Button populateXMinus1;
     public Button populateZMinus1;
     public Button populateZenith;
     public Button populateNadir;
-    public TMP_Dropdown setDifficulty;
-    public TMP_Dropdown setBiome;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         populateX1.onClick.AddListener(PopulateX1);
         populateXMinus1.onClick.AddListener(PopulateXMinus1);
-        
+
         populateZ1.onClick.AddListener(PopulateZ1);
         populateZMinus1.onClick.AddListener(PopulateZMinus1);
-        
+
         populateNadir.onClick.AddListener(PopulateNadir);
         populateZenith.onClick.AddListener(PopulateZenith);
-        
+
         setDifficulty.onValueChanged.AddListener(SetDifficulty);
         setBiome.onValueChanged.AddListener(SetBiome);
     }
@@ -36,10 +34,10 @@ public class ObstacleDebugger : MonoBehaviour
     {
         populateNadir.onClick.RemoveAllListeners();
         populateZenith.onClick.RemoveAllListeners();
-        
+
         populateX1.onClick.RemoveAllListeners();
         populateXMinus1.onClick.RemoveAllListeners();
-        
+
         populateZ1.onClick.RemoveAllListeners();
         populateZMinus1.onClick.RemoveAllListeners();
 
@@ -55,7 +53,7 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void PopulateXMinus1()
     {
-        manager.PopulateTrack(Vector3.left); 
+        manager.PopulateTrack(Vector3.left);
     }
 
     public void PopulateZ1()
@@ -71,7 +69,7 @@ public class ObstacleDebugger : MonoBehaviour
     public void PopulateZenith()
     {
         manager.SlaughterChildren(manager.Parents[Vector3.up]);
-        var openTracks = manager.PopulatePole(PoleType.Zenith, Vector3.forward);
+        var openTracks = manager.PopulatePole(Polarity.North, Vector3.forward);
         // Debug.Log($"PopulateZenith(): Open Tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
@@ -83,7 +81,7 @@ public class ObstacleDebugger : MonoBehaviour
     public void PopulateNadir()
     {
         manager.SlaughterChildren(manager.Parents[Vector3.down]);
-        var openTracks = manager.PopulatePole(PoleType.Nadir, Vector3.forward);
+        var openTracks = manager.PopulatePole(Polarity.South, Vector3.forward);
         foreach (var track in openTracks)
         {
             manager.PopulateTrack(track);

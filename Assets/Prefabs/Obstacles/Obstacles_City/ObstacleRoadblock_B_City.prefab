@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4895424076007595063}
   - component: {fileID: 7808987174393708791}
   - component: {fileID: 6498759708328851088}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_RoadBlock.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4172397609658849810}
   - component: {fileID: 316430734448657983}
   - component: {fileID: 1232898456312257958}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleRoadblock_B_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6424407553813888923}
   - component: {fileID: 8596408457000841283}
-  m_Layer: 8
+  - component: {fileID: -8665622558708761981}
+  m_Layer: 0
   m_Name: ObstacleRoadblock_B_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -194,4 +195,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 6498759708328851088}
+  collisionMask: -1
+--- !u!65 &-8665622558708761981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631627162523929355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
