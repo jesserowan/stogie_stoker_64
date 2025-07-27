@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public ObstacleManager obstacleManager;
     [SerializeField] public PlanetManager planetManager;
     [SerializeField] public ControlPanelUI controlPanel;
+    [SerializeField] public RuntimeUI runtimeUI;
     [SerializeField] public WorldAudio worldAudio;
     
     
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        runtimeUI ??= FindFirstObjectByType<RuntimeUI>();
         controlPanel ??= FindFirstObjectByType<ControlPanelUI>();
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
@@ -122,10 +124,12 @@ public class GameManager : MonoBehaviour
         // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
         Instance.worldAudio.StopTheme();
+        Instance.runtimeUI.OnWin();
+        
         // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
-        Instance.CurrentGameState = GameState.GameOver;
+        // Instance.CurrentGameState = GameState.GameOver;
         // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
-        Instance.controlPanel.gameObject.SetActive(true);
+        // Instance.controlPanel.gameObject.SetActive(true);
         // Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
     }
 }

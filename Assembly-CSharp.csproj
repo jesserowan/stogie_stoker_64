@@ -55,6 +55,7 @@
     <Compile Include="Assets/Source/GameManager.cs" />
     <Compile Include="Assets/Source/Constants.cs" />
     <Compile Include="Assets/Source/ControlPanelUI.cs" />
+    <Compile Include="Assets/RuntimeUI.cs" />
     <Compile Include="Assets/Source/Pole.cs" />
     <Compile Include="Assets/Source/Burn.cs" />
     <Compile Include="Assets/Source/PlanetData.cs" />
