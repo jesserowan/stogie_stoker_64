@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad83655b0f3d47d4a07c4a554e968263, type: 3}
-  m_Name: PlanetData
+  m_Name: PlanetCatalogue
   m_EditorClassIdentifier: 
   Metropolis: {fileID: 2399634036125704067, guid: 889a059ed61c84861bdeb18a3aa9decd, type: 3}
   Suburbia: {fileID: 4434017745125270203, guid: 478d3edcf5b1f406c95bd550f95afd51, type: 3}

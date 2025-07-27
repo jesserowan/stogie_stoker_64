@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 344984630224642793}
   - component: {fileID: 6244652591200505360}
-  - component: {fileID: 9058820294599300474}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_Slide05.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,27 +40,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34587146818466596}
   m_Mesh: {fileID: -6768258959025595639, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!65 &9058820294599300474
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34587146818466596}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.020255893, y: 0.002402279, z: 0.007635559}
-  m_Center: {x: -0.0060888864, y: 1.7462294e-10, z: 0.013618694}
 --- !u!1 &2245064174152128322
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +50,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7823749820282950889}
   - component: {fileID: 3352275643375705978}
-  m_Layer: 8
+  - component: {fileID: 3197906136250316123}
+  m_Layer: 0
   m_Name: ObstacleSlide_LM_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -107,7 +86,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 9058820294599300474}
+  collisionMask: 3
+--- !u!65 &3197906136250316123
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245064174152128322}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3504108307581523857
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 3172069428463832867}
   - component: {fileID: 454882846960879118}
   - component: {fileID: 911386204134469068}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleSlide_LM_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,63 +1,58 @@
-using System;
-using Source;
 using UnityEngine;
-
-public enum GameState
-{
-    Initializing,
-    Playing,
-    Paused,
-    GameOver,
-}
-
-public enum Biome
-{
-    City,
-    Suburbs,
-    Country,
-}
-
-public enum Difficulty
-{
-    Easy,
-    Mid,
-    Hard,
-}
+using System;
 
 public class GameManager : MonoBehaviour
 {
     // ====================== ## singleton ## ======================
     public static GameManager Instance;
-    
-    
+
+    public static GameState InitialState;
+    public static GameState PauseState;
+    public static GameState PlayState;
+    public static GameState WinState;
+    public static GameState LoseState;
+
+
     // ====================== ## data ## ======================
     [SerializeField] public ObstacleManager obstacleManager;
-    [SerializeField] public PlanetManager planetManager;
     [SerializeField] public ControlPanelUI controlPanel;
-    
-    
+    [SerializeField] public PlanetManager planetManager;
+
+    [SerializeField] public Pole northPole;
+    [SerializeField] public Pole southPole;
+
+
     // ====================== ## state ## ======================
-    public GameState CurrentGameState { get; set; }
+    public static Biome CurrentBiome { get; set; }
+    public static Difficulty CurrentDifficulty { get; set; }
+
+    private GameState _currentGameState;
+
+    public static GameState CurrentGameState
+    {
+        get => Instance._currentGameState;
+        set {
+            if (Instance.controlPanel.gameObject)
+                Instance.controlPanel.gameObject.SetActive(value != PlayState);
+            Instance._currentGameState = value;
+        }
+    }
+
     public Planet CurrentPlanet { get; set; }
     public Pole CurrentPole { get; set; }
-    public static Difficulty CurrentDifficulty { get; set; }
-    public static Biome CurrentBiome { get; set; }
-    
-    
+
+
     // ====================== ## events ## ======================
     public static event Action<Pole> OnPoleEntered;
     public static event Action<Pole> OnPoleExited;
-    
+
 
     // ====================== ## lifecycle ## ======================
     private void Awake()
     {
-        if (Instance != null) Destroy(gameObject);
-        else
-        {
-            Instance = this;
-            Instance.CurrentGameState = GameState.Initializing;
-        }
+        if (Instance == null)
+         Destroy(gameObject);
+        else Instance = this;
     }
 
     private void OnApplicationQuit()
@@ -65,28 +60,27 @@ public class GameManager : MonoBehaviour
         Instance = null;
         Destroy(gameObject);
     }
-    
+
     private void Start()
     {
         controlPanel ??= FindFirstObjectByType<ControlPanelUI>();
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
-        if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Instance.CurrentGameState == GameState.GameOver) return;
-            var wasPaused = controlPanel.gameObject.activeSelf;
-            controlPanel.gameObject.SetActive(!wasPaused);
-            CurrentGameState = wasPaused ? GameState.Playing : GameState.Paused;
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) CurrentGameState
+            = CurrentGameState == LoseState ? InitialState
+            : CurrentGameState == WinState ? InitialState
+            : CurrentGameState == PlayState ? PauseState
+            : CurrentGameState == PauseState ? PlayState
+            : CurrentGameState;
+
     }
-    
-    
+
+
     // ====================== ## util ## ======================
     public void LoadMap()
     {
@@ -98,7 +92,6 @@ public class GameManager : MonoBehaviour
     public static void EnterPole(Pole pole)
     {
         if (Instance == null) return;
-        // Debug.Log($"GameManager.EnterPole(): {pole}");
         Instance.CurrentPole = pole;
         OnPoleEntered?.Invoke(pole);
     }
@@ -106,22 +99,21 @@ public class GameManager : MonoBehaviour
     public static void ExitPole()
     {
         if (Instance == null) return;
-        // Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
         var previousPole = Instance.CurrentPole;
         Instance.CurrentPole = null;
-        if (Instance.CurrentGameState == GameState.Initializing) 
-            Instance.CurrentGameState = GameState.Playing;
         OnPoleExited?.Invoke(previousPole);
     }
 
     public static void CompleteCourse()
     {
-        // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
-        // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
-        Instance.CurrentGameState = GameState.GameOver;
-        // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
-        Instance.controlPanel.gameObject.SetActive(true);
-        // Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
+        Instance._currentGameState = WinState;
+    }
+
+    public static void GameOver()
+    {
+        if (Instance == null) return;
+        Instance._currentGameState = LoseState;
     }
 }
+
