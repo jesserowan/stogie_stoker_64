@@ -1,19 +1,17 @@
-using System;
 using UnityEngine;
 
-namespace Source
+public enum Polarity
 {
-public enum PoleType
-{
-    Zenith = 1,
-    Nadir = -1
+    North = 1,
+    Neutral = 0,
+    South = -1
 }
 
 [RequireComponent(typeof(BoxCollider))]
 public class Pole : MonoBehaviour
 {
     public float height = 1;
-    public PoleType which = PoleType.Zenith;
+    public Polarity which = Polarity.North;
     private BoxCollider _box;
 
     private void Init() {
@@ -39,9 +37,9 @@ public class Pole : MonoBehaviour
         var outTrackN = -inTrackN;
         var outDirN = inDirN * inTurnN * -1;
         var outLaneN = inTurn > 0 ? inLaneN : -inLaneN;
-        var outTheta = which is PoleType.Zenith
-            ? SpherePosition.ANGLE_HALF_PI
-            : SpherePosition.ANGLE_TWO_PI - SpherePosition.ANGLE_HALF_PI;
+        var outTheta = which is Polarity.North
+            ? Location.ANGLE_HALF_PI
+            : Location.ANGLE_TWO_PI - Location.ANGLE_HALF_PI;
 
         var outTrack = (Track)outTrackN;
         var outDir = (Heading)outDirN;
@@ -57,8 +55,7 @@ public class Pole : MonoBehaviour
     //     Debug.Log($"Pole.OnTriggerEnter: {other.name} -- collision detected");
     //     if (other.CompareTag("Player"))
     //     {
-    //         
+    //
     //     }
     // }
-}
 }

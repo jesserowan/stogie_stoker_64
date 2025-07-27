@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7735114370696839899}
   - component: {fileID: 7542159151965849658}
-  - component: {fileID: 5384138922557140740}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_Evade06.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,28 +40,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029504515290667335}
   m_Mesh: {fileID: 1291067224521465203, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!64 &5384138922557140740
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029504515290667335}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1291067224521465203, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
 --- !u!1 &2889761430000646354
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +51,7 @@ GameObject:
   - component: {fileID: 6629575306266915003}
   - component: {fileID: 5632208110501116112}
   - component: {fileID: 6087150019454549229}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleEvade_LR_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +137,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5243519040037476757}
   - component: {fileID: 3239784965301703714}
-  m_Layer: 8
+  - component: {fileID: 7370661236402169511}
+  m_Layer: 0
   m_Name: ObstacleEvade_LR_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -195,4 +173,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 5384138922557140740}
+  collisionMask: 45
+--- !u!65 &7370661236402169511
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607529766194445458}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
