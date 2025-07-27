@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6568217854306464541}
   - component: {fileID: 9188250210733311595}
-  - component: {fileID: 8221961823037610930}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: obstacle_Jump06.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,27 +40,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647198152658692432}
   m_Mesh: {fileID: -7090977928574369159, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!65 &8221961823037610930
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647198152658692432}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.02027332, y: 0.002402279, z: 0.007635558}
-  m_Center: {x: 0.006080173, y: 1.74623e-10, z: 0.003817779}
 --- !u!1 &4919369339656254884
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +50,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1977938408506477964}
   - component: {fileID: 3344527821167076265}
-  m_Layer: 8
+  - component: {fileID: -4428374544920398031}
+  m_Layer: 0
   m_Name: ObstacleJump_MR_City
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -107,7 +86,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 8221961823037610930}
+  collisionMask: 48
+--- !u!65 &-4428374544920398031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4919369339656254884}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5838690862439258342
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 7396349976325944331}
   - component: {fileID: 5016165329287957111}
   - component: {fileID: 348320635094275960}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ObstacleJump_MR_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}

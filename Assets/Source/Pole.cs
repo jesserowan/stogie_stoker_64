@@ -1,64 +1,50 @@
-using System;
 using UnityEngine;
 
-namespace Source
-{
-public enum PoleType
-{
-    Zenith = 1,
-    Nadir = -1
-}
+public enum Polarity { North = 1, Neutral = 0, South = -1 }
 
 [RequireComponent(typeof(BoxCollider))]
 public class Pole : MonoBehaviour
 {
     public float height = 1;
-    public PoleType which = PoleType.Zenith;
+    public Polarity polarity = Polarity.North;
     private BoxCollider _box;
-
-    private void Init() {
-        var width = Constants.PoleWidth;
-        if (!_box) _box = GetComponent<BoxCollider>(); _box.size = new Vector3(width, height, width);
-        transform.position = new Vector3(0, (int)which * (Constants.WorldRadius + 0.5f * height), 0);
-        _box.isTrigger = true;
-    }
 
     private void OnValidate() { Init(); }
     private void OnEnable() { Init(); }
     private void Start() { Init(); }
 
+    private void Init()
+    {
+        var width = Constants.PoleWidth;
+        if (!_box) _box = GetComponent<BoxCollider>(); _box.size = new Vector3(width, height, width);
+        transform.position = new Vector3(0, (int) polarity * (Constants.WorldRadius + 0.5f * height), 0);
+        _box.isTrigger = true;
+    }
+
     public (Track outTrack, Heading outDir, Lane outLane, float outTheta)
-        GetParamsForTurn(Track inTrack, Heading inDir, Lane inLane, Turn inTurn)
+        InterpretTurn(Track inTrack, Heading inDir, Lane inLane, Turn inTurn)
     {
         var inTrackN = (int)inTrack;
-        var inDirN = (int)inDir;
         var inLaneN = (int)inLane;
         var inTurnN = (int)inTurn;
-        var whichN = (int)which;
+        var whichN = (int)polarity;
+        var inDirN = (int)inDir;
 
         var outTrackN = -inTrackN;
         var outDirN = inDirN * inTurnN * -1;
         var outLaneN = inTurn > 0 ? inLaneN : -inLaneN;
-        var outTheta = which is PoleType.Zenith
-            ? SpherePosition.ANGLE_HALF_PI
-            : SpherePosition.ANGLE_TWO_PI - SpherePosition.ANGLE_HALF_PI;
+        var outTheta = polarity is Polarity.North
+            ? Location.ANGLE_HALF_PI
+            : Location.ANGLE_TWO_PI - Location.ANGLE_HALF_PI;
 
         var outTrack = (Track)outTrackN;
-        var outDir = (Heading)outDirN;
         var outLane = (Lane)outLaneN;
+        var outDir = (Heading)outDirN;
 
-        // Debug.Log($"Turning on {whichN}: ({inTrack} ({inTrackN}), {inDir} ({inDirN}), {inLane} ({inLaneN}), {inTurn} ({inTurnN}))");
-        // Debug.Log($"                   > ({outTrack} ({outTrackN}), {outDir} ({outDirN}), {outLane} ({outLaneN}), {outTheta})");
+        Debug.Log($"Turning on {polarity} ({whichN}):");
+        Debug.Log($" i: ({inTrack} ({inTrackN}), {inDir} ({inDirN}), {inLane} ({inLaneN}), {inTurn} ({inTurnN}))");
+        Debug.Log($" o: ({outTrack} ({outTrackN}), {outDir} ({outDirN}), {outLane} ({outLaneN}), {outTheta})");
         return (outTrack, outDir, outLane, outTheta);
     }
+}
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     Debug.Log($"Pole.OnTriggerEnter: {other.name} -- collision detected");
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         
-    //     }
-    // }
-}
-}

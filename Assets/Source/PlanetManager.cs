@@ -1,20 +1,19 @@
-using Source;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlanetManager : MonoBehaviour
 {
-    public PlanetData planetData;
-
-    public Planet activePlanet;
+    public static Planet planet;
+    [FormerlySerializedAs("planetData")] public PlanetCatalogue catalogue;
 
     public Planet SpawnPlanet()
     {
         Debug.Log($"PlanetManager.SpawnPlanet(): Spawning planet for biome: {GameManager.CurrentBiome}");
-        if (activePlanet) Destroy(activePlanet.gameObject);
-        activePlanet = null;
+        if (planet != null) Destroy(planet.gameObject);
+        planet = null;
         var biome = GameManager.CurrentBiome;
-        activePlanet = planetData.GetPlanet(biome);
-        activePlanet.transform.SetParent(gameObject.transform);
-        return activePlanet;
+        planet = catalogue.GetPlanet(biome);
+        planet.transform.SetParent(gameObject.transform);
+        return planet;
     }
 }

@@ -10,23 +10,22 @@ public class ObstacleData : ScriptableObject
     public List<Obstacle> cityObstacles = new (18);
     [SerializeField]
     public List<Obstacle> cityRoadblocks = new (2);
-    
+
     [SerializeField]
     public List<Obstacle> countryObstacles = new (18);
     [SerializeField]
     public List<Obstacle> countryRoadblocks = new (2);
-    
+
     [SerializeField]
     public List<Obstacle> suburbsObstacles = new (18);
     [SerializeField]
     public List<Obstacle> suburbsRoadblocks = new (2);
 
-    
+
     public Obstacle GetObstacle(Biome biome, int index = -1)
     {
         if (index < 0) index = Random.Range(0, 17);
-        return biome switch
-        {
+        return biome switch {
             Biome.City => cityObstacles[index],
             Biome.Country => countryObstacles[index],
             Biome.Suburbs => suburbsObstacles[index],
@@ -37,8 +36,7 @@ public class ObstacleData : ScriptableObject
     public Obstacle GetRoadblock(Biome biome, int index = -1)
     {
         if (index < 0) index = Random.Range(0, 1);
-        return biome switch
-        {
+        return biome switch {
             Biome.City => cityRoadblocks[index],
             Biome.Country => countryRoadblocks[index],
             Biome.Suburbs => suburbsRoadblocks[index],
@@ -52,7 +50,7 @@ public class ObstacleData : ScriptableObject
         var roadblock = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         return roadblock;
     }
-    
+
     public Obstacle SpawnObstacle()
     {
         var prefab = GetObstacle(GameManager.CurrentBiome);
