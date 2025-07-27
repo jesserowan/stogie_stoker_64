@@ -7,6 +7,9 @@ public class PlanetManager : MonoBehaviour
 
     public Planet activePlanet;
 
+    public Pole zenith;
+    public Pole nadir;
+
     public Planet SpawnPlanet()
     {
         Debug.Log($"PlanetManager.SpawnPlanet(): Spawning planet for biome: {GameManager.CurrentBiome}");

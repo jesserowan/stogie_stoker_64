@@ -170,6 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData: {fileID: 11400000, guid: 00549e465aec048c3ae816ac848f4ece, type: 2}
   activePlanet: {fileID: 0}
+  zenith: {fileID: 1882230751122974301}
+  nadir: {fileID: 8260386412317220556}
 --- !u!1 &5311032319964674921
 GameObject:
   m_ObjectHideFlags: 0

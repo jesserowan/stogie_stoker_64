@@ -171,8 +171,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.GetComponent<Pole>()) return;
-        GameManager.ExitPole();
+        if (!other.TryGetComponent<Pole>(out var p)) return;
+        
+        GameManager.ExitPole(p);
         hasExitedStartingPose = true;
         canTurn = false;
     }
