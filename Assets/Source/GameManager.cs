@@ -1,7 +1,7 @@
 using System;
-using Source;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public enum GameState
 {
@@ -29,28 +29,33 @@ public class GameManager : MonoBehaviour
 {
     // ====================== ## singleton ## ======================
     public static GameManager Instance;
-    
-    
+
     // ====================== ## data ## ======================
     [SerializeField] public ObstacleManager obstacleManager;
-    [SerializeField] public PlanetManager planetManager;
     [SerializeField] public ControlPanelUI controlPanel;
-    [SerializeField] public RuntimeUI runtimeUI;
+    [SerializeField] public PlanetManager planetManager;
     [SerializeField] public WorldAudio worldAudio;
-    
-    
+    [SerializeField] public RuntimeUI runtimeUI;
+
     // ====================== ## state ## ======================
+    [SerializeField] private IntegerVariable remainingLives;
+    [SerializeField] private DifficultyValue currentDifficulty;
+
+    public static DifficultyValue CurrentDifficulty {
+        get => Instance.currentDifficulty;
+        set => Instance.currentDifficulty = value;
+    }
+
+    public static Biome CurrentBiome { get; set; }
     public GameState CurrentGameState { get; set; }
     public Planet CurrentPlanet { get; set; }
     public Pole CurrentPole { get; set; }
-    public static Difficulty CurrentDifficulty { get; set; }
-    public static Biome CurrentBiome { get; set; }
-    
-    
+
+
     // ====================== ## events ## ======================
     public static event Action<Pole> OnPoleEntered;
     public static event Action<Pole> OnPoleExited;
-    
+
 
     // ====================== ## lifecycle ## ======================
     private void Awake()
@@ -68,14 +73,14 @@ public class GameManager : MonoBehaviour
         Instance = null;
         Destroy(gameObject);
     }
-    
+
     private void Start()
     {
         runtimeUI ??= FindFirstObjectByType<RuntimeUI>();
+        worldAudio ??= FindFirstObjectByType<WorldAudio>();
         controlPanel ??= FindFirstObjectByType<ControlPanelUI>();
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
-        worldAudio ??= FindFirstObjectByType<WorldAudio>();
         if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
     }
@@ -95,8 +100,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
-    
-    
+
+
     // ====================== ## util ## ======================
     public void LoadMap()
     {
@@ -122,7 +127,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null) return;
         Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
         Instance.CurrentPole = null;
-        if (Instance.CurrentGameState == GameState.Initializing) 
+        if (Instance.CurrentGameState == GameState.Initializing)
             Instance.CurrentGameState = GameState.Playing;
         Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
         OnPoleExited?.Invoke(poleExited);
@@ -136,7 +141,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.1f;
         Instance.worldAudio.StopTheme();
         Instance.runtimeUI.OnWin();
-        
+
         // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
         // Instance.CurrentGameState = GameState.GameOver;
         // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");

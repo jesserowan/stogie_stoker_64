@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2848136338606728610}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.123132, y: 3.7356634, z: 0.024999758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -45,5 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 0}
-  planetManager: {fileID: 0}
   controlPanel: {fileID: 0}
+  planetManager: {fileID: 0}
+  worldAudio: {fileID: 0}
+  runtimeUI: {fileID: 0}
+  remainingLives: {fileID: 11400000, guid: 6ddcc2a9722f4490eb6fe062cf3d6e5e, type: 2}
+  currentDifficulty: {fileID: 11400000, guid: 64e88ab5c990d4d0580210d0bb6db64f, type: 2}

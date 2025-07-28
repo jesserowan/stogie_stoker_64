@@ -7,21 +7,16 @@ public class Burn : MonoBehaviour
     public Renderer ember;
 
     public Vector2 tile;
-    
-    public bool IsSmoking { get; set; }
-    
-    public float DifficultyMultiplier => GameManager.CurrentDifficulty switch
-    {
-        Difficulty.Hard => .1f,
-        Difficulty.Mid => .25f,
-        _ => .5f
-    };
-    
+
+    public BooleanVariable isSmoking;
+
+    public float DifficultyMultiplier => GameManager.CurrentDifficulty.burnMultiplier;
+
     public float ScaleStep => Time.deltaTime / 10 * DifficultyMultiplier;
     public float TextureScaleStep => Time.deltaTime / 8 * DifficultyMultiplier;
 
     public float threshold = 0.2f;
-    
+
     void Awake()
     {
         rend ??= GetComponent<Renderer>();
@@ -33,7 +28,7 @@ public class Burn : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.CurrentGameState == GameState.GameOver) return;
-        if (IsSmoking) Shrink();
+        if (isSmoking.Value) Shrink();
     }
 
     public void Shrink()
