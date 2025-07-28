@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D))
         {
             if (canTurn && lastPole) { canTurn = false; Heading nextDir;
-                var currentDir = currentSpeed < 0 ? Heading.Forward : Heading.Backward;
+                var currentDir = currentSpeed > 0 ? Heading.Forward : Heading.Backward;
                 (location.track, nextDir, location.lane, location.theta) =
                     lastPole.GetParamsForTurn(location.track, currentDir, location.lane, Turn.Right);
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.TryGetComponent<Pole>(out var p)) return;
-        
+
         GameManager.ExitPole(p);
         hasExitedStartingPose = true;
         canTurn = false;

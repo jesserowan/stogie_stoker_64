@@ -34,7 +34,7 @@ public class Pole : MonoBehaviour
         var inDirN = (int)inDir;
 
         var outTrackN = -inTrackN;
-        var outDirN = inDirN * inTurnN * -1;
+        var outDirN = whichN * inTrackN * inDirN * inTurnN;
         var outLaneN = inTurn > 0 ? inLaneN : -inLaneN;
         var outTheta = which is Polarity.North
             ? Location.ANGLE_HALF_PI
