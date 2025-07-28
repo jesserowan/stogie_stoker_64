@@ -46,6 +46,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OverlayCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 7698902903145513593, guid: 798c4ac596a8044aa85f2066886d81db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8918833399445678876, guid: 798c4ac596a8044aa85f2066886d81db, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5928854
@@ -94,11 +98,6 @@ PrefabInstance:
 --- !u!4 &1993210808855184783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8918833399445678876, guid: 798c4ac596a8044aa85f2066886d81db, type: 3}
-  m_PrefabInstance: {fileID: 6948844298180832915}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &4453999266976236410 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6746543625194778089, guid: 798c4ac596a8044aa85f2066886d81db, type: 3}
   m_PrefabInstance: {fileID: 6948844298180832915}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7744200267722741066
@@ -155,6 +154,10 @@ PrefabInstance:
       propertyPath: near clip plane
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3271307023329385824, guid: 4370d81dbb04c457aaa60b3bfd037642, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 447
+      objectReference: {fileID: 0}
     - target: {fileID: 3482471686677084132, guid: 4370d81dbb04c457aaa60b3bfd037642, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.2499993
@@ -186,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 8734869673822166314, guid: 4370d81dbb04c457aaa60b3bfd037642, type: 3}
       propertyPath: 'm_Cameras.Array.data[0]'
       value: 
-      objectReference: {fileID: 4453999266976236410}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

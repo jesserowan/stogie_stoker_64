@@ -2,11 +2,10 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Source;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ObstacleManager : MonoBehaviour
@@ -95,8 +94,7 @@ public class ObstacleManager : MonoBehaviour
     public Obstacle SpawnRoadblock(Track track)
     {
         var roadblock = obstacleData.SpawnRoadblock();
-        roadblock.RotateAxis(track);
-        return roadblock;
+        roadblock.RotateAxis(track); return roadblock;
     }
 
     public void PopulateTrack(Vector3 track)
@@ -210,15 +208,9 @@ public class ObstacleManager : MonoBehaviour
     private bool IsX(Vector3 track) => track == Vector3.right || track == Vector3.left;
     private Track GetTrack(Vector3 trackVector) => IsX(trackVector) ? Track.X : Track.Z;
 
-    public List<int> easyTracks = new() {     30,     60,     90,      120,      150,     };
-    public List<int> midTracks = new()  { 15,     45, 60,     90, 105,      135,      165 };
-    public List<int> hardTracks = new() { 15,     45, 60, 75,     105, 120, 135, 150, 165 };
-
     private IEnumerator SpawnAlongTrack(Vector3 track)
     {
-        var arrangement = GameManager.CurrentDifficulty switch
-        { Difficulty.Easy => easyTracks, Difficulty.Mid => midTracks, Difficulty.Hard => hardTracks,
-            _ => throw new ArgumentOutOfRangeException() };
+        var arrangement = GameManager.CurrentDifficulty.obstacleBlueprint;
         var index = 0;
         var isX = IsX(track);
         // Debug.Log($"SpawnAlongTrack(): Track: {track}; IsX: {isX}; isPositive: {IsPositive(track)}");

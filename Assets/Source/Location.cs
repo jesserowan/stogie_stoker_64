@@ -12,7 +12,7 @@ public enum Row
 
 public enum Lane { Center = 0, Right = 1, Left = -1 }
 
-public enum Heading { Forward = -1, Backward = 1 }
+public enum Heading { Forward = 1, Backward = -1 }
 
 public enum Turn { Left = -1, Right = 1 }
 
@@ -63,8 +63,8 @@ public struct Location
     }
 
     public Vector3 DerivePosition() => track switch {
-        Track.Z => new Vector3(0f, radius * Mathf.Sin(theta), radius * Mathf.Cos(theta)),
-        Track.X => new Vector3(radius * Mathf.Cos(theta), radius * Mathf.Sin(theta), 0f),
+        Track.Z => new Vector3(0f, radius * Mathf.Sin(theta), -radius * Mathf.Cos(theta)),
+        Track.X => new Vector3(-radius * Mathf.Cos(theta), radius * Mathf.Sin(theta), 0f),
         _ => Vector3.zero
     };
 
@@ -83,7 +83,8 @@ public struct Location
     {
         var position = DerivePosition();
         var upwards = position.normalized;
-        var forward = track switch { Track.Z => new Vector3(0f, -upwards.z, upwards.y),
+        var forward = track switch {
+            Track.Z => new Vector3(0f, -upwards.z, upwards.y),
             Track.X => new Vector3(upwards.y, -upwards.x, 0f),
             _ => Vector3.forward };
         if (polarity is not Polarity.Neutral &&
@@ -108,8 +109,6 @@ public struct Location
         var angularSpeed = speed / radius;
         theta += angularSpeed;
         if (theta < 0) theta = ANGLE_TWO_PI + theta;
-        if (theta < 0) theta = ANGLE_TWO_PI + theta;
-        if (theta >= ANGLE_TWO_PI) theta = 0f;
         if (theta >= ANGLE_TWO_PI) theta = 0f;
         return DerivePosition();
     }

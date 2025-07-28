@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -11,19 +12,20 @@ public class Player : MonoBehaviour
     [SerializeField] private Pole northPole;
     [SerializeField] private Pole southPole;
     public Pole lastPole;
-    public Pole nextPole => lastPole.which == Polarity.South ? northPole : southPole;
+    public Pole nextPole =>
+        lastPole.which == Polarity.South
+            ? northPole : southPole;
 
-    public const int MAX_LIVES = 100;
-
-    public int lives;
-    public float speed;
-    public float height = 2f;
+    public IntegerVariable lives;
+    public FloatConstant playerSpeed;
+    private const float HEIGHT = 2f;
+    private float currentSpeed;
     public bool canTurn;
     private int doTurn;
     public Location location;
     private bool hasExitedStartingPose;
 
-    public Heading CurrentHeading => speed < 0 ? Heading.Forward : Heading.Backward;
+    public Heading CurrentHeading => currentSpeed < 0 ? Heading.Forward : Heading.Backward;
 
     private void OnEnable()
     {
@@ -39,28 +41,24 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        lives = MAX_LIVES;
         location.Reset();
         hasExitedStartingPose = false;
         var pose = location.DeriveWorldPose();
         _rb.Move(pose.position, pose.rotation);
+        currentSpeed = playerSpeed.Value;
+        lives.Value = 100;
     }
 
     private void FixedUpdate()
     {
-        var multiplier = GameManager.CurrentDifficulty switch {
-            Difficulty.Hard => 1f,
-            Difficulty.Mid => 0.75f,
-            _ => 0.5f
-        };
-
-        var next = location.ApplySpeed(speed * multiplier * Time.fixedDeltaTime, Track.Z);
+        var multiplier = GameManager.CurrentDifficulty.speedMultiplier;
+        var next = location.ApplySpeed(currentSpeed * multiplier * Time.fixedDeltaTime, Track.Z);
 
         var hits = Physics.RaycastNonAlloc(
-            next + (0.5f * height * next.normalized),
+            next + (0.5f * HEIGHT * next.normalized),
             -next.normalized,
             _groundHits,
-            2 * height,
+            2 * HEIGHT,
             LayerMask.GetMask("Ground"));
         if (hits < 1) return;
 
@@ -85,15 +83,13 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A)) {
             if (canTurn && lastPole) {
-                canTurn = false;
-                Heading nextDir;
-                var currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
+                canTurn = false; Heading nextDir;
+                var currentDir = currentSpeed > 0 ? Heading.Forward : Heading.Backward;
                 (location.track, nextDir, location.lane, location.theta) =
                     lastPole.GetParamsForTurn(location.track, currentDir, location.lane, Turn.Left);
-                speed = (int)nextDir * Mathf.Abs(speed);
-                var rbt = _rb.transform;
+                currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
+                doTurn = (int)Turn.Left; var rbt = _rb.transform;
                 _rb.MoveRotation(Quaternion.LookRotation(-rbt.right, rbt.up));
-                doTurn = (int)Turn.Left;
             }
             else if (location.lane != Lane.Left)
             {
@@ -103,15 +99,13 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            if (canTurn && lastPole)
-            {
-                canTurn = false;
-                Heading nextDir;
-                var currentDir = speed < 0 ? Heading.Forward : Heading.Backward;
+            if (canTurn && lastPole) { canTurn = false; Heading nextDir;
+                var currentDir = currentSpeed < 0 ? Heading.Forward : Heading.Backward;
                 (location.track, nextDir, location.lane, location.theta) =
                     lastPole.GetParamsForTurn(location.track, currentDir, location.lane, Turn.Right);
-                speed = (int)nextDir * Mathf.Abs(speed);
-                doTurn = (int)Turn.Right;
+                currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
+                doTurn = (int)Turn.Right; var rbt = _rb.transform;
+                _rb.MoveRotation(Quaternion.LookRotation(rbt.right, rbt.up));
             }
             else if (location.lane != Lane.Right)
             {
@@ -121,8 +115,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W)) {
             Debug.Log("Jump");
-            if (location.row is Row.Span)
-            {
+            if (location.row is Row.Span) {
                 Debug.Log("allowing Jump");
                 _animator.Play(_animator.Jump);
                 location.row = Row.Upper;
@@ -157,8 +150,9 @@ public class Player : MonoBehaviour
         if (obstacle) {
             var position = location.TrackOccupation;
             if (obstacle.IsObstructiveTo(position)) {
-                if (--lives >= 0)
+                if (lives.Value >= 0)
                 {
+                    lives.Value -= 1;
                     _animator.Play(_animator.Trip);
                 }
                 else

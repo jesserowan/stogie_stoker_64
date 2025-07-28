@@ -16,23 +16,22 @@ public class Pole : MonoBehaviour
 
     private void Init() {
         var width = Constants.PoleWidth;
-        if (!_box) _box = GetComponent<BoxCollider>(); _box.size = new Vector3(width, height, width);
+        if (!_box) _box = GetComponent<BoxCollider>();
+        _box.size = new Vector3(width, height, width);
         transform.position = new Vector3(0, (int)which * (Constants.WorldRadius + 0.5f * height), 0);
         _box.isTrigger = true;
     }
 
-    private void OnValidate() { Init(); }
-    private void OnEnable() { Init(); }
     private void Start() { Init(); }
-
+    private void OnEnable() { Init(); }
+    private void OnValidate() { Init(); }
     public (Track outTrack, Heading outDir, Lane outLane, float outTheta)
-        GetParamsForTurn(Track inTrack, Heading inDir, Lane inLane, Turn inTurn)
-    {
-        var inTrackN = (int)inTrack;
-        var inDirN = (int)inDir;
-        var inLaneN = (int)inLane;
-        var inTurnN = (int)inTurn;
+        GetParamsForTurn(Track inTrack, Heading inDir, Lane inLane, Turn inTurn) {
         var whichN = (int)which;
+        var inLaneN = (int)inLane;
+        var inTrackN = (int)inTrack;
+        var inTurnN = (int)inTurn;
+        var inDirN = (int)inDir;
 
         var outTrackN = -inTrackN;
         var outDirN = inDirN * inTurnN * -1;
@@ -45,17 +44,9 @@ public class Pole : MonoBehaviour
         var outDir = (Heading)outDirN;
         var outLane = (Lane)outLaneN;
 
-        // Debug.Log($"Turning on {whichN}: ({inTrack} ({inTrackN}), {inDir} ({inDirN}), {inLane} ({inLaneN}), {inTurn} ({inTurnN}))");
-        // Debug.Log($"                   > ({outTrack} ({outTrackN}), {outDir} ({outDirN}), {outLane} ({outLaneN}), {outTheta})");
+        Debug.Log($"Turning {inTurn} on {which} ({inTurnN} on {whichN})");
+        Debug.Log($" i: track: {inTrack} ({inTrackN}), dir: {inDir} ({inDirN}), lane: {inLane} ({inLaneN}), turn{inTurn} ({inTurnN})");
+        Debug.Log($" o: track: {outTrack} ({outTrackN}), dir: {outDir} ({outDirN}), lane: {outLane} ({outLaneN}), {outTheta})");
         return (outTrack, outDir, outLane, outTheta);
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     Debug.Log($"Pole.OnTriggerEnter: {other.name} -- collision detected");
-    //     if (other.CompareTag("Player"))
-    //     {
-    //
-    //     }
-    // }
 }
