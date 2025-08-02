@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Source;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -101,14 +100,17 @@ public class ObstacleManager : MonoBehaviour
 
     public void PopulateTrack(Vector3 track)
     {
-        // Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
-                  // $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
+        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
+                  $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
         SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track));
     }
 
     public void SlaughterChildren(GameObject parent)
-    { foreach (Transform child in parent.transform) Destroy(child.gameObject); }
+    {
+        Debug.Log($"ObstacleManager.SlaughterChildren(): Emptying parent {parent.name}");
+        foreach (Transform child in parent.transform) Destroy(child.gameObject);
+    }
 
     public Dictionary<Polarity, Dictionary<Vector3, GameObject>> Intersections = new ()
     { { Polarity.North,
