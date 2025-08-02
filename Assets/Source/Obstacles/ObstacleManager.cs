@@ -158,14 +158,14 @@ public class ObstacleManager : MonoBehaviour
     {
         // Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
         obstacle.transform.Rotate(axis, angle);
-        obstacle.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
+        obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
     }
 
     public void DeployRoadblock(Obstacle roadblock, Polarity polarity, Vector3 track)
     {
         if (polarity == Polarity.South) roadblock.transform.Rotate(Vector3.left, 180);
 
-        roadblock.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
+        roadblock.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
         roadblock.transform.position += track * 2;
         var parentKey = polarity == Polarity.North ? Vector3.up : Vector3.down;
         roadblock.transform.SetParent(Parents[parentKey].transform);

@@ -19,6 +19,16 @@ public class PlayerAnimator: MonoBehaviour
     private Animator _animator;
 
     private void OnEnable() { _animator = GetComponent<Animator>(); }
-    private void Start() { _animator.CrossFadeInFixedTime(Run, 0); }
-    public void Play(int state, float blend = 0f) { _animator.CrossFadeInFixedTime(state, blend); }
+
+    private void Start()
+    {
+        Debug.Log($"PlayerAnimator::Start()");
+        _animator.CrossFadeInFixedTime(Run, 0);
+    }
+
+    public void Play(int state, float blend = 0f)
+    {
+        Debug.Log($"PlayerAnimator::Play({state}), blend: {blend}");
+        _animator.CrossFadeInFixedTime(state, blend);
+    }
 }
