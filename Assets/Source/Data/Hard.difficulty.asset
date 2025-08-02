@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1830c282e7ee4ad48ee5469c8ed3a198, type: 3}
+  m_Name: Hard.difficulty
+  m_EditorClassIdentifier: 
+  speedMultiplier: 1
+  burnMultiplier: 0.1
+  at15deg: 1
+  at30deg: 0
+  at45deg: 1
+  at60deg: 1
+  at75deg: 1
+  at90deg: 0
+  at105deg: 1
+  at120deg: 1
+  at135deg: 1
+  at150deg: 1
+  at165deg: 1
+  obstacleBlueprint: 0f0000002d0000003c0000004b00000069000000780000008700000096000000a5000000

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db7cc842e1b81481e85ae58d15a25fdb
+guid: f359df3b105664a72b8960fa33936030
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run01Loop
-      takeName: RNR@Run01Loop
-      internalID: -2362683267955992552
+      name: RunLoop
+      takeName: BUST@Run01Loop
+      internalID: 550388483700055126
       firstFrame: 0
-      lastFrame: 13
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -122,7 +122,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 9dde95df265ee4fb585e1b2e087074dd, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e2d54a5e605f24880b3970b66ac3168f, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

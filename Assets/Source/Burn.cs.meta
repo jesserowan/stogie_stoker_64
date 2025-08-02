@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 9aa206f12d2354698a7d7030f4180f1b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - rend: {instanceID: 0}
+  - ember: {instanceID: 0}
+  - isSmoking: {fileID: 11400000, guid: bd7d4dd2b0ccc4a44a42b49d38e6b3e3, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

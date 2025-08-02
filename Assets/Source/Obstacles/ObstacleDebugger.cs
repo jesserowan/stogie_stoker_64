@@ -15,19 +15,19 @@ public class ObstacleDebugger : MonoBehaviour
     public Button populateNadir;
     public TMP_Dropdown setDifficulty;
     public TMP_Dropdown setBiome;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         populateX1.onClick.AddListener(PopulateX1);
         populateXMinus1.onClick.AddListener(PopulateXMinus1);
-        
+
         populateZ1.onClick.AddListener(PopulateZ1);
         populateZMinus1.onClick.AddListener(PopulateZMinus1);
-        
+
         populateNadir.onClick.AddListener(PopulateNadir);
         populateZenith.onClick.AddListener(PopulateZenith);
-        
+
         setDifficulty.onValueChanged.AddListener(SetDifficulty);
         setBiome.onValueChanged.AddListener(SetBiome);
     }
@@ -36,10 +36,10 @@ public class ObstacleDebugger : MonoBehaviour
     {
         populateNadir.onClick.RemoveAllListeners();
         populateZenith.onClick.RemoveAllListeners();
-        
+
         populateX1.onClick.RemoveAllListeners();
         populateXMinus1.onClick.RemoveAllListeners();
-        
+
         populateZ1.onClick.RemoveAllListeners();
         populateZMinus1.onClick.RemoveAllListeners();
 
@@ -55,7 +55,7 @@ public class ObstacleDebugger : MonoBehaviour
 
     public void PopulateXMinus1()
     {
-        manager.PopulateTrack(Vector3.left); 
+        manager.PopulateTrack(Vector3.left);
     }
 
     public void PopulateZ1()
@@ -93,10 +93,10 @@ public class ObstacleDebugger : MonoBehaviour
     public void SetDifficulty(int difficulty)
     {
         // Debug.Log($"SetDifficulty(): Setting difficulty: {difficulty}");
-        GameManager.CurrentDifficulty = difficulty switch
-        { 2 => Difficulty.Hard,
-            1 => Difficulty.Mid,
-            _ => Difficulty.Easy };
+        // GameManager.CurrentDifficulty = difficulty switch
+        // { 2 => Difficulty.Hard,
+        //     1 => Difficulty.Mid,
+        //     _ => Difficulty.Easy };
     }
 
     public void SetBiome(int biome)
