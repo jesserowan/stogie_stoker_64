@@ -15,7 +15,7 @@ public class Burn : MonoBehaviour
     public float ScaleStep => Time.deltaTime / 10 * DifficultyMultiplier;
     public float TextureScaleStep => Time.deltaTime / 8 * DifficultyMultiplier;
 
-    public float threshold = 0.2f;
+    public float threshold = 0.1f;
 
     void Awake()
     {
@@ -40,6 +40,7 @@ public class Burn : MonoBehaviour
             GameManager.CompleteCourse();
             return;
         }
+        
         transform.localScale -= new Vector3(0, ScaleStep, 0);
         transform.position += new Vector3(ScaleStep, 0, 0);
         tile = new Vector2(1, tile.y - Time.deltaTime / 4);
