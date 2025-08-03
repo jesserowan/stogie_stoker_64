@@ -87,18 +87,18 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Instance.CurrentGameState == GameState.GameOver) return;
-            var wasPaused = controlPanel.gameObject.activeSelf;
-            controlPanel.gameObject.SetActive(!wasPaused);
-            CurrentGameState = wasPaused ? GameState.Playing : GameState.Paused;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneManager.LoadScene(1);
-        }
+        // if (Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     if (Instance.CurrentGameState == GameState.GameOver) return;
+        //     var wasPaused = controlPanel.gameObject.activeSelf;
+        //     controlPanel.gameObject.SetActive(!wasPaused);
+        //     CurrentGameState = wasPaused ? GameState.Playing : GameState.Paused;
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Return))
+        // {
+        //     SceneManager.LoadScene(1);
+        // }
     }
 
 

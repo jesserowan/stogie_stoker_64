@@ -54,6 +54,7 @@
     <Compile Include="Assets/Source/GameManager.cs" />
     <Compile Include="Assets/Source/Constants.cs" />
     <Compile Include="Assets/Source/Scriptables/FloatConstant.cs" />
+    <Compile Include="Assets/JLLevelSelectManager.cs" />
     <Compile Include="Assets/Source/Player/Smoker/StogieController.cs" />
     <Compile Include="Assets/Source/Extensions.cs" />
     <Compile Include="Assets/Source/Planet/Planet.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Assets/Source/UI/TitleUI.cs" />
     <Compile Include="Assets/Source/Scriptables/BooleanVariable.cs" />
     <Compile Include="Assets/Source/UI/ButtonSelection.cs" />
+    <Compile Include="Assets/Unity.VisualScripting.Generated/VisualScripting.Core/AotStubs.cs" />
     <Compile Include="Assets/Source/AudioControllers/WorldAudio.cs" />
     <Compile Include="Assets/Source/Obstacles/Obstacle.cs" />
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
@@ -82,10 +84,12 @@
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
+    <None Include="Assets/JL/0 New/Fonts/Terms of Use End User Lisence Agreement.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl" />
+    <None Include="Assets/Resources/PerformanceTestRunSettings.json" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
     <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
@@ -100,6 +104,7 @@
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
     <None Include="Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" />
+    <None Include="Assets/Resources/PerformanceTestRunInfo.json" />
     <None Include="Assets/TextMesh Pro/Sprites/EmojiOne.json" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
@@ -974,6 +979,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>/Users/altar/src/softethix/jams/Temple Blunt/StogieRun/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>/Users/altar/src/softethix/jams/Temple Blunt/StogieRun/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>/Users/altar/src/softethix/jams/Temple Blunt/StogieRun/Library/ScriptAssemblies/Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>

@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q)) Constants.FieldOfView -= 10f;
         else if (Input.GetKeyDown(KeyCode.E)) Constants.FieldOfView += 10f;
-        else if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+        // else if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 
     private void ResetVertical() { location.row = Row.Span; }
