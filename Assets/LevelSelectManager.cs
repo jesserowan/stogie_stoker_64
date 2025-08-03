@@ -29,32 +29,32 @@ public class LevelSelectManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            selectedBiome = selectedBiome switch
-            {
-                Biome.City => Biome.Country,
-                Biome.Country => Biome.Suburbs,
-                Biome.Suburbs => Biome.City,
-                _ => Biome.City,
-            };
-            background.sprite = GetBackground();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            selectedBiome = selectedBiome switch
-            {
-                Biome.City => Biome.Suburbs,
-                Biome.Country => Biome.City,
-                Biome.Suburbs => Biome.Country,
-                _ => Biome.City,
-            };
-            background.sprite = GetBackground();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Return)) OnPlay();
-        if (Input.GetKeyDown(KeyCode.Escape)) OnBack();
+        // if (Input.GetKeyDown(KeyCode.LeftArrow))
+        // {
+        //     selectedBiome = selectedBiome switch
+        //     {
+        //         Biome.City => Biome.Country,
+        //         Biome.Country => Biome.Suburbs,
+        //         Biome.Suburbs => Biome.City,
+        //         _ => Biome.City,
+        //     };
+        //     background.sprite = GetBackground();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.RightArrow))
+        // {
+        //     selectedBiome = selectedBiome switch
+        //     {
+        //         Biome.City => Biome.Suburbs,
+        //         Biome.Country => Biome.City,
+        //         Biome.Suburbs => Biome.Country,
+        //         _ => Biome.City,
+        //     };
+        //     background.sprite = GetBackground();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Return)) OnPlay();
+        // if (Input.GetKeyDown(KeyCode.Escape)) OnBack();
     }
 
     private void OnPlay()
