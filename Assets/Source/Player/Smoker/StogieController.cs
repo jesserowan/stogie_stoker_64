@@ -27,7 +27,7 @@ public class StogieController : MonoBehaviour
     private static readonly int EmissiveColor = Shader.PropertyToID("_EmissionColor");
 
     // state
-    private float distance;
+    private Vector3 mousePos;
     private Vector3 startPosition;
 
     private TokingState _state;
@@ -60,7 +60,6 @@ public class StogieController : MonoBehaviour
 
     private void Update()
     {
-        DragStogie();
         SetCursor();
         BurnEmber();
     }
@@ -81,12 +80,9 @@ public class StogieController : MonoBehaviour
     { 
         State = TokingState.Hold;
         mousePos = Input.mousePosition - GetMousePosition();
-        // distance = Vector3.Distance(transform.position, mainCamera.transform.position); 
     }
-
-    private Vector3 mousePos;
-
-    private void OnMouseUp() { State = TokingState.Null; _rb.MovePosition(startPosition); }
+    
+    private void OnMouseUp() { DropStogie(); }
 
     private Vector3 GetMousePosition() => mainCamera.WorldToScreenPoint(transform.position);
 
@@ -97,7 +93,7 @@ public class StogieController : MonoBehaviour
         if (State is TokingState.Null or TokingState.Hover) return;
         if (other.CompareTag("Mouth"))
         {
-            Debug.Log($"WE ARE SMOKING NOW");
+            // Debug.Log($"WE ARE SMOKING NOW");
             State = TokingState.Smoke;
         }
     }
@@ -107,7 +103,7 @@ public class StogieController : MonoBehaviour
         if (State is TokingState.Null or TokingState.Hover) return;
         if (other.CompareTag("Mouth"))
         {
-            Debug.Log($"WE ARE done smoking");
+            // Debug.Log($"WE ARE done smoking");
             State = TokingState.Null;
         }
     }
@@ -120,7 +116,7 @@ public class StogieController : MonoBehaviour
         if (!IsSmoking && glow.current <= glow.min) return;
 
         var newGlow = Mathf.Clamp(glow.current + glow.speed * (IsSmoking ? 1f : -1f), glow.min, glow.max);
-        Debug.Log($"BurnEmber(): newGlow: {newGlow}");
+        // Debug.Log($"BurnEmber(): newGlow: {newGlow}");
         glow.current = newGlow;
         _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
         stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
@@ -146,17 +142,17 @@ public class StogieController : MonoBehaviour
                 Cursor.SetCursor(cursorHolding, holdOffset, CursorMode.Auto);
                 break;
             case TokingState.Smoke:
-                Debug.Log($"SetCursor(): state: {State}");
+                // Debug.Log($"SetCursor(): state: {State}");
                 Cursor.SetCursor(cursorSmoking, smokeOffset, CursorMode.Auto);
                 break;
             default: throw new ArgumentOutOfRangeException();
         }
     }
 
-    private void DragStogie()
+    public void DropStogie()
     {
-        // if (State != TokingState.Hold && State != TokingState.Smoke) return;
-        // var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        // _rb.MovePosition(ray.GetPoint(distance));
+        State = TokingState.Null; 
+        _rb.MovePosition(startPosition);
     }
+
 }

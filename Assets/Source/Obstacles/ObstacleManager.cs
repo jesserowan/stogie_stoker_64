@@ -156,8 +156,9 @@ public class ObstacleManager : MonoBehaviour
 
     public void DeployObstacle(Obstacle obstacle, Vector3 axis, float angle)
     {
-        // Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
-        obstacle.transform.Rotate(axis, angle);
+        Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
+        Debug.Log($"######## obstacle position: {obstacle.transform.position}; rotation: {obstacle.transform.rotation.eulerAngles}");
+        obstacle.transform.Rotate(axis, angle, Space.World);
         obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
     }
 
@@ -173,7 +174,10 @@ public class ObstacleManager : MonoBehaviour
 
 
     // ====================== ## event handlers ## ======================
-    public void HandlePoleEntered(Pole pole) { }
+    public void HandlePoleEntered(Pole pole)
+    {
+        
+    }
 
     public Polarity GetNextPole(Pole p) => p.which == Polarity.South ? Polarity.North : Polarity.South;
     public void HandlePoleExited(Pole pole)
@@ -182,10 +186,11 @@ public class ObstacleManager : MonoBehaviour
 
         Vector3 currentTrack;
         var playerPos = player.transform.position;
-        if (playerPos.z > 1.2) currentTrack = Vector3.forward;
-        else if (playerPos.z < -1.2) currentTrack = Vector3.back;
-        else if (playerPos.x > 1.2) currentTrack = Vector3.right;
-        else if (playerPos.x < -1.2) currentTrack = Vector3.left;
+        Debug.Log($"Evaluating player track: {playerPos}");
+        if (playerPos.z > 1.5) currentTrack = Vector3.forward;
+        else if (playerPos.z < -1.5) currentTrack = Vector3.back;
+        else if (playerPos.x > 1.5) currentTrack = Vector3.right;
+        else if (playerPos.x < -1.5) currentTrack = Vector3.left;
         else throw new Exception("Unable to determine player exit track");
 
         Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
