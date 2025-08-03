@@ -1145,7 +1145,7 @@ PrefabInstance:
     - target: {fileID: 7231697101382299553, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 8691016624218704487}
+      objectReference: {fileID: 0}
     - target: {fileID: 8564990077453463064, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
       propertyPath: m_Name
       value: Smoker
@@ -9121,11 +9121,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
---- !u!20 &8691016624218704487 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4453999266976236410, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
-  m_PrefabInstance: {fileID: 8691016624218704486}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8719382903443495849
 GameObject:
   m_ObjectHideFlags: 0
