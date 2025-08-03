@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 8353110741891147251}
+  isRoadblock: 0
+  collisionMask: 18
 --- !u!1 &7090794980443713550
 GameObject:
   m_ObjectHideFlags: 0

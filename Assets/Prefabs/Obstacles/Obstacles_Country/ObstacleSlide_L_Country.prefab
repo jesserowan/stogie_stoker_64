@@ -194,4 +194,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 5208488276187144717}
+  isRoadblock: 0
+  collisionMask: 1
