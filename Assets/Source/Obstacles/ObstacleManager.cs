@@ -99,14 +99,17 @@ public class ObstacleManager : MonoBehaviour
 
     public void PopulateTrack(Vector3 track)
     {
-        // Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
-                  // $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
+        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
+                  $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
         SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track));
     }
 
     public void SlaughterChildren(GameObject parent)
-    { foreach (Transform child in parent.transform) Destroy(child.gameObject); }
+    {
+        Debug.Log($"ObstacleManager.SlaughterChildren(): Emptying parent {parent.name}");
+        foreach (Transform child in parent.transform) Destroy(child.gameObject);
+    }
 
     public Dictionary<Polarity, Dictionary<Vector3, GameObject>> Intersections = new ()
     { { Polarity.North,
@@ -153,16 +156,17 @@ public class ObstacleManager : MonoBehaviour
 
     public void DeployObstacle(Obstacle obstacle, Vector3 axis, float angle)
     {
-        // Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
-        obstacle.transform.Rotate(axis, angle);
-        obstacle.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
+        Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
+        Debug.Log($"######## obstacle position: {obstacle.transform.position}; rotation: {obstacle.transform.rotation.eulerAngles}");
+        obstacle.transform.Rotate(axis, angle, Space.World);
+        obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
     }
 
     public void DeployRoadblock(Obstacle roadblock, Polarity polarity, Vector3 track)
     {
         if (polarity == Polarity.South) roadblock.transform.Rotate(Vector3.left, 180);
 
-        roadblock.transform.Translate(Vector3.up * Constants.WorldRadius, Space.Self);
+        roadblock.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
         roadblock.transform.position += track * 2;
         var parentKey = polarity == Polarity.North ? Vector3.up : Vector3.down;
         roadblock.transform.SetParent(Parents[parentKey].transform);
@@ -170,7 +174,10 @@ public class ObstacleManager : MonoBehaviour
 
 
     // ====================== ## event handlers ## ======================
-    public void HandlePoleEntered(Pole pole) { }
+    public void HandlePoleEntered(Pole pole)
+    {
+        
+    }
 
     public Polarity GetNextPole(Pole p) => p.which == Polarity.South ? Polarity.North : Polarity.South;
     public void HandlePoleExited(Pole pole)
@@ -179,10 +186,11 @@ public class ObstacleManager : MonoBehaviour
 
         Vector3 currentTrack;
         var playerPos = player.transform.position;
-        if (playerPos.z > 1.2) currentTrack = Vector3.forward;
-        else if (playerPos.z < -1.2) currentTrack = Vector3.back;
-        else if (playerPos.x > 1.2) currentTrack = Vector3.right;
-        else if (playerPos.x < -1.2) currentTrack = Vector3.left;
+        Debug.Log($"Evaluating player track: {playerPos}");
+        if (playerPos.z > 1.5) currentTrack = Vector3.forward;
+        else if (playerPos.z < -1.5) currentTrack = Vector3.back;
+        else if (playerPos.x > 1.5) currentTrack = Vector3.right;
+        else if (playerPos.x < -1.5) currentTrack = Vector3.left;
         else throw new Exception("Unable to determine player exit track");
 
         Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");

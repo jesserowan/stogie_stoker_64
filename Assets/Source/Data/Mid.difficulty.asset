@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1830c282e7ee4ad48ee5469c8ed3a198, type: 3}
   m_Name: Mid.difficulty
   m_EditorClassIdentifier: 
-  speedMultiplier: 0.75
+  speedMultiplier: 0.6
   burnMultiplier: 0.25
   at15deg: 1
   at30deg: 0
