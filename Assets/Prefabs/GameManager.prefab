@@ -45,9 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 0}
-  controlPanel: {fileID: 0}
   planetManager: {fileID: 0}
   worldAudio: {fileID: 0}
-  runtimeUI: {fileID: 0}
+  playerAudio: {fileID: 0}
+  player: {fileID: 0}
   remainingLives: {fileID: 11400000, guid: 6ddcc2a9722f4490eb6fe062cf3d6e5e, type: 2}
-  currentDifficulty: {fileID: 11400000, guid: 64e88ab5c990d4d0580210d0bb6db64f, type: 2}
+  currentDifficulty: {fileID: 11400000, guid: 7ba556100013b451a9439cb59d637211, type: 2}
+  easy: {fileID: 11400000, guid: 7ba556100013b451a9439cb59d637211, type: 2}
+  med: {fileID: 11400000, guid: 64e88ab5c990d4d0580210d0bb6db64f, type: 2}
+  hard: {fileID: 11400000, guid: f79f02c8f78ca4deea3a1793e4adf368, type: 2}
+  fadeDur: 5
