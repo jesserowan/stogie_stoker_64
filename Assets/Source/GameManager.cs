@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance == null) return;
         Instance.CurrentGameState = GameState.GameOver;
-        Time.timeScale = 0.1f;
+        // Time.timeScale = 0.1f;
         Instance.worldAudio.StopTheme();
         SceneManager.LoadScene("JLWinScreen");
 

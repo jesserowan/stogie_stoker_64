@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9151714ed542218aba2b53a3cccc27, type: 3}
   m_Name: RemainingLives
   m_EditorClassIdentifier: 
-  value: 0
+  value: -1
+  defaultValue: 9

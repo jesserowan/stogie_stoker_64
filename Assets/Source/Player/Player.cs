@@ -57,10 +57,9 @@ public class Player : MonoBehaviour
         hasExitedStartingPose = false;
         var pose = location.DeriveWorldPose();
         _rb.Move(pose.position, pose.rotation);
+        lives.Reset();
         yield return new WaitForSeconds(3f);
         currentSpeed = playerSpeed.Value;
-        lives.Value = 100;
-        // hasStarted = true;
     }
 
     private void FixedUpdate()
