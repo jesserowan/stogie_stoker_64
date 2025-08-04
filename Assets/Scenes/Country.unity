@@ -1083,7 +1083,7 @@ PrefabInstance:
     - target: {fileID: 5835537260673004976, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
       propertyPath: currentDifficulty
       value: 
-      objectReference: {fileID: 11400000, guid: 64e88ab5c990d4d0580210d0bb6db64f, type: 2}
+      objectReference: {fileID: 11400000, guid: f79f02c8f78ca4deea3a1793e4adf368, type: 2}
     - target: {fileID: 5960842245606824829, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.123132
