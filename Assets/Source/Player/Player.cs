@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,9 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Pole northPole;
     [SerializeField] private Pole southPole;
     public Pole lastPole;
-    public Pole nextPole =>
-        lastPole.which == Polarity.South
-            ? northPole : southPole;
 
     public IntegerVariable lives;
     public FloatConstant playerSpeed;
@@ -26,6 +24,7 @@ public class Player : MonoBehaviour
     public Location location;
     private bool hasExitedStartingPose;
 
+    public bool hasStarted;
     public bool IsTrackOpen(Vector3 targetTrack)
     {
         Debug.Log($"IsTrackOpen: local/inpole: {canTurn}; target track: {targetTrack}");
@@ -50,14 +49,18 @@ public class Player : MonoBehaviour
     private void OnDisable() { _rb = null; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
+    private IEnumerator Start()
     {
+        hasStarted = false;
+        currentSpeed = 0f;
         location.Reset();
         hasExitedStartingPose = false;
         var pose = location.DeriveWorldPose();
         _rb.Move(pose.position, pose.rotation);
+        yield return new WaitForSeconds(3f);
         currentSpeed = playerSpeed.Value;
         lives.Value = 100;
+        // hasStarted = true;
     }
 
     private void FixedUpdate()
@@ -92,6 +95,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!hasStarted) return;
         if (Input.GetKeyDown(KeyCode.A)) QueueTurn(Vector3.left);
         else if (Input.GetKeyDown(KeyCode.D)) QueueTurn(Vector3.right);
 
@@ -124,7 +128,7 @@ public class Player : MonoBehaviour
         if (pole) {
             GameManager.EnterPole(pole);
             lastPole = pole;
-            canTurn = true;
+            if (hasStarted) canTurn = true;
             return;
         }
 
@@ -174,6 +178,7 @@ public class Player : MonoBehaviour
     {
         if (!other.TryGetComponent<Pole>(out var p)) return;
 
+        if (!hasStarted) hasStarted = true;
         GameManager.ExitPole(p);
         hasExitedStartingPose = true;
         canTurn = false;
