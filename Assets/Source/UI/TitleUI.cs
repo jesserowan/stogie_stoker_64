@@ -8,11 +8,13 @@ public class TitleUI : MonoBehaviour
     public Button startButton;
     public Image startButtonLighter;
     public Button quitButton;
+    public Texture2D mainCursor;
 
     private void OnEnable()
     {
         quitButton.onClick.AddListener(OnQuitPressed);
         startButton.onClick.AddListener(OnStartPressed);
+        Cursor.SetCursor(mainCursor, new Vector2(24, 16), CursorMode.Auto);
     }
 
     private void OnDisable()
@@ -30,6 +32,6 @@ public class TitleUI : MonoBehaviour
     public void OnStartPressed()
     {
         Debug.Log("OnStartPressed");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("JLWarningScreen");
     }
 }
