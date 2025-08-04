@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Source/Player/Smoker/Burn.cs" />
+    <Compile Include="Assets/Source/Player/Smoker/GhostStogie.cs" />
     <Compile Include="Assets/Source/Scriptables/PositionVariable.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleManager.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleDebugger.cs" />
@@ -67,11 +68,13 @@
     <Compile Include="Assets/Source/UI/ButtonSelection.cs" />
     <Compile Include="Assets/Unity.VisualScripting.Generated/VisualScripting.Core/AotStubs.cs" />
     <Compile Include="Assets/Source/AudioControllers/WorldAudio.cs" />
+    <Compile Include="Assets/SlowTimeWhenEnabled.cs" />
     <Compile Include="Assets/Source/Obstacles/Obstacle.cs" />
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
     <Compile Include="Assets/Source/Scriptables/Difficulty.cs" />
     <Compile Include="Assets/Source/Planet/PlanetData.cs" />
     <Compile Include="Assets/Source/UI/ControlPanelUI.cs" />
+    <Compile Include="Assets/Source/AudioControllers/PlayerAudio.cs" />
     <Compile Include="Assets/Source/Scriptables/IntegerVariable.cs" />
     <Compile Include="Assets/Source/Player/PlayerAnimator.cs" />
     <Compile Include="Assets/Source/Player/Player.cs" />

@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public IntegerVariable lives;
     public FloatConstant playerSpeed;
     private const float HEIGHT = 2f;
-    private float currentSpeed;
+    public float currentSpeed;
     public bool canTurn;
     private int doTurn;
     public Location location;
@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
         _rb.MovePosition(nextPosition);
     }
 
+    public bool banJumping;
     private void Update()
     {
         if (!hasStarted) return;
@@ -100,15 +101,17 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W)) {
             Debug.Log("Jump");
-            if (location.row is Row.Span) {
-                Debug.Log("allowing Jump");
+            if (location.row is Row.Span && !banJumping) { // temp; 
+                // Debug.Log("allowing Jump");
+                GameManager.BroadcastJump();
                 _animator.Play(_animator.Jump);
                 location.row = Row.Upper;
             }
         } else if (Input.GetKeyDown(KeyCode.S)) {
             Debug.Log("Slide");
-            if (location.row is Row.Span) {
-                Debug.Log("allowing Slide");
+            if (location.row is Row.Span && !banJumping) {
+                // Debug.Log("allowing Slide");
+                GameManager.BroadcastSlide();
                 _animator.Play(_animator.Slide);
                 location.row = Row.Lower;
             }
@@ -133,26 +136,26 @@ public class Player : MonoBehaviour
 
         var obstacle = other.gameObject.GetComponent<Obstacle>();
         if (obstacle) {
-            Debug.Log($"Encountered Obstacle: {obstacle.name} {obstacle}");
+            // Debug.Log($"Encountered Obstacle: {obstacle.name} {obstacle}");
             if (obstacle.isRoadblock)
             {
-                Debug.Log($"######## Roadblock detected");
+                // Debug.Log($"######## Roadblock detected");
                 var noTurn = GetTurnVector(Vector3.forward);
                 var left = GetTurnVector(Vector3.left);
                 var right = GetTurnVector(Vector3.right);
-                Debug.Log($"######## mapped local turn options to global track vector3 keys: " +
-                          $"straight: {noTurn} left: {left} right: {right}");
+                // Debug.Log($"######## mapped local turn options to global track vector3 keys: " +
+                //           $"straight: {noTurn} left: {left} right: {right}");
                 if (!IsTrackOpen(noTurn))
                 {
-                    Debug.Log($"TRIGGER ######## straight ahead should be closed since we hit it");
+                    // Debug.Log($"TRIGGER ######## straight ahead should be closed since we hit it");
                     if (IsTrackOpen(left))
                     {
-                        Debug.Log($"Can turn left: {left}");
+                        // Debug.Log($"Can turn left: {left}");
                         QueueTurn(Vector3.left);
                     }
                     else if (IsTrackOpen(right))
                     {
-                        Debug.Log($"Can turn right: {right}");
+                        // Debug.Log($"Can turn right: {right}");
                         QueueTurn(Vector3.right);
                     }
                     else throw new Exception($"TEST: No available tracks to turn onto.");
@@ -164,10 +167,12 @@ public class Player : MonoBehaviour
                 {
                     lives.Value -= 1;
                     _animator.Play(_animator.Trip);
+                    GameManager.BroadcastImpact();
                 }
                 else
                 {
                     _animator.Play(_animator.Fall);
+                    GameManager.CompleteCourse(false);
                 }
             }
         }
@@ -195,13 +200,13 @@ public class Player : MonoBehaviour
         {
             if (location.track == Track.Z) turnVector = Forward ? Vector3.left : Vector3.right;
             else turnVector = Forward ? Vector3.forward : Vector3.back;
-            Debug.Log($"######## left turn leads to track: {turnVector}");
+            // Debug.Log($"######## left turn leads to track: {turnVector}");
         }
         else if (turnRequest == Vector3.right)
         {
             if (location.track == Track.Z) turnVector = Forward ? Vector3.right : Vector3.left;
             else turnVector = Forward ? Vector3.back : Vector3.forward;
-            Debug.Log($"######## right turn leads to track: {turnVector}");
+            // Debug.Log($"######## right turn leads to track: {turnVector}");
         }
         else if (turnRequest == Vector3.forward)
         {
@@ -217,7 +222,7 @@ public class Player : MonoBehaviour
                     ? Forward ? Vector3.right : Vector3.left
                     : Forward ? Vector3.left : Vector3.right; 
             }
-            Debug.Log($"######## no turn leads to track: {turnVector}");
+            // Debug.Log($"######## no turn leads to track: {turnVector}");
         }
         else throw new Exception("invalid turn?");
         return turnVector;
@@ -232,7 +237,7 @@ public class Player : MonoBehaviour
                 Vector3 turnVector = GetTurnVector(Vector3.left);
                 if (!IsTrackOpen(turnVector))
                 {
-                    Debug.Log($"QueueTurn(): Requested left turn to track {turnVector} is unavailable.");
+                    // Debug.Log($"QueueTurn(): Requested left turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it
                     return;
                 }
@@ -247,6 +252,7 @@ public class Player : MonoBehaviour
             else if (location.lane != Lane.Left)
             {
                 location.lane = location.lane is Lane.Center ? Lane.Left : Lane.Center;
+                GameManager.BroadcastLaneSwitch(location.lane);
             }
         } else if (turnDirection == Vector3.right)
         {
@@ -255,7 +261,7 @@ public class Player : MonoBehaviour
                 Vector3 turnVector = GetTurnVector(Vector3.right);
                 if (!IsTrackOpen(turnVector))
                 {
-                    Debug.Log($"QueueTurn(): Requested right turn to track {turnVector} is unavailable.");
+                    // Debug.Log($"QueueTurn(): Requested right turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it 
                     return;
                 }
@@ -269,6 +275,7 @@ public class Player : MonoBehaviour
             else if (location.lane != Lane.Right)
             {
                 location.lane = location.lane is Lane.Center ? Lane.Right : Lane.Center;
+                GameManager.BroadcastLaneSwitch(location.lane);
             }
         }
     }

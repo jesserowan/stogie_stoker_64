@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -32,10 +33,10 @@ public class GameManager : MonoBehaviour
 
     // ====================== ## data ## ======================
     [SerializeField] public ObstacleManager obstacleManager;
-    [SerializeField] public ControlPanelUI controlPanel;
     [SerializeField] public PlanetManager planetManager;
     [SerializeField] public WorldAudio worldAudio;
-    [SerializeField] public RuntimeUI runtimeUI;
+    [SerializeField] public PlayerAudio playerAudio;
+    [SerializeField] public Player player;
 
     // ====================== ## state ## ======================
     [SerializeField] private IntegerVariable remainingLives;
@@ -55,6 +56,14 @@ public class GameManager : MonoBehaviour
     // ====================== ## events ## ======================
     public static event Action<Pole> OnPoleEntered;
     public static event Action<Pole> OnPoleExited;
+    public static event Action OnImpact;
+    public static event Action OnWin;
+    public static event Action OnLose;
+    
+    public static event Action OnJump;
+    
+    public static event Action OnSlide;
+    public static event Action<Lane> OnLaneSwitch;
 
 
     // ====================== ## lifecycle ## ======================
@@ -76,38 +85,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        runtimeUI ??= FindFirstObjectByType<RuntimeUI>();
         worldAudio ??= FindFirstObjectByType<WorldAudio>();
-        controlPanel ??= FindFirstObjectByType<ControlPanelUI>();
+        playerAudio ??= FindFirstObjectByType<PlayerAudio>();
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
-        if (controlPanel) controlPanel.gameObject.SetActive(false);
         LoadMap();
-    }
-
-    private void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.Escape))
-        // {
-        //     if (Instance.CurrentGameState == GameState.GameOver) return;
-        //     var wasPaused = controlPanel.gameObject.activeSelf;
-        //     controlPanel.gameObject.SetActive(!wasPaused);
-        //     CurrentGameState = wasPaused ? GameState.Playing : GameState.Paused;
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.Return))
-        // {
-        //     SceneManager.LoadScene(1);
-        // }
     }
 
 
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        Debug.Log($"GameManager.LoadMap()");
+        // Debug.Log($"GameManager.LoadMap()");
         worldAudio.PlayTheme();
-        Debug.Log($"GameManager.LoadMap() planet manager zen: {planetManager.zenith}; nad: {planetManager.nadir}");
+        // Debug.Log($"GameManager.LoadMap() planet manager zen: {planetManager.zenith}; nad: {planetManager.nadir}");
         CurrentPole = planetManager.zenith;
         CurrentPlanet = planetManager.SpawnPlanet();
         obstacleManager.PopulateTrack(Vector3.forward);
@@ -116,35 +107,77 @@ public class GameManager : MonoBehaviour
     public static void EnterPole(Pole pole)
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.EnterPole(): {pole}");
+        // Debug.Log($"GameManager.EnterPole(): {pole}");
         Instance.CurrentPole = pole;
-        Debug.Log($"GameManager.EnterPole(): new CurrentPole {Instance.CurrentPole}");
+        // Debug.Log($"GameManager.EnterPole(): new CurrentPole {Instance.CurrentPole}");
         OnPoleEntered?.Invoke(pole);
     }
 
     public static void ExitPole(Pole poleExited)
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
+        // Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
         Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing)
             Instance.CurrentGameState = GameState.Playing;
-        Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
+        // Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
         OnPoleExited?.Invoke(poleExited);
     }
 
-    public static void CompleteCourse()
+    public static void BroadcastImpact()
+    {
+        // if (Instance == null) return;
+        Debug.Log($"<color=yellow><b>IMPACT DETECTED</b></color>");
+        OnImpact?.Invoke();
+    }
+
+    public static void BroadcastLaneSwitch(Lane lane)
+    {
+        Debug.Log($"<color=blue><b>LANE SWITCH DETECTED</b></color>");
+        OnLaneSwitch?.Invoke(lane);
+    }
+    
+    public static void BroadcastJump() => OnJump?.Invoke();
+    public static void BroadcastSlide() => OnSlide?.Invoke();
+    
+    public static void CompleteCourse(bool win = true)
     {
         if (Instance == null) return;
-        Instance.CurrentGameState = GameState.GameOver;
-        // Time.timeScale = 0.1f;
-        Instance.worldAudio.StopTheme();
-        SceneManager.LoadScene("JLWinScreen");
+        if (win) Instance.Win();
+        else Instance.Lose();
+    }
 
-        // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
-        // Instance.CurrentGameState = GameState.GameOver;
-        // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
-        // Instance.controlPanel.gameObject.SetActive(true);
-        // Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
+    public void Win()
+    {
+        Instance.CurrentGameState = GameState.GameOver;
+        OnWin?.Invoke();
+        StartCoroutine(FadeToVictory());
+    }
+
+    public void Lose()
+    {
+        Instance.CurrentGameState = GameState.GameOver;
+        OnLose?.Invoke();
+        StartCoroutine(FadeToVictory(false));
+    }
+
+    public float fadeDur = 5;
+    private IEnumerator FadeToVictory(bool win = true)
+    {
+        float fadeDuration = fadeDur;
+        Time.timeScale = 0.5f;
+        while (fadeDuration > 0f)
+        {
+            var step = Mathf.Clamp(fadeDuration / fadeDur, 0, 1);
+            Time.timeScale = step / 2;
+            if (win) worldAudio.ModulateLowPass(step);
+            else worldAudio.ModulateHighPass(step);
+            fadeDuration -= 0.05f;
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        
+        Time.timeScale = 1;
+        if (win) SceneManager.LoadScene("JLWinScreen");
+        else SceneManager.LoadScene("JLLoseScreen");
     }
 }
