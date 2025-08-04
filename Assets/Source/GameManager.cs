@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -136,15 +137,33 @@ public class GameManager : MonoBehaviour
     public static void CompleteCourse()
     {
         if (Instance == null) return;
-        Instance.CurrentGameState = GameState.GameOver;
-        // Time.timeScale = 0.1f;
-        Instance.worldAudio.StopTheme();
-        SceneManager.LoadScene("JLWinScreen");
+        Instance.Win();
+    }
 
-        // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
-        // Instance.CurrentGameState = GameState.GameOver;
-        // Debug.Log($"GameManager.CompleteCourse(): should be game over: {Instance.CurrentGameState}");
-        // Instance.controlPanel.gameObject.SetActive(true);
-        // Debug.Log($"GameManager.CompleteCourse(): UI should have opened");
+    public void Win()
+    {
+        Instance.CurrentGameState = GameState.GameOver;
+        Debug.Log($"GameManager.Win(): current time scale: {Time.timeScale}");
+        StartCoroutine(FadeToVictory());
+    }
+
+    public float fadeDur = 5;
+    private IEnumerator FadeToVictory()
+    {
+        float fadeDuration = fadeDur;
+        Time.timeScale = 0.5f;
+        while (fadeDuration > 0f)
+        {
+            var step = Mathf.Clamp(fadeDuration / fadeDur, 0, 1);
+            Debug.Log($"GameManager.Fade(): {fadeDuration} / {fadeDur} = {step}");
+            Time.timeScale = step / 2;
+            Debug.Log($"GameManager.Fade(): new time scale: {Time.timeScale}");
+            worldAudio.ModulateLowPass(step);
+            fadeDuration -= 0.05f;
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        
+        Time.timeScale = 1;
+        SceneManager.LoadScene("JLWinScreen");
     }
 }

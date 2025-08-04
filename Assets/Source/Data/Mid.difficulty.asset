@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Mid.difficulty
   m_EditorClassIdentifier: 
   speedMultiplier: 0.6
-  burnMultiplier: 0.25
-  at15deg: 1
-  at30deg: 0
-  at45deg: 1
+  burnMultiplier: 0.5
+  at15deg: 0
+  at30deg: 1
+  at45deg: 0
   at60deg: 1
   at75deg: 0
   at90deg: 1
   at105deg: 1
   at120deg: 0
   at135deg: 1
-  at150deg: 0
-  at165deg: 1
-  obstacleBlueprint: 0f0000002d0000003c0000005a0000006900000087000000a5000000
+  at150deg: 1
+  at165deg: 0
+  obstacleBlueprint: 1e0000003c0000005a000000690000008700000096000000

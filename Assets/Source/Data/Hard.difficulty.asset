@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 0.8
   burnMultiplier: 0.1
-  at15deg: 1
-  at30deg: 0
+  at15deg: 0
+  at30deg: 1
   at45deg: 1
-  at60deg: 1
+  at60deg: 0
   at75deg: 1
-  at90deg: 0
+  at90deg: 1
   at105deg: 1
-  at120deg: 1
-  at135deg: 0
+  at120deg: 0
+  at135deg: 1
   at150deg: 1
-  at165deg: 1
-  obstacleBlueprint: 0f0000002d0000003c0000004b000000690000007800000096000000a5000000
+  at165deg: 0
+  obstacleBlueprint: 1e0000002d0000004b0000005a000000690000008700000096000000
