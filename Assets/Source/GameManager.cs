@@ -135,12 +135,11 @@ public class GameManager : MonoBehaviour
 
     public static void CompleteCourse()
     {
-        // Debug.Log($"GameManager.CompleteCourse()");
         if (Instance == null) return;
         Instance.CurrentGameState = GameState.GameOver;
         Time.timeScale = 0.1f;
         Instance.worldAudio.StopTheme();
-        Instance.runtimeUI.OnWin();
+        SceneManager.LoadScene("JLWinScreen");
 
         // Debug.Log($"GameManager.CompleteCourse(): we have the instance");
         // Instance.CurrentGameState = GameState.GameOver;

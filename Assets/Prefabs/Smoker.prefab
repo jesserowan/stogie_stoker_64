@@ -485,17 +485,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 8993517809765794756}
-  cursorDefault: {fileID: 2800000, guid: 4a5e76cf035a044109ecb3c152e1826a, type: 3}
-  cursorHovering: {fileID: 2800000, guid: d13d24d10e2874cbd97ed3db733b2b27, type: 3}
-  cursorHolding: {fileID: 2800000, guid: ca09889b9e6b54647ae509eb4faf57ba, type: 3}
-  cursorSmoking: {fileID: 2800000, guid: 31eb914bd88e74226981e592f514a0ee, type: 3}
+  cursorDefault: {fileID: 2800000, guid: 402c4b10c32c240aa91fc21811c6fae0, type: 3}
+  cursorHovering: {fileID: 2800000, guid: ccb896b0e3d1a4309931d9dd5d1ccca2, type: 3}
+  cursorHolding: {fileID: 2800000, guid: 76d9da4b356e94a09b8630041e0c4db6, type: 3}
+  cursorSmoking: {fileID: 2800000, guid: 83444ec4411524d2cbbb3975980b636e, type: 3}
   ember: {fileID: 7867953888864360789}
   stogieBurnMeter: {fileID: 3211855891158558601}
   isSmoking: {fileID: 11400000, guid: bd7d4dd2b0ccc4a44a42b49d38e6b3e3, type: 2}
-  defaultOffset: {x: 16, y: 84}
-  hoverOffset: {x: 32, y: 60}
-  holdOffset: {x: 16, y: 60}
-  smokeOffset: {x: 32, y: 28}
+  defaultOffset: {x: 16, y: 16}
+  hoverOffset: {x: 8, y: 32}
+  holdOffset: {x: 8, y: 16}
+  smokeOffset: {x: 24, y: 16}
 --- !u!54 &655266466899284429
 Rigidbody:
   m_ObjectHideFlags: 0

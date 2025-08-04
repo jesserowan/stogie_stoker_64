@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &11857230 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8260386412317220556, guid: e9de9cbb359874d618d5eab7430b822e, type: 3}
-  m_PrefabInstance: {fileID: 1212073891}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ecb2ef2c0b46309fa0002d05bbab62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &12935006
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,17 +405,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8993517809765794756, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
   m_PrefabInstance: {fileID: 1948824160}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &501133184 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1882230751122974301, guid: e9de9cbb359874d618d5eab7430b822e, type: 3}
-  m_PrefabInstance: {fileID: 1212073891}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ecb2ef2c0b46309fa0002d05bbab62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &562600161 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9029053098213094516, guid: d9b30208e1f39b7439f5839350c820b6, type: 3}
@@ -1142,10 +1120,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7231697101382299553, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 8691016624218704487}
     - target: {fileID: 8564990077453463064, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
       propertyPath: m_Name
       value: Smoker
@@ -2814,14 +2788,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Runner
       objectReference: {fileID: 0}
-    - target: {fileID: 8194562914209376834, guid: 5d85f6d8ff69348f1bcdfcc183aeeb3a, type: 3}
-      propertyPath: northPole
-      value: 
-      objectReference: {fileID: 501133184}
-    - target: {fileID: 8194562914209376834, guid: 5d85f6d8ff69348f1bcdfcc183aeeb3a, type: 3}
-      propertyPath: southPole
-      value: 
-      objectReference: {fileID: 11857230}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9056,14 +9022,6 @@ PrefabInstance:
       propertyPath: 'm_Cameras.Array.data[0]'
       value: 
       objectReference: {fileID: 441980103}
-    - target: {fileID: 619110488947912153, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
-      propertyPath: 'm_Cameras.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 772576744852385002, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1806113884662263480, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
       propertyPath: m_Name
       value: Cameras
@@ -9112,20 +9070,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6686152620001471891, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 447
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
---- !u!20 &8691016624218704487 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4453999266976236410, guid: f20c6e2d2a7ce4c1193cb140833390c4, type: 3}
-  m_PrefabInstance: {fileID: 8691016624218704486}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8719382903443495849
 GameObject:
   m_ObjectHideFlags: 0
@@ -9177,7 +9126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8860860097391473411
 MonoBehaviour:
   m_ObjectHideFlags: 0
