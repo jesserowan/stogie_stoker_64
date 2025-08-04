@@ -37,7 +37,6 @@ public class Burn : MonoBehaviour
     public void Shrink()
     {
         // Debug.Log("Shrink()");
-        Debug.Log($"Shrink(): local scale: {transform.localScale.y}");
         if (transform.localScale.y < threshold)
         {
             // Debug.Log($"DONE!!!!!!!!!!!!!!");

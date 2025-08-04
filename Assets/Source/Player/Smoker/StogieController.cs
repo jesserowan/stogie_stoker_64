@@ -47,6 +47,18 @@ public class StogieController : MonoBehaviour
 
 
     // =================== ## Lifecycle ## =======================
+    private void OnEnable()
+    {
+        GameManager.OnImpact += DropStogie;
+        GameManager.OnLose += DropStogie;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnImpact -= DropStogie;
+        GameManager.OnLose -= DropStogie;
+    }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -57,6 +69,7 @@ public class StogieController : MonoBehaviour
         _emissiveColor = _emberRenderer.material.GetColor(EmissiveColor);
         glow.current = glow.min;
         State = TokingState.Null;
+        ToggleRenderers(true);
         BurnEmber();
         SetCursor();
     }
@@ -70,8 +83,7 @@ public class StogieController : MonoBehaviour
             {
                 gameoverTriggered = true;
                 State = TokingState.Smoke;
-                _emberRenderer.enabled = false;
-                renderer.enabled = false;
+                ToggleRenderers(false);
                 SetCursor();
                 BurnEmber();
             }
@@ -99,11 +111,16 @@ public class StogieController : MonoBehaviour
     private void OnMouseDrag()
     {
         if (gameoverTriggered) return;
+        if (State == TokingState.Null) return;
         if (State != TokingState.Smoke) State = TokingState.Hold;
         transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition - mousePos);
     }
-    
-    private void OnMouseUp() { DropStogie(); }
+
+    private void OnMouseUp()
+    {
+        if (gameoverTriggered) return;
+        DropStogie();
+    }
 
     private Vector3 GetPositionInScreenSpace() => mainCamera.WorldToScreenPoint(transform.position);
 
@@ -118,7 +135,7 @@ public class StogieController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (State is TokingState.Null or TokingState.Hover) return; // only start smoking if cigar is held
-        if (other.CompareTag("Mouth")) State = TokingState.Null;
+        if (other.CompareTag("Mouth")) State = TokingState.Hold;
     }
 
 
@@ -128,9 +145,7 @@ public class StogieController : MonoBehaviour
         if (GameManager.Instance.CurrentGameState == GameState.GameOver) // maintain max glow during fadeout
         {
             if (gameoverTriggered) return;
-            stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glow.max);
-            _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.max);
-            ghostStogie.rend.material.SetColor(EmissiveColor, _emissiveColor * glow.max);
+            ApplyGlow(glow.max);
             return;
         }
         
@@ -142,13 +157,23 @@ public class StogieController : MonoBehaviour
         glow.current = newGlow;
         
         // set glow for draggable cigar, ghost cigar, and UI cigar
-        _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
-        stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
-        ghostStogie.emb.material.SetColor(EmissiveColor, _emissiveColor * glow.current);
+        ApplyGlow(glow.current);
 
         // if smoking, enable ghost cigar (locked to mouth) and disable this one
-        renderer.enabled = !IsSmoking;
-        _emberRenderer.enabled = !IsSmoking;
+        ToggleRenderers(!IsSmoking);
+    }
+
+    private void ApplyGlow(float glowFactor)
+    {
+        _emberRenderer.material.SetColor(EmissiveColor, _emissiveColor * glowFactor);
+        stogieBurnMeter.ember.material.SetColor(EmissiveColor, _emissiveColor * glowFactor);
+        ghostStogie.emb.material.SetColor(EmissiveColor, _emissiveColor * glowFactor);
+    }
+
+    private void ToggleRenderers(bool on)
+    {
+        renderer.enabled = on;
+        _emberRenderer.enabled = on;
     }
 
 
@@ -181,8 +206,11 @@ public class StogieController : MonoBehaviour
 
     public void DropStogie()
     {
-        if (gameoverTriggered) return;
-        State = TokingState.Null; 
-        _rb.MovePosition(startPosition);
+        mousePos = Input.mousePosition;
+        State = TokingState.Null;
+        transform.position = startPosition;
+        ApplyGlow(glow.min);
+        SetCursor();
+        BurnEmber();
     }
 }
