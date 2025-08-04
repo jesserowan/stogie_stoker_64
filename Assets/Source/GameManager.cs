@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntegerVariable remainingLives;
     [SerializeField] private DifficultyValue currentDifficulty;
 
+    [SerializeField] private DifficultyValue easy;
+    [SerializeField] private DifficultyValue med;
+    [SerializeField] private DifficultyValue hard;
+
     public static DifficultyValue CurrentDifficulty {
         get => Instance.currentDifficulty;
         set => Instance.currentDifficulty = value;
@@ -101,6 +105,12 @@ public class GameManager : MonoBehaviour
         // Debug.Log($"GameManager.LoadMap() planet manager zen: {planetManager.zenith}; nad: {planetManager.nadir}");
         CurrentPole = planetManager.zenith;
         CurrentPlanet = planetManager.SpawnPlanet();
+        CurrentDifficulty = CurrentBiome switch
+        {
+            Biome.City => hard,
+            Biome.Suburbs => med,
+            _ => easy
+        };
         obstacleManager.PopulateTrack(Vector3.forward);
     }
 
