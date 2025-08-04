@@ -99,8 +99,8 @@ public class ObstacleManager : MonoBehaviour
 
     public void PopulateTrack(Vector3 track)
     {
-        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
-                  $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
+        // Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
+                  // $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
         SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track));
     }

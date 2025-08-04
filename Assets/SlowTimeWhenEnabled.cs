@@ -10,7 +10,7 @@ public class SlowTimeWhenEnabled : MonoBehaviour
     
     private void OnEnable()
     {
-        player = GameManager.Instance.player;
+        player = GameManager.Instance.player ?? FindFirstObjectByType<Player>();
         changingTime = StartCoroutine(SlowTime());
     }
 
