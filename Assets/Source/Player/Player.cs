@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 
     private Rigidbody _rb;
     private RaycastHit[] _groundHits;
-    private PlayerAnimator _animator;
+    private PlayerAnimator _bodyAnimator;
+    public PlayerAnimator _bustAnimator;
     private Collider[] _poleHits;
 
     [SerializeField] private Pole northPole;
@@ -40,8 +41,8 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _rb = GetComponent<Rigidbody>();
-        _animator = GetComponentInChildren<PlayerAnimator>();
-        _animator.completeAnimation.AddListener(ResetVertical);
+        _bodyAnimator = GetComponentInChildren<PlayerAnimator>();
+        _bodyAnimator.completeAnimation.AddListener(ResetVertical);
         _groundHits = new RaycastHit[10];
         _poleHits = new Collider[10];
     }
@@ -101,10 +102,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W)) {
             Debug.Log("Jump");
-            if (location.row is Row.Span && !banJumping) { // temp; 
+            if (location.row is Row.Span && !banJumping) { // temp;
                 // Debug.Log("allowing Jump");
                 GameManager.BroadcastJump();
-                _animator.Play(_animator.Jump);
+                _bodyAnimator.Play(_bodyAnimator.Jump);
+                _bustAnimator.Play(_bustAnimator.Jump);
                 location.row = Row.Upper;
             }
         } else if (Input.GetKeyDown(KeyCode.S)) {
@@ -112,7 +114,8 @@ public class Player : MonoBehaviour
             if (location.row is Row.Span && !banJumping) {
                 // Debug.Log("allowing Slide");
                 GameManager.BroadcastSlide();
-                _animator.Play(_animator.Slide);
+                _bodyAnimator.Play(_bodyAnimator.Slide);
+                _bustAnimator.Play(_bustAnimator.Slide);
                 location.row = Row.Lower;
             }
         }
@@ -166,12 +169,14 @@ public class Player : MonoBehaviour
                 if (lives.Value >= 0)
                 {
                     lives.Value -= 1;
-                    _animator.Play(_animator.Trip);
+                    _bodyAnimator.Play(_bodyAnimator.Trip);
+                    _bustAnimator.Play(_bustAnimator.Trip);
                     GameManager.BroadcastImpact();
                 }
                 else
                 {
-                    _animator.Play(_animator.Fall);
+                    _bodyAnimator.Play(_bodyAnimator.Fall);
+                    _bustAnimator.Play(_bustAnimator.Fall);
                     GameManager.CompleteCourse(false);
                 }
             }
@@ -214,13 +219,13 @@ public class Player : MonoBehaviour
             {
                 turnVector = North
                     ? Forward ? Vector3.forward : Vector3.back
-                    : Forward ? Vector3.back : Vector3.forward; 
+                    : Forward ? Vector3.back : Vector3.forward;
             }
             else
             {
                 turnVector = North
                     ? Forward ? Vector3.right : Vector3.left
-                    : Forward ? Vector3.left : Vector3.right; 
+                    : Forward ? Vector3.left : Vector3.right;
             }
             // Debug.Log($"######## no turn leads to track: {turnVector}");
         }
@@ -256,16 +261,16 @@ public class Player : MonoBehaviour
             }
         } else if (turnDirection == Vector3.right)
         {
-            if (canTurn && lastPole) { 
+            if (canTurn && lastPole) {
                 Heading nextDir;
                 Vector3 turnVector = GetTurnVector(Vector3.right);
                 if (!IsTrackOpen(turnVector))
                 {
                     // Debug.Log($"QueueTurn(): Requested right turn to track {turnVector} is unavailable.");
-                    canTurn = false; // make sure it's set if we exit before updating it 
+                    canTurn = false; // make sure it's set if we exit before updating it
                     return;
                 }
-                canTurn = false; 
+                canTurn = false;
                 (location.track, nextDir, location.lane, location.theta) =
                     lastPole.GetParamsForTurn(location.track, CurrentHeading, location.lane, Turn.Right);
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
