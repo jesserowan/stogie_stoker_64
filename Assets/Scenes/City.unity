@@ -899,6 +899,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9de9cbb359874d618d5eab7430b822e, type: 3}
+--- !u!114 &1417633689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3035066215887983319, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
+  m_PrefabInstance: {fileID: 1948824160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5718a53719458da8759d433ad9a7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1468290554 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4793975177911719311, guid: 3ade8596880d246d28ba373b802b90e7, type: 3}
@@ -1083,7 +1094,7 @@ PrefabInstance:
     - target: {fileID: 5835537260673004976, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
       propertyPath: currentDifficulty
       value: 
-      objectReference: {fileID: 11400000, guid: 64e88ab5c990d4d0580210d0bb6db64f, type: 2}
+      objectReference: {fileID: 11400000, guid: f79f02c8f78ca4deea3a1793e4adf368, type: 2}
     - target: {fileID: 5960842245606824829, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.123132
@@ -1243,17 +1254,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2662236673263217921, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
   m_PrefabInstance: {fileID: 1948824160}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1948824162 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3035066215887983319, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
-  m_PrefabInstance: {fileID: 1948824160}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5718a53719458da8759d433ad9a7fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &103808728913326055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1414,7 @@ PrefabInstance:
     - target: {fileID: 8194562914209376834, guid: 5d85f6d8ff69348f1bcdfcc183aeeb3a, type: 3}
       propertyPath: _bustAnimator
       value: 
-      objectReference: {fileID: 1948824162}
+      objectReference: {fileID: 1417633689}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

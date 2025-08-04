@@ -102,10 +102,10 @@ public class ObstacleDebugger : MonoBehaviour
     public void SetBiome(int biome)
     {
         // Debug.Log($"SetBiome(): Setting biome: {biome}");
-        GameManager.CurrentBiome = biome switch
-        { 2 => Biome.City,
-            1 => Biome.Suburbs,
-            _ => Biome.Country };
+        // GameManager.CurrentBiome = biome switch
+        // { 2 => Biome.City,
+        //     1 => Biome.Suburbs,
+        //     _ => Biome.Country };
     }
 
 }
