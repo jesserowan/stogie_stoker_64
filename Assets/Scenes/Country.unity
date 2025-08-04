@@ -1243,6 +1243,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2662236673263217921, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
   m_PrefabInstance: {fileID: 1948824160}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1948824162 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3035066215887983319, guid: 98e07c33e09304829aa9da70837409fe, type: 3}
+  m_PrefabInstance: {fileID: 1948824160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5718a53719458da8759d433ad9a7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &103808728913326055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Runner
       objectReference: {fileID: 0}
+    - target: {fileID: 8194562914209376834, guid: 5d85f6d8ff69348f1bcdfcc183aeeb3a, type: 3}
+      propertyPath: _bustAnimator
+      value: 
+      objectReference: {fileID: 1948824162}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
