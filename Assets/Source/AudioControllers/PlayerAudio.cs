@@ -55,6 +55,8 @@ public class PlayerAudio : MonoBehaviour
 
     private void Start()
     {
+        loopingSource.volume = 0.1f;
+        discreteSource.volume = 0.1f;
         coughing = StartCoroutine(Coughing());
     }
 
