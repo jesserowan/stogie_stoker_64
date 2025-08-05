@@ -107,8 +107,8 @@ public class GameManager : MonoBehaviour
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: current biome: {CurrentBiome}</b></color>");
-        Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: Difficulty: {currentDifficulty}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: current biome: {CurrentBiome}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: Difficulty: {currentDifficulty}</b></color>");
         CurrentDifficulty = CurrentBiome switch
         {
             Biome.City => hard,
@@ -116,10 +116,10 @@ public class GameManager : MonoBehaviour
             _ => easy
         };
         planetManager.SpawnPlanet();
-        obstacleManager.PopulateTrack(Vector3.forward);
+        obstacleManager.PopulateTrack(Vector3.forward, Polarity.North);
         worldAudio.PlayTheme();
-        Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: current biome: {CurrentBiome}</b></color>");
-        Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: current biome: {CurrentBiome}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
     }
 
     public static void EnterPole(Pole pole)

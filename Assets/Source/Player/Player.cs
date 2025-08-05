@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public Location location;
     private bool hasExitedStartingPose;
 
+    public bool clockwise;
+
     public bool hasStarted;
     public bool IsTrackOpen(Vector3 targetTrack)
     {
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private IEnumerator Start()
     {
+        clockwise = true;
         hasStarted = false;
         currentSpeed = 0f;
         location.Reset();
@@ -244,6 +247,11 @@ public class Player : MonoBehaviour
                 {
                     // Debug.Log($"QueueTurn(): Requested left turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it
+                    if (location.lane != Lane.Left)
+                    {
+                        location.lane = location.lane is Lane.Center ? Lane.Left : Lane.Center;
+                        GameManager.BroadcastLaneSwitch(location.lane);
+                    }
                     return;
                 }
 
@@ -253,6 +261,8 @@ public class Player : MonoBehaviour
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
                 doTurn = (int)Turn.Left; var rbt = _rb.transform;
                 _rb.MoveRotation(Quaternion.LookRotation(-rbt.right, rbt.up));
+                if (turnVector == Vector3.forward || turnVector == Vector3.right)
+                    clockwise = lastPole.which == Polarity.North;
             }
             else if (location.lane != Lane.Left)
             {
@@ -268,6 +278,12 @@ public class Player : MonoBehaviour
                 {
                     // Debug.Log($"QueueTurn(): Requested right turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it
+                    if (location.lane != Lane.Right)
+                    {
+                        location.lane = location.lane is Lane.Center ? Lane.Right : Lane.Center;
+                        GameManager.BroadcastLaneSwitch(location.lane);
+                    }
+
                     return;
                 }
                 canTurn = false;
@@ -276,6 +292,8 @@ public class Player : MonoBehaviour
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
                 doTurn = (int)Turn.Right; var rbt = _rb.transform;
                 _rb.MoveRotation(Quaternion.LookRotation(rbt.right, rbt.up));
+                if (turnVector == Vector3.forward || turnVector == Vector3.right)
+                    clockwise = lastPole.which == Polarity.North;
             }
             else if (location.lane != Lane.Right)
             {

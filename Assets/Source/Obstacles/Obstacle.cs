@@ -12,9 +12,12 @@ public class Obstacle : MonoBehaviour
 
     public void RotateAxis(Track track)
     {
-        // Debug.Log($"Obstacle.RotateAxis(): Track: {track}");
         // var child = transform.GetChild(0);
-        transform.rotation = Quaternion.Euler(0, track == Track.Z ? 0 : 90, 0); 
+        Debug.Log($"{gameObject.name} - Obstacle.RotateAxis(): Track: {track}");
+        // rotate 90 degrees if its on x
+        var yTurn = track == Track.X ? 90 : 0;
+        transform.Rotate(Vector3.up, yTurn, Space.World);
+        // transform.rotation = Quaternion.Euler(0, yTurn, 0); 
         // child.rotation = Quaternion.Euler(-90, track == Track.Z ? 0 : 90, 0);
     }
 }

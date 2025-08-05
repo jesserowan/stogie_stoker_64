@@ -19,53 +19,53 @@ public class ObstacleDebugger : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        populateX1.onClick.AddListener(PopulateX1);
-        populateXMinus1.onClick.AddListener(PopulateXMinus1);
-
-        populateZ1.onClick.AddListener(PopulateZ1);
-        populateZMinus1.onClick.AddListener(PopulateZMinus1);
-
-        populateNadir.onClick.AddListener(PopulateNadir);
-        populateZenith.onClick.AddListener(PopulateZenith);
-
-        setDifficulty.onValueChanged.AddListener(SetDifficulty);
-        setBiome.onValueChanged.AddListener(SetBiome);
+        // populateX1.onClick.AddListener(PopulateX1);
+        // populateXMinus1.onClick.AddListener(PopulateXMinus1);
+        //
+        // populateZ1.onClick.AddListener(PopulateZ1);
+        // populateZMinus1.onClick.AddListener(PopulateZMinus1);
+        //
+        // populateNadir.onClick.AddListener(PopulateNadir);
+        // populateZenith.onClick.AddListener(PopulateZenith);
+        //
+        // setDifficulty.onValueChanged.AddListener(SetDifficulty);
+        // setBiome.onValueChanged.AddListener(SetBiome);
     }
 
     private void OnDisable()
     {
-        populateNadir.onClick.RemoveAllListeners();
-        populateZenith.onClick.RemoveAllListeners();
-
-        populateX1.onClick.RemoveAllListeners();
-        populateXMinus1.onClick.RemoveAllListeners();
-
-        populateZ1.onClick.RemoveAllListeners();
-        populateZMinus1.onClick.RemoveAllListeners();
-
-        setDifficulty.onValueChanged.RemoveAllListeners();
-        setBiome.onValueChanged.RemoveAllListeners();
+        // populateNadir.onClick.RemoveAllListeners();
+        // populateZenith.onClick.RemoveAllListeners();
+        //
+        // populateX1.onClick.RemoveAllListeners();
+        // populateXMinus1.onClick.RemoveAllListeners();
+        //
+        // populateZ1.onClick.RemoveAllListeners();
+        // populateZMinus1.onClick.RemoveAllListeners();
+        //
+        // setDifficulty.onValueChanged.RemoveAllListeners();
+        // setBiome.onValueChanged.RemoveAllListeners();
 
     }
 
     public void PopulateX1()
     {
-        manager.PopulateTrack(Vector3.right);
+        // manager.PopulateTrack(Vector3.right);
     }
 
     public void PopulateXMinus1()
     {
-        manager.PopulateTrack(Vector3.left);
+        // manager.PopulateTrack(Vector3.left);
     }
 
     public void PopulateZ1()
     {
-        manager.PopulateTrack(Vector3.forward);
+        // manager.PopulateTrack(Vector3.forward);
     }
 
     public void PopulateZMinus1()
     {
-        manager.PopulateTrack(Vector3.back);
+        // manager.PopulateTrack(Vector3.back);
     }
 
     public void PopulateZenith()
@@ -76,7 +76,7 @@ public class ObstacleDebugger : MonoBehaviour
         foreach (var track in openTracks)
         {
             // Debug.Log($"PopulateZenith(): Populating track: {track}");
-            manager.PopulateTrack(track);
+            // manager.PopulateTrack(track);
         }
     }
 
@@ -86,7 +86,7 @@ public class ObstacleDebugger : MonoBehaviour
         var openTracks = manager.PopulatePole(Polarity.South, Vector3.forward);
         foreach (var track in openTracks)
         {
-            manager.PopulateTrack(track);
+            // manager.PopulateTrack(track);
         }
     }
 

@@ -72,25 +72,34 @@ public class ObstacleManager : MonoBehaviour
 
 
     // ====================== ## API ## ======================
-    public Obstacle Spawn(Track track)
+    public Obstacle Spawn(Track track, bool turnaround)
     {
         Debug.Log($"Spawn(): Track: {track}");
         var obstacle = obstacleData.SpawnObstacle();
         obstacle.RotateAxis(track);
+        
+        // todo not working
+        if (turnaround)
+        {
+            obstacle.transform.Rotate(Vector3.up, 180, Space.World);
+        }
+        // if (!clockwise) obstacle.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
         return obstacle;
     }
 
     public Obstacle SpawnRoadblock(Track track)
     {
         var roadblock = obstacleData.SpawnRoadblock();
-        roadblock.RotateAxis(track); return roadblock;
+        roadblock.RotateAxis(track); // if x, rotate 90 degrees
+        return roadblock;
     }
 
-    public void PopulateTrack(Vector3 track)
+    public void PopulateTrack(Vector3 track, Polarity p)
     {
+        // polarity is what pole the obstacles are being generated from
         Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}");
         SlaughterChildren(Parents[track]);
-        StartCoroutine(SpawnAlongTrack(track));
+        StartCoroutine(SpawnAlongTrack(track, p));
     }
 
     public void SlaughterChildren(GameObject parent)
@@ -193,8 +202,11 @@ public class ObstacleManager : MonoBehaviour
         // Debug.Log($"HandlePoleExited(): open tracks: {openTracks.Count}");
         foreach (var track in openTracks)
         {
+            var c = pole.which == Polarity.North 
+                ? (currentTrack == Vector3.forward || currentTrack == Vector3.right) 
+                : (currentTrack == Vector3.back || currentTrack == Vector3.left);
             // Debug.Log($"HandlePoleExited(): populating open track: {track}");
-            PopulateTrack(track);
+            PopulateTrack(track, pole.which == Polarity.South ? Polarity.North : Polarity.South);
         }
     }
 
@@ -204,21 +216,29 @@ public class ObstacleManager : MonoBehaviour
     private bool IsX(Vector3 track) => track == Vector3.right || track == Vector3.left;
     private Track GetTrack(Vector3 trackVector) => IsX(trackVector) ? Track.X : Track.Z;
 
-    private IEnumerator SpawnAlongTrack(Vector3 track)
+    private IEnumerator SpawnAlongTrack(Vector3 track, Polarity p)
     {
         var arrangement = GameManager.CurrentDifficulty.obstacleBlueprint;
         var index = 0;
         var isX = IsX(track);
         // Debug.Log($"SpawnAlongTrack(): Track: {track}; IsX: {isX}; isPositive: {IsPositive(track)}");
-        var baseAngle = IsPositive(track) ? 0 : 180;
+        // var baseAngle = IsPositive(track) ? 0 : 180;
         // Debug.Log($"SpawnAlongTrack(): BaseAngle: {baseAngle}");
         var axis = isX ? Vector3.forward : Vector3.right;
         // Debug.Log($"SpawnAlongTrack(): Axis: {axis}");
         while (index < arrangement.Count)
         {
-            var angle = baseAngle + arrangement[index];
+            // TODO pat its something in this shit i cant figure it out ive been doin this for 5 hours and i was supposed to be done last night
+            var fromNorth = p == Polarity.North;
+            var rotationbool = IsPositive(track) 
+                ? !fromNorth : fromNorth;
+            
+            // the angle around the globe
+            var angle = arrangement[index] * (IsPositive(track) ? 1f : -1f);
+            
+            // var angle = baseAngle + arrangement[index];
             index += 1;
-            var o = Spawn(isX ? Track.X : Track.Z);
+            var o = Spawn(isX ? Track.X : Track.Z, rotationbool);
             DeployObstacle(o, axis, angle);
             o.transform.SetParent(Parents[track].transform);
             yield return new WaitForSeconds(Constants.ObstacleSpawnDelay);
