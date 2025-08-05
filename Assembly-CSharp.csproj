@@ -70,6 +70,7 @@
     <Compile Include="Assets/Source/Obstacles/Obstacle.cs" />
     <Compile Include="Assets/JL/Scripts/InvokeVS.cs" />
     <Compile Include="Assets/Source/Scriptables/Difficulty.cs" />
+    <Compile Include="Assets/Source/Scriptables/PersistentState.cs" />
     <Compile Include="Assets/Source/Planet/PlanetData.cs" />
     <Compile Include="Assets/Source/UI/ControlPanelUI.cs" />
     <Compile Include="Assets/Source/AudioControllers/PlayerAudio.cs" />

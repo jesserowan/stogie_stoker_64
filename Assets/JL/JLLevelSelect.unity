@@ -2798,9 +2798,11 @@ MonoBehaviour:
   sceneIndex: 4
   background: {fileID: 990986427}
   selectedBiome: 0
+  defaultBiome: 0
   cityBackground: {fileID: 21300000, guid: f0cbc0509e1b2456b895fee76ff8138e, type: 3}
   countryBackground: {fileID: 21300000, guid: d414cba627e56480486bc547c19cc17f, type: 3}
   suburbsBackground: {fileID: 21300000, guid: 2660ef2091e1f44d5bfa968d23742d2e, type: 3}
+  persistentState: {fileID: 11400000, guid: 2a39fb2be7bb7474d9773688aa0db8ad, type: 2}
 --- !u!1 &769463351
 GameObject:
   m_ObjectHideFlags: 0

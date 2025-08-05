@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public enum GameState
 {
@@ -38,9 +37,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PlayerAudio playerAudio;
     [SerializeField] public Player player;
 
+
     // ====================== ## state ## ======================
     [SerializeField] private IntegerVariable remainingLives;
     [SerializeField] private DifficultyValue currentDifficulty;
+    // [SerializeField] private PersistentState persistentState;
 
     [SerializeField] private DifficultyValue easy;
     [SerializeField] private DifficultyValue med;
@@ -73,11 +74,13 @@ public class GameManager : MonoBehaviour
     // ====================== ## lifecycle ## ======================
     private void Awake()
     {
+        // Debug.Log($"<color=green><b>GameManager::Awake :: Biome: {CurrentBiome}; currentDifficulty: {currentDifficulty}</b></color>");
         if (Instance != null) Destroy(gameObject);
         else
         {
             Instance = this;
             Instance.CurrentGameState = GameState.Initializing;
+            // Debug.Log($"<color=green><b>GameManager::Awake2 :: Biome: {CurrentBiome}; currentDifficulty: {currentDifficulty}</b></color>");
         }
     }
 
@@ -87,12 +90,19 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnEnable()
+    {
+        // Debug.Log($"<color=cyan><b>GameManager::OnEnable :: Biome: {CurrentBiome}; Difficulty: {currentDifficulty}</b></color>");
+    }
+
     private void Start()
     {
         worldAudio ??= FindFirstObjectByType<WorldAudio>();
         playerAudio ??= FindFirstObjectByType<PlayerAudio>();
         planetManager ??= FindFirstObjectByType<PlanetManager>();
         obstacleManager ??= FindFirstObjectByType<ObstacleManager>();
+        // Debug.Log($"GameManager::Start::planetManager: {planetManager}; obstacleManager: {obstacleManager}");
+        // Debug.Log($"<color=orange><b>GameManager::Start :: Biome: {CurrentBiome}; Difficulty: {currentDifficulty}</b></color>");
         LoadMap();
     }
 
@@ -100,18 +110,20 @@ public class GameManager : MonoBehaviour
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        // Debug.Log($"GameManager.LoadMap()");
-        worldAudio.PlayTheme();
-        // Debug.Log($"GameManager.LoadMap() planet manager zen: {planetManager.zenith}; nad: {planetManager.nadir}");
-        CurrentPole = planetManager.zenith;
-        CurrentPlanet = planetManager.SpawnPlanet();
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: PersistentState biome: {persistentState.SelectedBiome}; current biome: {CurrentBiome}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: Difficulty: {currentDifficulty}</b></color>");
         CurrentDifficulty = CurrentBiome switch
         {
             Biome.City => hard,
             Biome.Suburbs => med,
             _ => easy
         };
+        CurrentPlanet = planetManager.SpawnPlanet();
+        CurrentPole = planetManager.zenith;
         obstacleManager.PopulateTrack(Vector3.forward);
+        worldAudio.PlayTheme();
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap2:: PersistentState biome: {persistentState.SelectedBiome}; current biome: {CurrentBiome}</b></color>");
+        // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
     }
 
     public static void EnterPole(Pole pole)
