@@ -147,7 +147,7 @@ public class ObstacleManager : MonoBehaviour
         Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
         Debug.Log($"######## obstacle position: {obstacle.transform.position}; rotation: {obstacle.transform.rotation.eulerAngles}");
         obstacle.transform.Rotate(axis, angle, Space.World);
-        obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.1f), Space.Self);
+        obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.075f), Space.Self);
     }
 
     public void DeployRoadblock(Obstacle roadblock, Polarity polarity, Vector3 track)

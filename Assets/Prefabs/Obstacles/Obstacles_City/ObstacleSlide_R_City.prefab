@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &619633910597721909
+--- !u!1 &562720796623178490
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8189475691716029479}
-  - component: {fileID: 4484113228438891260}
-  m_Layer: 0
-  m_Name: obstacle_Slide01.003
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8189475691716029479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619633910597721909}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4866620088027425997}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4484113228438891260
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619633910597721909}
-  m_Mesh: {fileID: 4760225801154916677, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!1 &2425014495488809112
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4866620088027425997}
-  - component: {fileID: 1807311951836388167}
-  - component: {fileID: 659907453782549113}
+  - component: {fileID: 3425360550706910064}
+  - component: {fileID: 4235846499473442443}
+  - component: {fileID: 127281888010321768}
   m_Layer: 0
   m_Name: ObstacleSlide_R_City
   m_TagString: Untagged
@@ -58,37 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4866620088027425997
+--- !u!4 &3425360550706910064
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2425014495488809112}
+  m_GameObject: {fileID: 562720796623178490}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 8189475691716029479}
-  m_Father: {fileID: 3601635085282765072}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &1807311951836388167
+  m_Children: []
+  m_Father: {fileID: 2408778523783968990}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
+--- !u!33 &4235846499473442443
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2425014495488809112}
-  m_Mesh: {fileID: -325957204315455897, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
---- !u!23 &659907453782549113
+  m_GameObject: {fileID: 562720796623178490}
+  m_Mesh: {fileID: -579963339016103537, guid: 998f9a53dc28348c58d199a32da2f3ec, type: 3}
+--- !u!23 &127281888010321768
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2425014495488809112}
+  m_GameObject: {fileID: 562720796623178490}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -127,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5784550575444165980
+--- !u!1 &6054794485910308344
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,9 +94,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3601635085282765072}
-  - component: {fileID: 8803532871061049340}
-  - component: {fileID: -5496349186949530949}
+  - component: {fileID: 2408778523783968990}
+  - component: {fileID: 9206160504290280054}
+  - component: {fileID: 2518096298267490724}
   m_Layer: 0
   m_Name: ObstacleSlide_R_City
   m_TagString: Obstacle
@@ -145,42 +104,43 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3601635085282765072
+--- !u!4 &2408778523783968990
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5784550575444165980}
+  m_GameObject: {fileID: 6054794485910308344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4866620088027425997}
+  - {fileID: 3425360550706910064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8803532871061049340
+--- !u!114 &9206160504290280054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5784550575444165980}
+  m_GameObject: {fileID: 6054794485910308344}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31b294ff81e341efa5459f6a0ba01045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRoadblock: 0
   collisionMask: 4
---- !u!65 &-5496349186949530949
+--- !u!65 &2518096298267490724
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5784550575444165980}
+  m_GameObject: {fileID: 6054794485910308344}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
