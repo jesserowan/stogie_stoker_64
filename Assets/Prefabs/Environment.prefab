@@ -170,8 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData: {fileID: 11400000, guid: 00549e465aec048c3ae816ac848f4ece, type: 2}
   activePlanet: {fileID: 0}
-  zenith: {fileID: 1882230751122974301}
-  nadir: {fileID: 8260386412317220556}
 --- !u!1 &5311032319964674921
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 5311032319964674921}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -18.3, z: 0}
+  m_LocalPosition: {x: 0, y: -17.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -224,7 +222,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 3, z: 4}
+  m_Size: {x: 4, y: 2, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8260386412317220556
 MonoBehaviour:
@@ -238,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ecb2ef2c0b46309fa0002d05bbab62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 3
+  height: 2
   which: -1
 --- !u!1 &6445563916287951809
 GameObject:

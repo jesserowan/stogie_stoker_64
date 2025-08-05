@@ -20,7 +20,6 @@ public class ObstacleManager : MonoBehaviour
     public GameObject planet;
     public Location playerLocation;
     public ObstacleData obstacleData;
-    // public (Pole north, Pole south) Poles;
 
 
     // ====================== ## State ## ======================
@@ -75,7 +74,7 @@ public class ObstacleManager : MonoBehaviour
     // ====================== ## API ## ======================
     public Obstacle Spawn(Track track)
     {
-        // Debug.Log($"Spawn(): Track: {track}");
+        Debug.Log($"Spawn(): Track: {track}");
         var obstacle = obstacleData.SpawnObstacle();
         obstacle.RotateAxis(track);
         return obstacle;
@@ -89,8 +88,7 @@ public class ObstacleManager : MonoBehaviour
 
     public void PopulateTrack(Vector3 track)
     {
-        // Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}; " +
-                  // $"difficulty: {GameManager.CurrentDifficulty}; biome: {GameManager.CurrentBiome}");
+        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}");
         SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track));
     }

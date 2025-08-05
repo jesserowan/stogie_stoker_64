@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     // ====================== ## state ## ======================
     [SerializeField] private IntegerVariable remainingLives;
     [SerializeField] private DifficultyValue currentDifficulty;
-    // [SerializeField] private PersistentState persistentState;
 
     [SerializeField] private DifficultyValue easy;
     [SerializeField] private DifficultyValue med;
@@ -54,8 +53,6 @@ public class GameManager : MonoBehaviour
 
     public static Biome CurrentBiome { get; set; }
     public GameState CurrentGameState { get; set; }
-    public Planet CurrentPlanet { get; set; }
-    public Pole CurrentPole { get; set; }
 
 
     // ====================== ## events ## ======================
@@ -110,36 +107,32 @@ public class GameManager : MonoBehaviour
     // ====================== ## util ## ======================
     public void LoadMap()
     {
-        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: PersistentState biome: {persistentState.SelectedBiome}; current biome: {CurrentBiome}</b></color>");
-        // Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: Difficulty: {currentDifficulty}</b></color>");
+        Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: current biome: {CurrentBiome}</b></color>");
+        Debug.Log($"<color=orange><b>GameManager::LoadMap1 :: Difficulty: {currentDifficulty}</b></color>");
         CurrentDifficulty = CurrentBiome switch
         {
             Biome.City => hard,
             Biome.Suburbs => med,
             _ => easy
         };
-        CurrentPlanet = planetManager.SpawnPlanet();
-        CurrentPole = planetManager.zenith;
+        planetManager.SpawnPlanet();
         obstacleManager.PopulateTrack(Vector3.forward);
         worldAudio.PlayTheme();
-        // Debug.Log($"<color=orange><b>GameManager::LoadMap2:: PersistentState biome: {persistentState.SelectedBiome}; current biome: {CurrentBiome}</b></color>");
-        // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
+        Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: current biome: {CurrentBiome}</b></color>");
+        Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
     }
 
     public static void EnterPole(Pole pole)
     {
-        if (Instance == null) return;
-        // Debug.Log($"GameManager.EnterPole(): {pole}");
-        Instance.CurrentPole = pole;
-        // Debug.Log($"GameManager.EnterPole(): new CurrentPole {Instance.CurrentPole}");
+        Debug.Log($"GameManager.EnterPole(): {pole}");
         OnPoleEntered?.Invoke(pole);
     }
 
     public static void ExitPole(Pole poleExited)
     {
         if (Instance == null) return;
-        // Debug.Log($"GameManager.ExitPole(): current pole {Instance.CurrentPole}");
-        Instance.CurrentPole = null;
+        Debug.Log($"GameManager.ExitPole(): exited {poleExited.gameObject.name}");
+        // Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing)
             Instance.CurrentGameState = GameState.Playing;
         // Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
