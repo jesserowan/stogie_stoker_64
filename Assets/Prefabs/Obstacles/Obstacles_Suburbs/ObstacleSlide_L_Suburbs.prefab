@@ -159,6 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6594812595417938458}
   - component: {fileID: 4315644690474123788}
+  - component: {fileID: 8106660952281165264}
   m_Layer: 8
   m_Name: ObstacleSlide_L_Suburbs
   m_TagString: Obstacle
@@ -196,3 +197,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRoadblock: 0
   collisionMask: 1
+--- !u!65 &8106660952281165264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9138787995308017580}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}

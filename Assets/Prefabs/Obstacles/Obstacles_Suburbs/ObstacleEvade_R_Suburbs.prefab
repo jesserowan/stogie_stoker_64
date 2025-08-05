@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8536901249726220280}
   - component: {fileID: 7231095598128509521}
+  - component: {fileID: -8776822182825946306}
   m_Layer: 8
   m_Name: ObstacleEvade_R_Suburbs
   m_TagString: Obstacle
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRoadblock: 0
   collisionMask: 36
+--- !u!65 &-8776822182825946306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163503140670284739}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4340890334993910889
 GameObject:
   m_ObjectHideFlags: 0

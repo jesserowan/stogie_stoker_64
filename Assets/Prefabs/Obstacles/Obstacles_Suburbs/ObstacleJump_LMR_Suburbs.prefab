@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5388107025398394870}
   - component: {fileID: 1966661438206472728}
+  - component: {fileID: 2826436590671022249}
   m_Layer: 8
   m_Name: ObstacleJump_LMR_Suburbs
   m_TagString: Obstacle
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRoadblock: 0
   collisionMask: 56
+--- !u!65 &2826436590671022249
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561296237059880133}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6390909050244224281
 GameObject:
   m_ObjectHideFlags: 0

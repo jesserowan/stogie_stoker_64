@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2677727224732625857}
   - component: {fileID: 462256723798172517}
+  - component: {fileID: 8664277655537253966}
   m_Layer: 8
   m_Name: ObstacleJump_M_Country
   m_TagString: Obstacle
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRoadblock: 0
   collisionMask: 16
+--- !u!65 &8664277655537253966
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187168099672400950}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7302292154640667086
 GameObject:
   m_ObjectHideFlags: 0
