@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8801796159537875310}
   - component: {fileID: 6545725727695818051}
   - component: {fileID: 1443541935821089320}
-  - component: {fileID: 2228017602439117728}
+  - component: {fileID: 477789903293841767}
+  - component: {fileID: 7868485937456892049}
   m_Layer: 0
   m_Name: VCam
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 90
+    FieldOfView: 110
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -91,12 +92,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackerSettings:
     BindingMode: 3
-    PositionDamping: {x: 0.1, y: 0.1, z: 0.1}
+    PositionDamping: {x: 0.5, y: 0.5, z: 0.5}
     AngularDampingMode: 1
     RotationDamping: {x: 1, y: 1.5, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 1.25, y: 1.5, z: -2}
---- !u!114 &2228017602439117728
+  FollowOffset: {x: 1.5, y: 3.5, z: 0}
+--- !u!114 &477789903293841767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +106,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 7049025634162563111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: 1
+  Composition:
+    ScreenPosition: {x: 0, y: 0.2}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 1.5, y: 0, z: 0}
+  Damping: {x: 1, y: 1}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
+--- !u!114 &7868485937456892049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7049025634162563111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c56c2a0e061045a7ab0358a5f07ff1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 6545725727695818051}
+  rotation: {fileID: 477789903293841767}
+  follow: {fileID: 1443541935821089320}

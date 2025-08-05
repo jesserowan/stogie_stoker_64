@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1830c282e7ee4ad48ee5469c8ed3a198, type: 3}
   m_Name: Easy.difficulty
   m_EditorClassIdentifier: 
+  fieldOfView: 73
   speedMultiplier: 0.5
-  burnMultiplier: 0.4
+  burnMultiplier: 0.36
   at15deg: 0
-  at30deg: 1
-  at45deg: 0
-  at60deg: 1
-  at75deg: 0
-  at90deg: 1
+  at30deg: 0
+  at45deg: 1
+  at60deg: 0
+  at75deg: 1
+  at90deg: 0
   at105deg: 0
-  at120deg: 0
-  at135deg: 1
+  at120deg: 1
+  at135deg: 0
   at150deg: 1
   at165deg: 0
   obstacleBlueprint: 1e0000003c0000005a0000008700000096000000

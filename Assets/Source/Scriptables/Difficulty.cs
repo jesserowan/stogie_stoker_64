@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Difficulty", menuName = "Enums/Difficulty")]
 public class DifficultyValue : ScriptableObject
 {
+    public float fieldOfView;
     public float speedMultiplier;
     public float burnMultiplier;
 

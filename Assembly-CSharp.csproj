@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Assets/Source/Player/Smoker/Burn.cs" />
     <Compile Include="Assets/Source/Player/Smoker/GhostStogie.cs" />
+    <Compile Include="Assets/VCam.cs" />
     <Compile Include="Assets/Source/Scriptables/PositionVariable.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleManager.cs" />
     <Compile Include="Assets/Source/Obstacles/ObstacleDebugger.cs" />
