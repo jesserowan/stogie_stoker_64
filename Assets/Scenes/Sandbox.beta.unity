@@ -1080,6 +1080,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 149515923}
+    - target: {fileID: 5835537260673004976, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
+      propertyPath: persistentState
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a39fb2be7bb7474d9773688aa0db8ad, type: 2}
     - target: {fileID: 5960842245606824829, guid: 1d92af528880c4cd090d444a5458719d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.123132

@@ -20,7 +20,7 @@ public class ObstacleManager : MonoBehaviour
     public GameObject planet;
     public Location playerLocation;
     public ObstacleData obstacleData;
-    public (Pole north, Pole south) Poles;
+    // public (Pole north, Pole south) Poles;
 
 
     // ====================== ## State ## ======================
@@ -40,16 +40,6 @@ public class ObstacleManager : MonoBehaviour
         // Debug.Log("ObstacleManager.Start()");
         _debugPanel ??= FindFirstObjectByType<ObstacleDebugger>(FindObjectsInactive.Include);
         if (_debugPanel) _debugPanel.gameObject.SetActive(showDebugPanel);
-
-        var poles = FindObjectsByType<Pole>(FindObjectsSortMode.None);
-        if (poles.Length != 2)
-        {
-            Debug.Log($"We found {poles.Length} poles");
-            throw new Exception("There must be 2 poles");
-        }
-        foreach (var pole in poles)
-        { if (pole.which == Polarity.North) Poles.north = pole;
-            else Poles.south = pole; }
 
         Parents ??= GenerateParents();
 
@@ -186,14 +176,14 @@ public class ObstacleManager : MonoBehaviour
 
         Vector3 currentTrack;
         var playerPos = player.transform.position;
-        Debug.Log($"Evaluating player track: {playerPos}");
+        // Debug.Log($"Evaluating player track: {playerPos}");
         if (playerPos.z > 1.5) currentTrack = Vector3.forward;
         else if (playerPos.z < -1.5) currentTrack = Vector3.back;
         else if (playerPos.x > 1.5) currentTrack = Vector3.right;
         else if (playerPos.x < -1.5) currentTrack = Vector3.left;
         else throw new Exception("Unable to determine player exit track");
 
-        Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
+        // Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
         var currentPole = pole.which == Polarity.North ? Vector3.up : Vector3.down;
         foreach (var parentKey in Parents.Keys.ToList())
         {
@@ -237,8 +227,3 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 }
-
-// var parentName = key switch { { x: 1 } => "Right", { x: -1 } => "Left",
-//                               { y: 1 } => "Zenith", { y: -1 } => "Nadir",
-//                               { z: 1 } => "Forward", { z: -1 } => "Backward",
-//                               _ => throw new ArgumentOutOfRangeException(nameof(key), key, null) };

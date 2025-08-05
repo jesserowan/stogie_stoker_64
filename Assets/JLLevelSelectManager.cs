@@ -12,6 +12,7 @@ public class JLLevelSelectManager : MonoBehaviour
     public Sprite cityBackground;
     public Sprite countryBackground;
     public Sprite suburbsBackground;
+    public PersistentState persistentState;
 
     private void Awake()
     {
@@ -32,8 +33,9 @@ public class JLLevelSelectManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
+            // Debug.Log($"LEVEL SELECT: Left arrow pressed; moving from ${selectedBiome} to...");
             selectedBiome = selectedBiome switch
             {
                 Biome.City => Biome.Suburbs,
@@ -41,11 +43,14 @@ public class JLLevelSelectManager : MonoBehaviour
                 Biome.Country => Biome.City,
                 _ => Biome.Country,
             };
+            // Debug.Log($" ######### new biome: ${selectedBiome}!");
+            persistentState.SelectedBiome = selectedBiome;
             background.sprite = GetBackground();
         }
         
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
+            // Debug.Log($"LEVEL SELECT: Right arrow pressed; moving from ${selectedBiome} to...");
             selectedBiome = selectedBiome switch
             {
                 Biome.City => Biome.Country,
@@ -53,6 +58,7 @@ public class JLLevelSelectManager : MonoBehaviour
                 Biome.Suburbs => Biome.City,
                 _ => Biome.Country,
             };
+            // Debug.Log($" ######### new biome: ${selectedBiome}!");
             background.sprite = GetBackground();
         }
         
@@ -62,7 +68,10 @@ public class JLLevelSelectManager : MonoBehaviour
 
     private void OnPlay()
     {
+        // Debug.Log($" OnPlay pressed: selectedbiome: ${selectedBiome}; persistent state biome: ${persistentState.SelectedBiome}; game manager biome: ${GameManager.CurrentBiome}!");
+        persistentState.SelectedBiome = selectedBiome;
         GameManager.CurrentBiome = selectedBiome;
+        // Debug.Log($" OnPlay pressed 2: selectedbiome: ${selectedBiome}; persistent state biome: ${persistentState.SelectedBiome}; game manager biome: ${GameManager.CurrentBiome}!");
         SceneManager.LoadScene(sceneIndex);
     }
 
