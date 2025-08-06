@@ -56,14 +56,14 @@ public class GameManager : MonoBehaviour
 
 
     // ====================== ## events ## ======================
-    public static event Action<Pole> OnPoleEntered;
-    public static event Action<Pole> OnPoleExited;
+    public static event Action<Pole, Track, Heading> OnPoleEntered;
+    public static event Action<Pole, Track, Heading> OnPoleExited;
     public static event Action OnImpact;
     public static event Action OnWin;
     public static event Action OnLose;
-    
+
     public static event Action OnJump;
-    
+
     public static event Action OnSlide;
     public static event Action<Lane> OnLaneSwitch;
 
@@ -116,27 +116,27 @@ public class GameManager : MonoBehaviour
             _ => easy
         };
         planetManager.SpawnPlanet();
-        obstacleManager.PopulateTrack(Vector3.forward, Polarity.North);
+        obstacleManager.PopulateTrack(Vector3.forward, 1);
         worldAudio.PlayTheme();
         // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: current biome: {CurrentBiome}</b></color>");
         // Debug.Log($"<color=orange><b>GameManager::LoadMap2 :: Difficulty: {currentDifficulty}</b></color>");
     }
 
-    public static void EnterPole(Pole pole)
+    public static void EnterPole(Pole pole, Track track, Heading heading)
     {
         Debug.Log($"GameManager.EnterPole(): {pole}");
-        OnPoleEntered?.Invoke(pole);
+        OnPoleEntered?.Invoke(pole, track, heading);
     }
 
-    public static void ExitPole(Pole poleExited)
+    public static void ExitPole(Pole pole, Track track, Heading heading)
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.ExitPole(): exited {poleExited.gameObject.name}");
+        Debug.Log($"GameManager.ExitPole(): exited {pole.gameObject.name}");
         // Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing)
             Instance.CurrentGameState = GameState.Playing;
         // Debug.Log($"GameManager.ExitPole(): previous pole: {poleExited}");
-        OnPoleExited?.Invoke(poleExited);
+        OnPoleExited?.Invoke(pole, track, heading);
     }
 
     public static void BroadcastImpact()
@@ -151,10 +151,10 @@ public class GameManager : MonoBehaviour
         Debug.Log($"<color=blue><b>LANE SWITCH DETECTED</b></color>");
         OnLaneSwitch?.Invoke(lane);
     }
-    
+
     public static void BroadcastJump() => OnJump?.Invoke();
     public static void BroadcastSlide() => OnSlide?.Invoke();
-    
+
     public static void CompleteCourse(bool win = true)
     {
         if (Instance == null) return;
@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
             fadeDuration -= 0.05f;
             yield return new WaitForSecondsRealtime(0.05f);
         }
-        
+
         Time.timeScale = 1;
         if (win) SceneManager.LoadScene("JLWinScreen");
         else SceneManager.LoadScene("JLLoseScreen");

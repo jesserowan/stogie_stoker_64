@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -24,8 +23,6 @@ public class Player : MonoBehaviour
     private int doTurn;
     public Location location;
     private bool hasExitedStartingPose;
-
-    public bool clockwise;
 
     public bool hasStarted;
     public bool IsTrackOpen(Vector3 targetTrack)
@@ -54,7 +51,6 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private IEnumerator Start()
     {
-        clockwise = true;
         hasStarted = false;
         currentSpeed = 0f;
         location.Reset();
@@ -134,50 +130,41 @@ public class Player : MonoBehaviour
     {
         var pole = other.gameObject.GetComponent<Pole>();
         if (pole) {
-            GameManager.EnterPole(pole);
+            GameManager.EnterPole(pole, location.track, currentSpeed > 0 ? Heading.Forward : Heading.Backward);
             lastPole = pole;
-            if (hasStarted) canTurn = true;
+            if (hasStarted)
+                canTurn = true;
             return;
         }
 
         var obstacle = other.gameObject.GetComponent<Obstacle>();
         if (obstacle) {
             // Debug.Log($"Encountered Obstacle: {obstacle.name} {obstacle}");
-            if (obstacle.isRoadblock)
-            {
+            if (obstacle.isRoadblock) {
                 // Debug.Log($"######## Roadblock detected");
-                var noTurn = GetTurnVector(Vector3.forward);
                 var left = GetTurnVector(Vector3.left);
                 var right = GetTurnVector(Vector3.right);
-                // Debug.Log($"######## mapped local turn options to global track vector3 keys: " +
-                //           $"straight: {noTurn} left: {left} right: {right}");
-                if (!IsTrackOpen(noTurn))
-                {
+                var noTurn = GetTurnVector(Vector3.forward);
+                // Debug.Log($"######## mapped local turn options to global track vector3 keys:" +
+                // $"straight: {noTurn} left: {left} right: {right}");
+                if (!IsTrackOpen(noTurn)) {
                     // Debug.Log($"TRIGGER ######## straight ahead should be closed since we hit it");
-                    if (IsTrackOpen(left))
-                    {
+                    if (IsTrackOpen(left)) {
                         // Debug.Log($"Can turn left: {left}");
                         QueueTurn(Vector3.left);
-                    }
-                    else if (IsTrackOpen(right))
-                    {
+                    } else if (IsTrackOpen(right)) {
                         // Debug.Log($"Can turn right: {right}");
                         QueueTurn(Vector3.right);
-                    }
-                    else throw new Exception($"TEST: No available tracks to turn onto.");
+                    } else throw new Exception($"TEST: No available tracks to turn onto.");
                 }
             }
             var position = location.TrackOccupation;
             if (obstacle.IsObstructiveTo(position)) {
-                if (lives.Value >= 0)
-                {
-                    lives.Value -= 1;
+                if (lives.Value >= 0) { lives.Value -= 1;
                     _bodyAnimator.Play(_bodyAnimator.Trip);
                     _bustAnimator.Play(_bustAnimator.Trip);
                     GameManager.BroadcastImpact();
-                }
-                else
-                {
+                } else {
                     _bodyAnimator.Play(_bodyAnimator.Fall);
                     _bustAnimator.Play(_bustAnimator.Fall);
                     GameManager.CompleteCourse(false);
@@ -191,7 +178,7 @@ public class Player : MonoBehaviour
         if (!other.TryGetComponent<Pole>(out var p)) return;
 
         if (!hasStarted) hasStarted = true;
-        GameManager.ExitPole(p);
+        GameManager.ExitPole(p, location.track, currentSpeed > 0 ? Heading.Forward : Heading.Backward);
         hasExitedStartingPose = true;
         canTurn = false;
     }
@@ -238,17 +225,14 @@ public class Player : MonoBehaviour
 
     private void QueueTurn(Vector3 turnDirection)
     {
-        if (turnDirection == Vector3.left)
-        {
+        if (turnDirection == Vector3.left) {
             if (canTurn && lastPole) {
                 Heading nextDir;
                 Vector3 turnVector = GetTurnVector(Vector3.left);
-                if (!IsTrackOpen(turnVector))
-                {
+                if (!IsTrackOpen(turnVector)) {
                     // Debug.Log($"QueueTurn(): Requested left turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it
-                    if (location.lane != Lane.Left)
-                    {
+                    if (location.lane != Lane.Left) {
                         location.lane = location.lane is Lane.Center ? Lane.Left : Lane.Center;
                         GameManager.BroadcastLaneSwitch(location.lane);
                     }
@@ -261,21 +245,15 @@ public class Player : MonoBehaviour
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
                 doTurn = (int)Turn.Left; var rbt = _rb.transform;
                 _rb.MoveRotation(Quaternion.LookRotation(-rbt.right, rbt.up));
-                if (turnVector == Vector3.forward || turnVector == Vector3.right)
-                    clockwise = lastPole.which == Polarity.North;
-            }
-            else if (location.lane != Lane.Left)
-            {
+            } else if (location.lane != Lane.Left) {
                 location.lane = location.lane is Lane.Center ? Lane.Left : Lane.Center;
                 GameManager.BroadcastLaneSwitch(location.lane);
             }
-        } else if (turnDirection == Vector3.right)
-        {
+        } else if (turnDirection == Vector3.right) {
             if (canTurn && lastPole) {
                 Heading nextDir;
                 Vector3 turnVector = GetTurnVector(Vector3.right);
-                if (!IsTrackOpen(turnVector))
-                {
+                if (!IsTrackOpen(turnVector)) {
                     // Debug.Log($"QueueTurn(): Requested right turn to track {turnVector} is unavailable.");
                     canTurn = false; // make sure it's set if we exit before updating it
                     if (location.lane != Lane.Right)
@@ -292,11 +270,7 @@ public class Player : MonoBehaviour
                 currentSpeed = (int)nextDir * Mathf.Abs(currentSpeed);
                 doTurn = (int)Turn.Right; var rbt = _rb.transform;
                 _rb.MoveRotation(Quaternion.LookRotation(rbt.right, rbt.up));
-                if (turnVector == Vector3.forward || turnVector == Vector3.right)
-                    clockwise = lastPole.which == Polarity.North;
-            }
-            else if (location.lane != Lane.Right)
-            {
+            } else if (location.lane != Lane.Right) {
                 location.lane = location.lane is Lane.Center ? Lane.Right : Lane.Center;
                 GameManager.BroadcastLaneSwitch(location.lane);
             }
