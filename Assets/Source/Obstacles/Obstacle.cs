@@ -13,7 +13,7 @@ public class Obstacle : MonoBehaviour
     public void RotateAxis(Track track)
     {
         // var child = transform.GetChild(0);
-        Debug.Log($"{gameObject.name} - Obstacle.RotateAxis(): Track: {track}");
+        // Debug.Log($"{gameObject.name} - Obstacle.RotateAxis(): Track: {track}");
         // rotate 90 degrees if its on x
         var yTurn = track == Track.X ? 90 : 0;
         transform.Rotate(Vector3.up, yTurn, Space.World);

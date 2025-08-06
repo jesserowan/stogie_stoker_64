@@ -17,8 +17,8 @@ public class VCam : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"VCAM START: current fov {vcam.Lens.FieldOfView}; target fov: {GameManager.CurrentDifficulty.fieldOfView}");
+        // Debug.Log($"VCAM START: current fov {vcam.Lens.FieldOfView}; target fov: {GameManager.CurrentDifficulty.fieldOfView}");
         vcam.Lens.FieldOfView = GameManager.CurrentDifficulty.fieldOfView;
-        Debug.Log($"VCAM START: new fov: {vcam.Lens.FieldOfView}");
+        // Debug.Log($"VCAM START: new fov: {vcam.Lens.FieldOfView}");
     }
 }

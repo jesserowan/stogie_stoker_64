@@ -124,14 +124,14 @@ public class GameManager : MonoBehaviour
 
     public static void EnterPole(Pole pole, Track track, Heading heading)
     {
-        Debug.Log($"GameManager.EnterPole(): {pole}");
+        // Debug.Log($"GameManager.EnterPole(): {pole}");
         OnPoleEntered?.Invoke(pole, track, heading);
     }
 
     public static void ExitPole(Pole pole, Track track, Heading heading)
     {
         if (Instance == null) return;
-        Debug.Log($"GameManager.ExitPole(): exited {pole.gameObject.name}");
+        // Debug.Log($"GameManager.ExitPole(): exited {pole.gameObject.name}");
         // Instance.CurrentPole = null;
         if (Instance.CurrentGameState == GameState.Initializing)
             Instance.CurrentGameState = GameState.Playing;
@@ -142,13 +142,13 @@ public class GameManager : MonoBehaviour
     public static void BroadcastImpact()
     {
         // if (Instance == null) return;
-        Debug.Log($"<color=yellow><b>IMPACT DETECTED</b></color>");
+        // Debug.Log($"<color=yellow><b>IMPACT DETECTED</b></color>");
         OnImpact?.Invoke();
     }
 
     public static void BroadcastLaneSwitch(Lane lane)
     {
-        Debug.Log($"<color=blue><b>LANE SWITCH DETECTED</b></color>");
+        // Debug.Log($"<color=blue><b>LANE SWITCH DETECTED</b></color>");
         OnLaneSwitch?.Invoke(lane);
     }
 

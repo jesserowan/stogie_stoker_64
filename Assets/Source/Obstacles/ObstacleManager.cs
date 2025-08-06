@@ -52,7 +52,7 @@ public class ObstacleManager : MonoBehaviour
 
     private void Start()
     {
-        // Debug.Log("ObstacleManager.Start()");
+        // // Debug.Log("ObstacleManager.Start()");
         _debugPanel ??= FindFirstObjectByType<ObstacleDebugger>(FindObjectsInactive.Include);
         if (_debugPanel) _debugPanel.gameObject.SetActive(showDebugPanel);
 
@@ -63,7 +63,7 @@ public class ObstacleManager : MonoBehaviour
 
         player ??= FindFirstObjectByType<Player>();
         playerLocation = player.location;
-        // Debug.Log($"ObstacleManager.Start(): Done initializing:" +
+        // // Debug.Log($"ObstacleManager.Start(): Done initializing:" +
                   // $"\n    > player: {player}\n    > spherePosition: {spherePosition}" +
                   // $"\n    > Poles: {Poles}");
     }
@@ -87,7 +87,7 @@ public class ObstacleManager : MonoBehaviour
 
     public void SlaughterChildren(GameObject parent)
     {
-        Debug.Log($"ObstacleManager.SlaughterChildren(): Emptying parent {parent.name}");
+        // Debug.Log($"ObstacleManager.SlaughterChildren(): Emptying parent {parent.name}");
         foreach (Transform child in parent.transform) Destroy(child.gameObject);
     }
 
@@ -115,7 +115,7 @@ public class ObstacleManager : MonoBehaviour
 
     public List<Vector3> PopulatePole(Polarity polarity, Vector3 arrivalTrack)
     {
-        // Debug.Log($"ObstacleManager.PopulatePole(): {poleType}; arrival track: {arrivalTrack}");
+        // // Debug.Log($"ObstacleManager.PopulatePole(): {poleType}; arrival track: {arrivalTrack}");
         int closedTurns = 0;
         var openTracks = new List<Vector3>();
         ClearIntersection(polarity);
@@ -141,7 +141,7 @@ public class ObstacleManager : MonoBehaviour
 
     private void ClearIntersection(Polarity pole)
     {
-        // Debug.Log($"ClearIntersection(): {pole}");
+        // // Debug.Log($"ClearIntersection(): {pole}");
         foreach (var poleTrack in Intersections[pole].Keys.ToList()) {
             Destroy(Intersections[pole][poleTrack]);
             Intersections[pole][poleTrack] = null;
@@ -168,30 +168,35 @@ public class ObstacleManager : MonoBehaviour
     public Polarity GetNextPole(Pole p) => p.which == Polarity.South ? Polarity.North : Polarity.South;
     public void HandlePoleExited(Pole pole, Track track, Heading heading)
     {
-        Debug.Log($"ObstacleManager.HandlePoleExited(): {pole}");
 
         var currentTrack = (int)pole.which * (int)heading * (track is Track.X ? Vector3.right : Vector3.forward);
-
-        // Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
+        // // Debug.Log($"ObstacleManager.HandlePoleExited(): pole: {pole}  track: {currentTrack}");
+        // // Debug.Log($"HandlePoleExited(): Determined exit track: {currentTrack}");
         var currentPole = pole.which == Polarity.North ? Vector3.up : Vector3.down;
+        // Debug.Log($"ObstacleManager.HandlePoleExited(): pole: {pole} currentpole: {currentPole} track: {currentTrack}");
         foreach (var parentKey in Parents.Keys.ToList())
         {
+            // Debug.Log($"ObstacleManager.HandlePoleExited(): parentkey: {parentKey}");
             if (parentKey == currentTrack || parentKey == currentPole) continue;
+            // Debug.Log($"ObstacleManager.HandlePoleExited(): {parentKey} is not current track or pole, destroying");
             SlaughterChildren(Parents[parentKey]);
         }
 
         var nextPole = GetNextPole(pole);
+            // Debug.Log($"ObstacleManager.HandlePoleExited(): nextpole: {nextPole}");
         var openTracks = PopulatePole(GetNextPole(pole), currentTrack);
-        // Debug.Log($"HandlePoleExited(): open tracks: {openTracks.Count}");
+            // Debug.Log($"ObstacleManager.HandlePoleExited(): open tracks: {openTracks}");
+        // // Debug.Log($"HandlePoleExited(): open tracks: {openTracks.Count}");
         foreach (var openTrack in openTracks)
         {
+            // Debug.Log($"Populating open track {openTrack}");
             PopulateTrack(openTrack, (int)nextPole * GetTrackValue(openTrack));
         }
     }
 
 
     // ====================== ## Internal ## ======================
-    private bool IsPositive(Vector3 track) => track == Vector3.right || track == Vector3.forward;
+    private bool IsPositive(Vector3 track) => track == Vector3.left || track == Vector3.forward;
     private bool IsX(Vector3 trackVector) => trackVector == Vector3.right || trackVector == Vector3.left;
     private Track GetTrack(Vector3 trackVector) => IsX(trackVector) ? Track.X : Track.Z;
 
@@ -202,33 +207,37 @@ public class ObstacleManager : MonoBehaviour
     public void PopulateTrack(Vector3 track, int direction)
     {
         // polarity is what pole the obstacles are being generated from
-        Debug.Log($"ObstacleManager.PopulateTrack(): track: {track}");
+        // Debug.Log($"ObstacleManager.PopulateTrack(): track: {track} direction: {direction}");
         SlaughterChildren(Parents[track]);
         StartCoroutine(SpawnAlongTrack(track, direction));
     }
 
     private IEnumerator SpawnAlongTrack(Vector3 track, int direction)
     {
+        // Debug.Log($"ObstacleManager.spawnalongtrack(): track: {track} direction: {direction}");
         var arrangement = GameManager.CurrentDifficulty.obstacleBlueprint;
         var index = 0;
         var isX = IsX(track);
         var axis = isX ? Vector3.forward : Vector3.right;
+        // Debug.Log($"ObstacleManager.spawnalongtrack(): axis: {axis}");
         while (index < arrangement.Count)
         {
             // the angle around the globe
             var angle = arrangement[index] * (IsPositive(track) ? 1f : -1f);
+            // Debug.Log($"ObstacleManager.spawnalongtrack(): angle: {angle}");
 
             index += 1;
             var o = Spawn(isX ? Track.X : Track.Z, direction < 0);
             DeployObstacle(o, axis, angle);
             o.transform.SetParent(Parents[track].transform);
+        // Debug.Log($"ObstacleManager.spawnalongtrack(): done");
             yield return new WaitForSeconds(Constants.ObstacleSpawnDelay);
         }
     }
 
     private Obstacle Spawn(Track track, bool turnaround)
     {
-        Debug.Log($"Spawn(): Track: {track}");
+        // Debug.Log($"Spawn(): Track: {track}");
         var obstacle = obstacleData.SpawnObstacle();
         if (turnaround)
             obstacle.transform.rotation *= Quaternion.AngleAxis(180, Vector3.up);
@@ -238,8 +247,8 @@ public class ObstacleManager : MonoBehaviour
 
     public void DeployObstacle(Obstacle obstacle, Vector3 axis, float angle)
     {
-        Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
-        Debug.Log($"######## obstacle position: {obstacle.transform.position}; rotation: {obstacle.transform.rotation.eulerAngles}");
+        // Debug.Log($"DeployObstacle(): {obstacle}; angle: {angle}; axis: {axis}");
+        // Debug.Log($"######## obstacle position: {obstacle.transform.position}; rotation: {obstacle.transform.rotation.eulerAngles}");
         obstacle.transform.Rotate(axis, angle, Space.World);
         obstacle.transform.Translate(Vector3.up * (Constants.WorldRadius - 0.075f), Space.Self);
     }

@@ -24,7 +24,7 @@ public class ObstacleData : ScriptableObject
 
     public Obstacle GetObstacle(Biome biome, int index = -1)
     {
-        Debug.Log($"GetObstacle({index})");
+        // Debug.Log($"GetObstacle({index})");
         if (index < 0) index = Random.Range(0, 17);
         return biome switch {
             Biome.City => cityObstacles[index],
@@ -36,7 +36,7 @@ public class ObstacleData : ScriptableObject
 
     public Obstacle GetRoadblock(Biome biome, int index = -1)
     {
-        Debug.Log($"GetRoadblock({biome}, {index})");
+        // Debug.Log($"GetRoadblock({biome}, {index})");
         if (index < 0) index = Random.Range(0, 2);
         return biome switch {
             Biome.City => cityRoadblocks[index],
@@ -48,18 +48,18 @@ public class ObstacleData : ScriptableObject
 
     public Obstacle SpawnRoadblock()
     {
-        Debug.Log($"SpawnRoadblock(): current biome: {GameManager.CurrentBiome}");
+        // Debug.Log($"SpawnRoadblock(): current biome: {GameManager.CurrentBiome}");
         var prefab = GetRoadblock(GameManager.CurrentBiome);
         var roadblock = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-        Debug.Log($"SpawnRoadblock(): roadblock: {roadblock} {roadblock.gameObject.name}");
+        // Debug.Log($"SpawnRoadblock(): roadblock: {roadblock} {roadblock.gameObject.name}");
         return roadblock;
     }
 
     public Obstacle SpawnObstacle()
     {
-        Debug.Log($"SpawnObstacle: current biome: {GameManager.CurrentBiome}");
+        // Debug.Log($"SpawnObstacle: current biome: {GameManager.CurrentBiome}");
         var prefab = GetObstacle(GameManager.CurrentBiome);
-        Debug.Log($"SpawnObstacle: prefab: {prefab}");
+        // Debug.Log($"SpawnObstacle: prefab: {prefab}");
         var newObstacle = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         return newObstacle;
     }

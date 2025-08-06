@@ -22,14 +22,14 @@ public class PlayerAnimator: MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"PlayerAnimator::Start()");
+        // Debug.Log($"PlayerAnimator::Start()");
         _animator.CrossFadeInFixedTime(Idle, 0);
         _animator.CrossFadeInFixedTime(Run, 3);
     }
 
     public void Play(int state, float blend = 0f)
     {
-        Debug.Log($"PlayerAnimator::Play({state}), blend: {blend}");
+        // Debug.Log($"PlayerAnimator::Play({state}), blend: {blend}");
         _animator.CrossFadeInFixedTime(state, blend);
     }
 }

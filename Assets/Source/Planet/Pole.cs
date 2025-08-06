@@ -44,9 +44,9 @@ public class Pole : MonoBehaviour
         var outDir = (Heading)outDirN;
         var outLane = (Lane)outLaneN;
 
-        Debug.Log($"Turning {inTurn} on {which} ({inTurnN} on {whichN})");
-        Debug.Log($" i: track: {inTrack} ({inTrackN}), dir: {inDir} ({inDirN}), lane: {inLane} ({inLaneN}), turn{inTurn} ({inTurnN})");
-        Debug.Log($" o: track: {outTrack} ({outTrackN}), dir: {outDir} ({outDirN}), lane: {outLane} ({outLaneN}), {outTheta})");
+        // Debug.Log($"Turning {inTurn} on {which} ({inTurnN} on {whichN})");
+        // Debug.Log($" i: track: {inTrack} ({inTrackN}), dir: {inDir} ({inDirN}), lane: {inLane} ({inLaneN}), turn{inTurn} ({inTurnN})");
+        // Debug.Log($" o: track: {outTrack} ({outTrackN}), dir: {outDir} ({outDirN}), lane: {outLane} ({outLaneN}), {outTheta})");
         return (outTrack, outDir, outLane, outTheta);
     }
 }
