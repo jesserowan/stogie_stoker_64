@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
                     } else if (IsTrackOpen(right)) {
                         // // Debug.Log($"Can turn right: {right}");
                         QueueTurn(Vector3.right);
-                    } else throw new Exception($"TEST: No available tracks to turn onto.");
+                    } else throw new Exception($"No available tracks to turn onto.");
                 }
             }
             var position = location.TrackOccupation;

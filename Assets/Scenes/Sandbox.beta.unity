@@ -611,6 +611,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1437931702244411107, guid: b383cafec3fc42d4296703fb7401cc18, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437931702244411107, guid: b383cafec3fc42d4296703fb7401cc18, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437931702244411107, guid: b383cafec3fc42d4296703fb7401cc18, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 1647805705248501164, guid: b383cafec3fc42d4296703fb7401cc18, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -723,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ef442f261244789adf642ad9e0cf3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 149515923}
 --- !u!1 &944306872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1734,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c935ce73538d58c47847a51b32126766, type: 3}
+    - target: {fileID: 8119050153297626848, guid: d9b30208e1f39b7439f5839350c820b6, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119050153297626848, guid: d9b30208e1f39b7439f5839350c820b6, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119050153297626848, guid: d9b30208e1f39b7439f5839350c820b6, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 8210606949769693514, guid: d9b30208e1f39b7439f5839350c820b6, type: 3}
       propertyPath: m_Name
       value: CountDown
